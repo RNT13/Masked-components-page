@@ -45,7 +45,7 @@ export default function Home() {
           title="Installation"
           fileType="bash"
           description="Start using Masked Components in your project with a simple command."
-          content1="npx rnt-next new-project"
+          content1="npx masked-components"
         />
 
         <Section
