@@ -1,36 +1,182 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ✨ Masked Components CLI
 
-## Getting Started
+A modern, type-safe and flexible component system for **Next.js + React**, designed to boost developer experience and speed up UI creation using a simple **CLI installer**.
 
-First, run the development server:
+Masked Components provides **polymorphic**, **theme-ready**, and **highly customizable** UI components with first-class **TypeScript support**.
+
+---
+
+## 🚀 Live Demo
+
+👉 **Website:** https://masked-components.vercel.app
+👉 **CLI Install Command:**
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npx rnt-next new-project
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📦 What is Masked Components?
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Masked Components is a UI component library combined with a CLI that allows you to **install and scaffold pre-configured components** directly into your project.
 
-## Learn More
+It focuses on:
 
-To learn more about Next.js, take a look at the following resources:
+- Developer Experience (DX)
+- Clean and scalable architecture
+- Modern UI patterns
+- Performance and tree-shaking
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🧱 Tech Stack
 
-## Deploy on Vercel
+- **Next.js** – Optimized routing, SSR and App Router ready
+- **React** – Component-based architecture
+- **TypeScript** – Strong typing and intelligent autocomplete
+- **Styled Components** – Theme-driven and dynamic styling
+- **React Icons** – Flexible icon support
+- **IMask** – Advanced input masking
+- **CLI (Node.js)** – Simple and fast installation
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## ⚡ Installation
+
+Install Masked Components in seconds using the CLI:
+
+```bash
+npx rnt-next new-project
+```
+
+This command will:
+
+- Create a new Next.js project
+- Configure TypeScript
+- Install dependencies
+- Add Masked Components structure
+
+---
+
+## 🧩 Components Overview
+
+### 🔘 MaskedButton
+
+Highly customizable buttons with multiple variants, states, sizes, shapes, icons, and behaviors.
+
+#### Variants
+
+- `default`
+- `outline`
+- `ghost`
+- `gradient`
+- `neon`
+- `link`
+- `toggle`
+
+#### States
+
+- `default`
+- `loading`
+- `disabled`
+- `error`
+- `active`
+
+#### Features
+
+- Left & right icons
+- Loading spinner
+- Tooltip label
+- Full width support
+- Polymorphic (`button` or `a`)
+- Toggle mode
+
+#### Basic Example
+
+```tsx
+<MaskedButton variant="default" size="sm" leftIcon={<FaCode />}>
+  Default Button
+</MaskedButton>
+```
+
+---
+
+### ⌨️ MaskedInput
+
+Powerful input system with intelligent masks and real-time formatting.
+
+#### Input Variants
+
+- `default`
+- `textarea`
+- `masked`
+- `password`
+- `select`
+- `file`
+- `search`
+- `currency`
+
+#### Features
+
+- Automatic masking
+- Controlled & uncontrolled support
+- Icons
+- Validation-ready
+- Cloudinary file upload support
+- Currency formatting
+
+#### Example
+
+```tsx
+<MInput variant="masked" label="Phone" mask="(00) 0000-0000" placeholder="Phone number" value={value} onChange={setValue} />
+```
+
+---
+
+## ✨ Key Features
+
+- ✅ TypeScript Native
+- ✅ Polymorphic Components
+- ✅ Responsive by default
+- ✅ Tree-shaking support
+- ✅ Zero unnecessary dependencies
+- ✅ Theme-ready styles
+- ✅ Modern animations
+- ✅ Accessibility-friendly
+- ✅ Optimized performance
+
+---
+
+## 🧪 Playground
+
+The website provides a full interactive playground where you can:
+
+- Test all button variants
+- Change states dynamically
+- Try input masks in real time
+- Preview sizes, shapes and icons
+
+---
+
+## 🛣️ Roadmap
+
+- 🃏 Masked Cards (Coming Soon)
+- 🎞️ Masked Animations (Coming Soon)
+- 📚 Extended documentation
+- 🧩 More components
+
+---
+
+## 👤 Author
+
+Created with 💙 by **Renato Minoita**
+
+- 💼 LinkedIn: https://www.linkedin.com/in/renato-minoita/
+- 🧑‍💻 GitHub: https://github.com/RNT13
+
+---
+
+## 📄 License
+
+MIT License © 2026
