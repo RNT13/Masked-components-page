@@ -30,7 +30,7 @@ export function MButton(props: ButtonProps) {
       return <NeonButton {...props} />
 
     case 'toggle':
-      return <TobbleButton varient={'toggle'} {...props} />
+      return <TobbleButton {...props} />
 
     default:
       return null

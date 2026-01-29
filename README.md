@@ -8,7 +8,7 @@ Masked Components provides **polymorphic**, **theme-ready**, and **highly custom
 
 ## 🚀 Live Demo
 
-👉 **Website:** https://masked-components.vercel.app
+👉 **Website:** https://masked-components.vercel.app/
 👉 **CLI Install Command:**
 
 ```bash
