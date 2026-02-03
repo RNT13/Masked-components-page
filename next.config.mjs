@@ -1,12 +1,23 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  compiler: {
-    styledComponents: true,
-  },
   images: {
-    formats: ['image/avif', 'image/webp'],
-    domains: ['placehold.co', 'res.cloudinary.com', 'api.cloudinary.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        pathname: '/**'
+      },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        pathname: '/**'
+      }
+    ]
   },
+
+  compiler: {
+    styledComponents: true
+  }
 }
 
-export default nextConfig;
+export default nextConfig

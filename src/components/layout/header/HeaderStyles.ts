@@ -9,7 +9,7 @@ export const HeaderContainer = styled.header<{ $scrolled: boolean }>`
   z-index: 1000;
   padding-top: 50px;
 
-  transform: ${({ $scrolled }) => ($scrolled ? 'translateY(-255px)' : 'translateY(0)')};
+  transform: ${({ $scrolled }) => ($scrolled ? 'translateY(-262px)' : 'translateY(0)')};
   background-color: ${({ $scrolled }) => ($scrolled ? theme.colors.baseBlack.base : 'transparent')};
   border-bottom: ${({ $scrolled }) => ($scrolled ? `2px solid ${theme.colors.baseBlue.light}` : 'none')};
 
@@ -17,12 +17,12 @@ export const HeaderContainer = styled.header<{ $scrolled: boolean }>`
 
   ${media.tablet} {
     padding-top: 40px;
-    transform: ${({ $scrolled }) => ($scrolled ? 'translateY(-230px)' : 'translateY(0)')};
+    transform: ${({ $scrolled }) => ($scrolled ? 'translateY(-233px)' : 'translateY(0)')};
   }
 
   ${media.mobile} {
-    padding-top: 30px;
-    transform: ${({ $scrolled }) => ($scrolled ? 'translateY(-270px)' : 'translateY(0)')};
+    padding-top: 40px;
+    transform: ${({ $scrolled }) => ($scrolled ? 'translateY(-223px)' : 'translateY(0)')};
   }
 `
 
@@ -38,14 +38,9 @@ export const HeaderHero = styled.div<{ $scrolled: boolean }>`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  gap: 20px;
 
   opacity: ${({ $scrolled }) => ($scrolled ? 0 : 1)};
   ${transitions.fast}
-
-  ${media.tablet} {
-    gap: 10px;
-  }
 `
 
 export const HeroNav = styled.div<{ $scrolled: boolean; $isOpen: boolean }>`
@@ -89,12 +84,15 @@ export const LogoDiv = styled.div`
 export const InfoDiv = styled.div`
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 
-  h3 {
+  p {
     overflow: hidden;
     color: ${theme.colors.baseBlue.light30};
-
-    ${transitions.slow}
   }
 `
 

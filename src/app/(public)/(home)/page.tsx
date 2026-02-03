@@ -63,8 +63,9 @@ function MyForm() {
 
   return (
     <MInput
+      radius={4}
       variant="masked"
-      label="Telefone com mascara"
+      label="Phone number"
       icon={<BsStars />}
       mask="(00) 0000-0000"
       placeholder="Telefone"

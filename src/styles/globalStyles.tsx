@@ -170,4 +170,8 @@ export const GlobalDiv = styled.div`
   padding: 18px;
   border: 2px solid ${theme.colors.baseBlue.light02};
   box-shadow: 3px 3px 8px 0px ${themeConfig.neon.colors.neonBlue.base};
+
+  ${media.mobile} {
+    padding: 8px;
+  }
 `

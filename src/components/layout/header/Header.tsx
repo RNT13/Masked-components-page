@@ -2,7 +2,7 @@
 
 import { MButton } from '@/components/ui/MaskedButton/MaskedButton'
 import { useHeaderScroll } from '@/hooks/useHeaderScroll'
-import { GradientTextH2, TitleH3 } from '@/styles/globalStyles'
+import { GradientTextH2 } from '@/styles/globalStyles'
 import { FaGithub } from 'react-icons/fa'
 import { RiDownload2Line } from "react-icons/ri"
 import { HeaderContainer, HeaderContent, HeaderHero, HeroNav, InfoDiv, LogoDiv, NavDiv } from './HeaderStyles'
@@ -19,9 +19,9 @@ const Header = () => {
             <GradientTextH2>Masked Components</GradientTextH2>
           </LogoDiv>
           <InfoDiv >
-            <TitleH3>
+            <p>
               A complete library of polymorphic components for React. Intelligent inputs, interactive buttons, and adaptive cards with modern design and a simplified API.
-            </TitleH3>
+            </p>
           </InfoDiv>
           <NavDiv >
             <MButton variant='default' href='#install' leftIcon={<RiDownload2Line />} className='shineButton'>

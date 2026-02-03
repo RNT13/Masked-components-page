@@ -7,18 +7,23 @@ export const InputSectionContent = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 24px;
 `
 
 export const RowContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
-  gap: 12px;
+  gap: 24px;
 
   ${media.tablet} {
     flex-direction: column;
     gap: 24px;
+  }
+
+  ${media.mobile} {
+    flex-direction: column;
+    gap: 12px;
   }
 `
 
