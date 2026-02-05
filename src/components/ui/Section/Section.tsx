@@ -3,7 +3,7 @@
 import { MinorTextH4, TitleH2 } from '@/styles/globalStyles'
 import { useState } from 'react'
 import { FaCheck, FaRegCopy } from 'react-icons/fa'
-import MaskedButton from '../OldMaskedButton/MaskedButton'
+import { MButton } from '../MaskedButton/MaskedButton'
 import { SectionContainer, SectionContent, SectionDiv, SectionDivBody, SectionDivHeader } from './SectionStyles'
 
 type Props = {
@@ -48,9 +48,9 @@ export default function Section({ title, id, children, icon, fileType, descripti
               <SectionDivHeader>
                 <p>{fileType}</p>
 
-                <MaskedButton variant="ghost" size="xs" leftIcon={copied ? <FaCheck /> : <FaRegCopy />} onClick={handleCopy}>
+                <MButton variant="ghost" size="sm" leftIcon={copied ? <FaCheck /> : <FaRegCopy />} onClick={handleCopy}>
                   {copied ? 'Copied' : 'Copy'}
-                </MaskedButton>
+                </MButton>
               </SectionDivHeader>
             )}
 
