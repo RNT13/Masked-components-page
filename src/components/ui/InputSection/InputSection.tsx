@@ -131,7 +131,7 @@ export default function InputSection() {
             <InputDiv>
               <InfoDiv>
                 <FaCheckCircle />
-                <p>Todas as máscaras são aplicadas automaticamente enquanto você digita. Apenas números são aceitos e formatados em tempo real.</p>
+                <p>All masks are applied automatically as you type. Only numbers are accepted and formatted in real-time.</p>
               </InfoDiv>
             </InputDiv>
           </GlobalDiv>

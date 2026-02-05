@@ -41,7 +41,7 @@ const Footer = () => {
         <MButton className='greyButton' variant="ghost" size='sm' href='https://renato-s-dev-page.vercel.app/' >RNT-dev-page</MButton>
       </DivRow>
 
-      <p>&copy; {getCurrentYear()} RNT Projects. Todos os direitos reservados.</p>
+      <p>&copy; {getCurrentYear()} RNT Projects. All rights reserved.</p>
     </FooterContainer>
   )
 }
