@@ -12,7 +12,7 @@ export function TextareaInput(props: Props) {
     <MaskedInputContainer $variant="textarea" $radius={props.radius} data-error={hasError}>
       {props.label && (
         <InputLabel htmlFor={props.id}>
-          {props.icon && props.icon}
+          {props.icon}
           <span>{props.label}</span>
         </InputLabel>
       )}

@@ -19,7 +19,7 @@ export function SearchInput(props: Props) {
     <MaskedInputContainer $variant="search" $radius={props.radius} data-error={hasError}>
       {props.label && (
         <InputLabel htmlFor={props.id}>
-          {props.icon && props.icon}
+          {props.icon}
           <span>{props.label}</span>
         </InputLabel>
       )}

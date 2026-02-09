@@ -30,7 +30,7 @@ export function SelectInput(props: props) {
     <MaskedInputContainer $variant="select" ref={containerRef} $radius={props.radius} data-error={hasError}>
       {props.label && (
         <InputLabel>
-          {props.icon && props.icon}
+          {props.icon}
           <span>{props.label}</span>
         </InputLabel>
       )}

@@ -15,7 +15,7 @@ export function PasswordInput(props: Props) {
     <MaskedInputContainer $variant="password" $radius={props.radius} data-error={hasError}>
       {props.label && (
         <InputLabel htmlFor={props.id}>
-          {props.icon && props.icon}
+          {props.icon}
           <span>{props.label}</span>
         </InputLabel>
       )}

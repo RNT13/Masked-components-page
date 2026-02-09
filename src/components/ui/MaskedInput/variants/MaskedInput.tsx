@@ -13,7 +13,7 @@ export function MaskedInput(props: Props) {
     <MaskedInputContainer $variant="masked" $radius={props.radius}>
       {props.label && (
         <InputLabel htmlFor={props.id}>
-          {props.icon && props.icon}
+          {props.icon}
           <span>{props.label}</span>
         </InputLabel>
       )}

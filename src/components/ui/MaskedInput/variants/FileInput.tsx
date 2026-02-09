@@ -71,7 +71,7 @@ export function FileInput(props: Props) {
 
       {props.label && (
         <InputLabel htmlFor={props.id}>
-          {props.icon && props.icon}
+          {props.icon}
           <span>{props.label}</span>
         </InputLabel>
       )}
