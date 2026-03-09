@@ -1,4 +1,5 @@
-import { GlobalDiv } from "@/styles/globalStyles";
+
+import BaseDiv from "../BaseDiv/BaseDiv";
 import { DivCardContainer, DivCardContent, DivCardIcon } from "./DivCardStyles";
 
 type props = {
@@ -12,7 +13,7 @@ export default function DivCard({ icon, title, description, children }: props) {
   return (
     <DivCardContainer>
       <DivCardContent>
-        <GlobalDiv>
+        <BaseDiv direction="column">
           {title ? (
             <>
               {icon && <DivCardIcon>{icon}</DivCardIcon>}
@@ -24,7 +25,7 @@ export default function DivCard({ icon, title, description, children }: props) {
               {children}
             </>
           )}
-        </GlobalDiv>
+        </BaseDiv>
       </DivCardContent>
     </DivCardContainer >
   )

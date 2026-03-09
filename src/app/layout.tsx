@@ -1,10 +1,15 @@
 
-import { Providers } from '@/components/providers'
-import StyledComponentsRegistry from '@/lib/styled-components-registry'
-import { GlobalStyles } from '@/styles/globalStyles'
-import { ScrollToTop } from '@/utils/scrollToTop'
-import type { Metadata } from 'next'
-import { Jersey_10, Pixelify_Sans } from 'next/font/google'
+import { Providers } from '@/components/providers';
+import StyledComponentsRegistry from '@/lib/styled-components-registry';
+import { GlobalStyles } from '@/styles/globalStyles';
+import type { Metadata } from 'next';
+import { Jersey_10, Pixelify_Sans, Roboto } from 'next/font/google';
+
+const roboto = Roboto({
+  weight: ['400', '500', '700'],
+  subsets: ['latin'],
+  variable: '--primary-font',
+})
 
 // Fonts
 const jersey_10 = Jersey_10({
@@ -17,8 +22,9 @@ const jersey_10 = Jersey_10({
 const pixelify_sans = Pixelify_Sans({
   weight: ['400', '500', '700'],
   subsets: ['latin'],
-  variable: '--primary-font',
+  variable: '--tertiary-font',
 })
+
 
 // Metadata
 export const metadata: Metadata = {
@@ -32,10 +38,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-BR" className={`${jersey_10.variable} ${pixelify_sans.variable}`} data-scroll-behavior="smooth">
+    <html lang="pt-BR" className={`${roboto.variable} ${jersey_10.variable} ${pixelify_sans.variable}`} data-scroll-behavior="smooth">
       <body>
         <StyledComponentsRegistry>
-          <ScrollToTop />
           <GlobalStyles />
 
           <Providers>
@@ -47,5 +52,4 @@ export default function RootLayout({
     </html>
   )
 }
-
 

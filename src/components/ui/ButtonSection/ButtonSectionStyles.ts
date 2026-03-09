@@ -1,25 +1,32 @@
+import { maskedTheme } from '@/styles/MaskedThemes/MaskedThemes'
 import { styled } from 'styled-components'
 
 export const ButtonSectionContainer = styled.div`
+  width: 100%;
+`
+
+export const ButtonSectionContent = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 16px;
+  gap: ${maskedTheme.spacing.lg};
 `
 
 export const Section = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: ${maskedTheme.spacing.lg};
 
   h3 {
-    border-bottom: 2px solid ${props => props.theme.colors.baseBlue.light};
+    border-bottom: 2px solid ${maskedTheme.colors.baseBlue.light};
   }
 `
 
 export const ButtonRow = styled.div`
+  width: 100%;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: ${maskedTheme.spacing.md};
 `
