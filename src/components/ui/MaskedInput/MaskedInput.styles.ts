@@ -1,5 +1,5 @@
-import { transitions } from '@/styles/animations'
-import { theme } from '@/styles/theme'
+import { transitions } from '@/styles/MaskedAnimations/animations/transitions'
+import { maskedTheme } from '@/styles/MaskedThemes/MaskedThemes'
 import styled from 'styled-components'
 
 type props = {
@@ -26,11 +26,11 @@ export const MaskedInputContainer = styled.div<props>`
     width: 100%;
     padding: 12px;
     border-radius: ${({ $radius }) => ($radius ? `${$radius}px` : '18px')};
-    border: 2px solid ${theme.colors.baseBlue.light20};
+    border: 2px solid ${maskedTheme.colors.baseBlue.light20};
     font-size: 1rem;
     line-height: 1.4;
-    color: ${theme.colors.baseBlue.light30};
-    background-color: ${theme.colors.baseBlue.light02};
+    color: ${maskedTheme.colors.baseBlue.light30};
+    background-color: ${maskedTheme.colors.baseBlue.light02};
     z-index: 2;
     text-align: left;
 
@@ -47,45 +47,45 @@ export const MaskedInputContainer = styled.div<props>`
 
     /* Hover */
     &:hover {
-      border-color: ${theme.colors.baseBlue.base};
+      border-color: ${maskedTheme.colors.baseBlue.base};
     }
 
     /* Focus */
     &:focus {
       outline: none;
-      background-color: ${theme.colors.baseBlue.light04};
-      border-color: ${theme.colors.baseBlue.light};
-      box-shadow: 0px 0px 10px 2px ${theme.colors.baseBlue.light};
+      background-color: ${maskedTheme.colors.baseBlue.light04};
+      border-color: ${maskedTheme.colors.baseBlue.light};
+      box-shadow: 0px 0px 10px 2px ${maskedTheme.colors.baseBlue.light};
 
       &::placeholder {
-        color: ${theme.colors.baseBlue.light40};
+        color: ${maskedTheme.colors.baseBlue.light40};
       }
     }
 
     /* Disabled */
     &:disabled {
-      background-color: ${theme.colors.baseBlue.light20};
+      background-color: ${maskedTheme.colors.baseBlue.light20};
       cursor: not-allowed;
       opacity: 0.7;
     }
 
     /* Error */
     &.error {
-      border-color: ${theme.colors.baseRed.base};
-      background-color: ${theme.colors.baseRed.light02};
-      color: ${theme.colors.baseRed.light20};
+      border-color: ${maskedTheme.colors.baseRed.base};
+      background-color: ${maskedTheme.colors.baseRed.light02};
+      color: ${maskedTheme.colors.baseRed.light20};
 
       &:focus {
-        box-shadow: 0 0 0 3px ${theme.colors.baseRed.light20};
+        box-shadow: 0 0 0 3px ${maskedTheme.colors.baseRed.light20};
       }
 
       &.error::placeholder {
-        color: ${theme.colors.baseRed.light20};
+        color: ${maskedTheme.colors.baseRed.light20};
       }
     }
 
     &::placeholder {
-      color: ${theme.colors.baseBlue.light40};
+      color: ${maskedTheme.colors.baseBlue.light40};
     }
   }
 
@@ -104,7 +104,7 @@ export const MaskedInputContainer = styled.div<props>`
     width: 100%;
     resize: none;
     scrollbar-width: thin;
-    scrollbar-color: ${theme.colors.baseBlue.base} ${theme.colors.baseBlue.light20};
+    scrollbar-color: ${maskedTheme.colors.baseBlue.base} ${maskedTheme.colors.baseBlue.light20};
   }
 `
 
@@ -117,7 +117,7 @@ export const SearchIcon = styled.div`
   left: 12px;
   top: 42px;
   font-size: 1.3rem;
-  color: ${theme.colors.baseBlue.light30};
+  color: ${maskedTheme.colors.baseBlue.light30};
   pointer-events: none;
   z-index: 3;
 `
@@ -134,7 +134,7 @@ export const PasswordToggle = styled.div`
   border: none;
   cursor: pointer;
   z-index: 2;
-  color: ${theme.colors.baseBlue.light};
+  color: ${maskedTheme.colors.baseBlue.light};
 
   svg {
     font-size: 1.5rem;
@@ -154,8 +154,8 @@ export const PreviewImageDiv = styled.div`
   img {
     border-radius: 10px;
     object-fit: cover;
-    border: 2px solid ${theme.colors.baseBlue.light20};
-    background: ${theme.colors.baseBlue.light02};
+    border: 2px solid ${maskedTheme.colors.baseBlue.light20};
+    background: ${maskedTheme.colors.baseBlue.light02};
   }
 `
 
@@ -173,9 +173,9 @@ export const FileTrigger = styled.button`
   gap: 8px;
 
   border-radius: 16px;
-  border: 2px solid ${theme.colors.baseBlue.light20};
-  color: ${theme.colors.baseBlue.light40};
-  background-color: ${theme.colors.baseBlue.light02};
+  border: 2px solid ${maskedTheme.colors.baseBlue.light20};
+  color: ${maskedTheme.colors.baseBlue.light40};
+  background-color: ${maskedTheme.colors.baseBlue.light02};
   font-size: 0.95rem;
   font-weight: 500;
 
@@ -187,13 +187,13 @@ export const FileTrigger = styled.button`
     color 0.2s ease;
 
   &:hover {
-    border-color: ${theme.colors.baseBlue.base};
-    background: ${theme.colors.baseBlue.light};
+    border-color: ${maskedTheme.colors.baseBlue.base};
+    background: ${maskedTheme.colors.baseBlue.light};
   }
 
   &:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 3px ${theme.colors.baseBlue.light20};
+    box-shadow: 0 0 0 3px ${maskedTheme.colors.baseBlue.light20};
   }
 `
 
@@ -202,10 +202,10 @@ export const FileTrigger = styled.button`
  * ============================================================ */
 
 export const ErrorDiv = styled.div`
-  color: ${theme.colors.baseRed.light30};
+  color: ${maskedTheme.colors.baseRed.light30};
   font-size: 0.85rem;
   font-weight: 500;
-  background-color: ${theme.colors.baseRed.light04};
+  background-color: ${maskedTheme.colors.baseRed.light04};
   padding: 6px 12px;
   border-radius: 10px;
 `
@@ -214,7 +214,7 @@ export const ErrorDiv = styled.div`
  * LABEL
  * ============================================================ */
 export const InputLabel = styled.label`
-  color: ${theme.colors.baseBlue.light30};
+  color: ${maskedTheme.colors.baseBlue.light30};
   font-size: 18px;
   font-weight: 500;
   margin-bottom: 6px;
@@ -234,9 +234,9 @@ export const SelectTrigger = styled.button`
   width: 100%;
   padding: 12px 14px;
   border-radius: 16px;
-  color: ${theme.colors.baseBlue.light40};
-  background-color: ${theme.colors.baseBlue.light02};
-  border: 2px solid ${theme.colors.baseBlue.light20};
+  color: ${maskedTheme.colors.baseBlue.light40};
+  background-color: ${maskedTheme.colors.baseBlue.light02};
+  border: 2px solid ${maskedTheme.colors.baseBlue.light20};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -251,7 +251,7 @@ export const SelectDropdown = styled.div`
   width: 100%;
   border-radius: 14px;
   overflow: hidden;
-  background: ${theme.colors.baseBlue.base};
+  background: ${maskedTheme.colors.baseBlue.base};
   z-index: 5;
 `
 
@@ -260,9 +260,9 @@ export const SelectOption = styled.div`
   padding: 8px;
   border-radius: 14px;
   margin-bottom: 4px;
-  background: ${theme.colors.baseBlue.dark20};
-  color: ${theme.colors.baseBlue.light50};
-  border: 2px solid ${theme.colors.baseBlue.light20};
+  background: ${maskedTheme.colors.baseBlue.dark20};
+  color: ${maskedTheme.colors.baseBlue.light50};
+  border: 2px solid ${maskedTheme.colors.baseBlue.light20};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -270,9 +270,9 @@ export const SelectOption = styled.div`
   font-weight: 800;
 
   &:hover {
-    background: ${theme.colors.baseBlue.light20};
-    color: ${theme.colors.baseBlue.base};
-    border-color: ${theme.colors.baseBlue.dark20};
+    background: ${maskedTheme.colors.baseBlue.light20};
+    color: ${maskedTheme.colors.baseBlue.base};
+    border-color: ${maskedTheme.colors.baseBlue.dark20};
   }
 `
 
@@ -288,7 +288,7 @@ export const CurrencyWrapper = styled.div`
     top: 50%;
     transform: translateY(-50%);
     font-weight: 600;
-    color: ${theme.colors.baseBlue.light30};
+    color: ${maskedTheme.colors.baseBlue.light30};
     pointer-events: none;
   }
 

@@ -1,11 +1,11 @@
-import { animations } from '@/styles/animations'
-import { media, theme } from '@/styles/theme'
+import { continuousAnimations } from '@/styles/MaskedAnimations/animations/continuousAnimations'
+import { maskedTheme, media } from '@/styles/MaskedThemes/MaskedThemes'
 import { styled } from 'styled-components'
 
 export const FooterContainer = styled.footer`
   position: relative;
-  background-image: linear-gradient(90deg, ${theme.colors.baseBlack.base}, ${theme.colors.baseBlack.light});
-  border-top: 2px solid ${theme.colors.baseBlue.base};
+  background-image: linear-gradient(90deg, ${maskedTheme.colors.baseBlack.base}, ${maskedTheme.colors.baseBlack.light});
+  border-top: 2px solid ${maskedTheme.colors.baseBlue.base};
   padding: 40px;
   display: flex;
   flex-direction: column;
@@ -25,15 +25,15 @@ export const FooterContainer = styled.footer`
   }
 
   p {
-    color: ${theme.colors.baseBlue.light30};
+    color: ${maskedTheme.colors.baseBlue.light30};
     font-size: 14px;
     opacity: 0.8;
   }
 
   .shineButton {
-    ${animations.bounce}
+    ${continuousAnimations.bounce}
     &:hover {
-      ${animations.glow}
+      ${continuousAnimations.shineInfinite}
     }
   }
 `
@@ -43,6 +43,10 @@ export const ButtonDiv = styled.div`
   top: -30px;
   left: 50%;
   transform: translateX(-50%);
+
+  button {
+    ${continuousAnimations.InfinityGlowDiagonal}
+  }
 `
 
 export const ProjectDiv = styled.div`
@@ -61,11 +65,11 @@ export const DivRow = styled.div`
   gap: 20px;
 
   .greyButton {
-    color: ${theme.colors.baseBlack.light30};
+    color: ${maskedTheme.colors.baseBlack.light30};
 
     &:hover {
-      color: ${theme.colors.baseBlack.light50};
-      background-color: ${theme.colors.baseBlack.light30};
+      color: ${maskedTheme.colors.baseBlack.light50};
+      background-color: ${maskedTheme.colors.baseBlack.light30};
     }
   }
 

@@ -1,4 +1,4 @@
-import { theme } from '@/styles/theme'
+import { maskedTheme } from '@/styles/MaskedThemes/MaskedThemes'
 import { css, styled } from 'styled-components'
 import { BaseButton } from '../../Base/BaseButton'
 
@@ -8,7 +8,7 @@ type props = {
 }
 
 const activeStyles = css`
-  color: ${theme.colors.baseBlue.light20};
+  color: ${maskedTheme.colors.baseBlue.light20};
   text-decoration: underline;
 
   svg {
@@ -16,15 +16,15 @@ const activeStyles = css`
   }
 
   &:hover {
-    color: ${theme.colors.baseBlue.light30};
+    color: ${maskedTheme.colors.baseBlue.light30};
   }
 `
 
 const errorStyles = css`
-  color: ${theme.colors.baseRed.light30};
+  color: ${maskedTheme.colors.baseRed.light30};
 
   &:hover {
-    color: ${theme.colors.baseRed.light20};
+    color: ${maskedTheme.colors.baseRed.light20};
     text-decoration: underline;
   }
 `
@@ -35,17 +35,17 @@ export const LinkButtonContainer = styled(BaseButton)<props>`
   justify-content: center;
   text-decoration: none;
 
-  color: ${theme.colors.baseBlue.base};
+  color: ${maskedTheme.colors.baseBlue.base};
   background-color: transparent;
   border: none;
 
   &:hover {
-    color: ${theme.colors.baseBlue.base};
+    color: ${maskedTheme.colors.baseBlue.base};
     background-color: transparent;
     border: none;
 
     text-decoration: underline;
-    color: ${theme.colors.baseBlue.light30};
+    color: ${maskedTheme.colors.baseBlue.light30};
     transition: all 0.3s ease;
   }
 

@@ -1,12 +1,12 @@
 
 'use client'
 
+import { maskedTheme } from '@/styles/MaskedThemes/MaskedThemes'
 // 🚫 NOT FOUND PÚBLICO - Página 404 para rotas públicas
 // ⚠️ ARQUIVO DELETÁVEL - Pode ser removido ao criar sua própria página 404
 
 import Link from 'next/link'
 import styled from 'styled-components'
-import { theme } from '@/styles/theme'
 
 const NotFoundContainer = styled.div`
   display: flex;
@@ -19,25 +19,25 @@ const NotFoundContainer = styled.div`
 
   h1 {
     font-size: 4rem;
-    color: ${theme.colors.blue2};
+    color: ${maskedTheme.colors.baseBlue.base};
     margin-bottom: 20px;
   }
 
   h2 {
     font-size: 2rem;
-    color: ${theme.colors.textColor};
+    color: ${maskedTheme.colors.baseBlue.base};
     margin-bottom: 20px;
   }
 
   p {
-    color: ${theme.colors.gray2};
+    color: ${maskedTheme.colors.baseBlue.base};
     margin-bottom: 30px;
     max-width: 500px;
   }
 `
 
 const BackButton = styled(Link)`
-  background-color: ${theme.colors.blue2};
+  background-color: ${maskedTheme.colors.baseBlue.base};
   color: white;
   padding: 12px 24px;
   border-radius: 8px;
@@ -45,7 +45,7 @@ const BackButton = styled(Link)`
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: ${theme.colors.blue};
+    background-color: ${maskedTheme.colors.baseBlue.dark20};
   }
 `
 
@@ -59,4 +59,3 @@ export default function NotFound() {
     </NotFoundContainer>
   )
 }
-        

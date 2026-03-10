@@ -129,7 +129,7 @@ Powerful input system with intelligent masks and real-time formatting.
 #### Example
 
 ```tsx
-<MInput variant="masked" label="Phone" mask="(00) 0000-0000" placeholder="Phone number" value={value} onChange={setValue} />
+<MInput variant="masked" tooltip="Phone" mask="(00) 0000-0000" placeholder="Phone number" value={value} onChange={setValue} />
 ```
 
 ---

@@ -6,13 +6,16 @@ export type ButtonState = 'default' | 'disabled' | 'loading' | 'error'
 
 export type ButtonShape = 'rounded' | 'circle' | 'square'
 
+export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right'
+
 export type BaseButtonProps = {
   size?: ButtonSize
   shapes?: ButtonShape
   state?: ButtonState
 
   fullWidth?: boolean
-  label?: string
+  tooltip?: string
+  tooltipPlacement?: TooltipPlacement
 
   leftIcon?: React.ReactNode
   rightIcon?: React.ReactNode

@@ -1,38 +1,262 @@
-import { animations, transitions } from '@/styles/animations'
+import { continuousAnimations } from '@/styles/MaskedAnimations/animations/continuousAnimations'
+import { transitions } from '@/styles/MaskedAnimations/animations/transitions'
+import { maskedTheme } from '@/styles/MaskedThemes/MaskedThemes'
 import styled, { css } from 'styled-components'
-import { ButtonShape, ButtonSize, ButtonState } from '../MaskedButton.types'
+import { ButtonShape, ButtonSize, ButtonState, TooltipPlacement } from '../MaskedButton.types'
 
-export const LabelDiv = styled.div`
+type TooltipProps = {
+  $placement?: TooltipPlacement
+}
+
+/* =========================
+   SIZE DO BOTÃO
+========================= */
+
+const sizeStyles: Record<ButtonSize, ReturnType<typeof css>> = {
+  sm: css`
+    padding: 6px 10px;
+    font-size: 14px;
+  `,
+  md: css`
+    padding: 12px 14px;
+    font-size: 16px;
+  `,
+  lg: css`
+    padding: 16px 20px;
+    font-size: 18px;
+  `
+}
+
+/* =========================
+   TAMANHO DO ÍCONE
+========================= */
+
+const iconSizes: Record<ButtonSize, ReturnType<typeof css>> = {
+  sm: css`
+    width: 16px;
+    height: 16px;
+  `,
+  md: css`
+    width: 20px;
+    height: 20px;
+  `,
+  lg: css`
+    width: 24px;
+    height: 24px;
+  `
+}
+
+/* =========================
+   CIRCLE DINÂMICO
+========================= */
+
+const circleSizes: Record<ButtonSize, ReturnType<typeof css>> = {
+  sm: css`
+    width: 40px;
+    height: 40px;
+  `,
+  md: css`
+    width: 55px;
+    height: 55px;
+  `,
+  lg: css`
+    width: 70px;
+    height: 70px;
+  `
+}
+
+const getShapeStyles = ($shape?: ButtonShape, $size: ButtonSize = 'md') => {
+  if ($shape === 'circle') {
+    return css`
+      ${circleSizes[$size]}
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .btn-text {
+        display: none;
+      }
+    `
+  }
+
+  if ($shape === 'square') {
+    return css`
+      border-radius: 6px;
+    `
+  }
+
+  return css`
+    border-radius: 18px;
+  `
+}
+
+/* =========================
+   ESTADOS
+========================= */
+
+const stateStyles: Record<ButtonState, ReturnType<typeof css>> = {
+  loading: css`
+    cursor: not-allowed;
+
+    svg {
+      ${continuousAnimations.spin}
+      stroke-width: 2;
+    }
+  `,
+  default: css``,
+  disabled: css`
+    cursor: not-allowed;
+    opacity: 0.5;
+  `,
+  error: css`
+    &:hover {
+      ${continuousAnimations.shakeX}
+    }
+  `
+}
+
+/* =========================
+   TOOLTIP
+========================= */
+export const TooltipWrapper = styled.span<{ $fullWidth?: boolean }>`
+  position: relative;
+  display: ${({ $fullWidth }) => ($fullWidth ? 'flex' : 'inline-flex')};
+  width: ${({ $fullWidth }) => ($fullWidth ? '100%' : 'auto')};
+`
+
+export const TooltipDiv = styled.div<TooltipProps>`
   position: absolute;
-  bottom: calc(150% + 12px);
-  left: 50%;
-  transform: translateX(-50%) translateY(4px);
-
   padding: 8px 12px;
-  background-color: ${({ theme }) => theme.colors.baseBlue.light};
-  color: white;
   border-radius: 6px;
   font-size: 12px;
   white-space: nowrap;
 
+  background-color: ${maskedTheme.colors.baseBlue.light};
+  color: white;
+
   opacity: 0;
   pointer-events: none;
 
-  z-index: 1;
-
+  transition: all 0.25s ease;
   ${transitions.delay}
 
-  &::before {
+  &::after {
     content: '';
     position: absolute;
-    top: 87%;
-    left: 50%;
-    transform: translateX(-50%) rotate(45deg);
-    width: 8px;
-    height: 8px;
-    background-color: ${({ theme }) => theme.colors.baseBlue.light};
+    width: 0;
+    height: 0;
+    border-style: solid;
   }
+
+  ${({ $placement }) => {
+    switch ($placement) {
+      case 'bottom':
+        return css`
+          top: calc(100% + 10px);
+          left: 50%;
+          transform: translateX(-50%) translateY(-6px);
+
+          ${TooltipWrapper}:hover & {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+          }
+
+          ${TooltipWrapper}:not(:hover) & {
+            transition-delay: 0s;
+          }
+
+          &::after {
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+
+            border-width: 0 5px 5px 5px;
+            border-color: transparent transparent ${maskedTheme.colors.baseBlue.light} transparent;
+          }
+        `
+
+      case 'left':
+        return css`
+          right: calc(100% + 10px);
+          top: 50%;
+          transform: translateY(-50%) translateX(6px);
+
+          ${TooltipWrapper}:hover & {
+            opacity: 1;
+            transform: translateY(-50%) translateX(0);
+          }
+
+          ${TooltipWrapper}:not(:hover) & {
+            transition-delay: 0s;
+          }
+
+          &::after {
+            right: -5px;
+            top: 50%;
+            transform: translateY(-50%);
+
+            border-width: 5px 0 5px 5px;
+            border-color: transparent transparent transparent ${maskedTheme.colors.baseBlue.light};
+          }
+        `
+
+      case 'right':
+        return css`
+          left: calc(100% + 10px);
+          top: 50%;
+          transform: translateY(-50%) translateX(-6px);
+
+          ${TooltipWrapper}:hover & {
+            opacity: 1;
+            transform: translateY(-50%) translateX(0);
+          }
+
+          ${TooltipWrapper}:not(:hover) & {
+            transition-delay: 0s;
+          }
+
+          &::after {
+            left: -5px;
+            top: 50%;
+            transform: translateY(-50%);
+
+            border-width: 5px 5px 5px 0;
+            border-color: transparent ${maskedTheme.colors.baseBlue.light} transparent transparent;
+          }
+        `
+
+      default:
+        return css`
+          bottom: calc(100% + 10px);
+          left: 50%;
+          transform: translateX(-50%) translateY(6px);
+
+          ${TooltipWrapper}:hover & {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+          }
+
+          ${TooltipWrapper}:not(:hover) & {
+            transition-delay: 0s;
+          }
+
+          &::after {
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+
+            border-width: 5px 5px 0 5px;
+            border-color: ${maskedTheme.colors.baseBlue.light} transparent transparent transparent;
+          }
+        `
+    }
+  }}
 `
+
+/* =========================
+   CONTENT
+========================= */
 
 export const ButtonContent = styled.span<{ $state: ButtonState }>`
   position: relative;
@@ -41,83 +265,22 @@ export const ButtonContent = styled.span<{ $state: ButtonState }>`
   gap: 8px;
 `
 
-export const IconWrapper = styled.span`
+/* =========================
+   ICON WRAPPER
+========================= */
+
+export const IconWrapper = styled.span<{ $size?: ButtonSize }>`
   display: flex;
   align-items: center;
 
   svg {
-    width: 20px;
-    height: 20px;
+    ${({ $size = 'md' }) => iconSizes[$size]}
   }
 `
 
-const sizeStyles = {
-  sm: css`
-    height: 100%;
-    padding: 6px 10px;
-    font-size: 14px;
-  `,
-  md: css`
-    height: 100%;
-    padding: 12px 14px;
-    font-size: 16px;
-  `,
-  lg: css`
-    height: 100%;
-    padding: 16px 20px;
-    font-size: 18px;
-  `
-}
-
-const ButtonShapes = {
-  rounded: css`
-    border-radius: 18px;
-  `,
-
-  circle: css`
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    svg,
-    span {
-      width: 25px;
-      height: 25px;
-      margin: 0;
-    }
-  `,
-
-  square: css`
-    border-radius: 5px;
-  `
-}
-
-const stateStyles = {
-  loading: css`
-    cursor: not-allowed;
-
-    svg {
-      ${animations.spin}
-      stroke-width: 2;
-    }
-  `,
-
-  default: css``,
-
-  disabled: css`
-    cursor: not-allowed;
-    opacity: 0.5;
-  `,
-
-  error: css`
-    &:hover {
-      ${animations.shakeX}
-    }
-  `
-}
+/* =========================
+   BOTÃO BASE
+========================= */
 
 export const BaseButtonContainer = styled.button<{
   $size?: ButtonSize
@@ -133,21 +296,11 @@ export const BaseButtonContainer = styled.button<{
   position: relative;
 
   ${({ $size = 'md' }) => sizeStyles[$size]}
-  ${({ $fullWidth }) => $fullWidth && 'width: 100%;'}
-  ${({ $fullWidth }) => $fullWidth && 'justify-content: center;'}
-  ${({ $state }) => $state && stateStyles[$state]}
-  ${({ $shape }) => $shape && ButtonShapes[$shape]}
+  ${({ $fullWidth }) => $fullWidth && 'width: 100%; justify-content: center;'}
+  ${({ $state = 'default' }) => stateStyles[$state]}
+  ${({ $shape, $size }) => getShapeStyles($shape, $size)}
 
-  ${transitions.fast}
-
-  &:hover ${LabelDiv} {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-
-  &:not(:hover) ${LabelDiv} {
-    transition-delay: 0s;
-  }
+    ${transitions.slow}
 
   &:active {
     transform: scale(0.97);

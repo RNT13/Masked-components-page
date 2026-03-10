@@ -3,8 +3,7 @@
 // 🎨 GLOBAL STYLES - Estilos globais com Styled Components
 
 import styled, { createGlobalStyle } from 'styled-components'
-import { animations } from './animations'
-import { media, theme, themeConfig } from './theme'
+import { maskedTheme, media, neonTheme } from './MaskedThemes/MaskedThemes'
 
 export const GlobalStyles = createGlobalStyle`
   * {
@@ -13,14 +12,15 @@ export const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
 
-  body, html{
-    background-image: linear-gradient(to bottom, ${theme.colors.baseBlack.light20}, ${theme.colors.baseBlack.dark30});
-    background-attachment: fixed;
-    font-family: 'Inter', sans-serif;
-    color: ${theme.colors.baseBlue.light30};
+  html {
     scroll-behavior: smooth;
-    scrollbar-width: thin;
-    scrollbar-color: ${theme.colors.baseBlue.light20} ${theme.colors.baseBlack.light08};
+  }
+
+  body{
+    background-image: linear-gradient(to bottom, ${maskedTheme.colors.baseBlack.light20}, ${maskedTheme.colors.baseBlack.dark30});
+    background-attachment: fixed;
+    color: ${maskedTheme.colors.baseBlue.light30};
+    font-family: var(--primary-font);
   }
 
   .container {
@@ -41,8 +41,14 @@ export const GlobalStyles = createGlobalStyle`
     }
   }
 
-  .shineButton {
-    ${animations.shineInfinite}
+  .svgGreen {
+    color: ${maskedTheme.colors.baseGreen.light20};
+    font-size: ${maskedTheme.fontSize['2xl']};
+  }
+
+  .svgBlue {
+    color: ${maskedTheme.colors.baseBlue.light30};
+    font-size: ${maskedTheme.fontSize['2xl']};
   }
 `
 
@@ -79,12 +85,12 @@ export const CloseButton = styled.button`
 
   svg {
     font-size: 24px;
-    color: ${theme.colors.baseBlue.dark20};
+    color: ${maskedTheme.colors.baseBlue.dark20};
   }
 
   &:hover {
     svg {
-      color: ${theme.colors.baseBlue.light};
+      color: ${maskedTheme.colors.baseBlue.light};
     }
   }
 `
@@ -92,7 +98,7 @@ export const CloseButton = styled.button`
 export const TitleH2 = styled.h2`
   font-size: 24px;
   font-weight: 600;
-  color: ${theme.colors.baseBlue.light30};
+  color: ${maskedTheme.colors.baseBlue.light30};
   display: flex;
   align-items: center;
   gap: 12px;
@@ -106,20 +112,20 @@ export const TitleH3 = styled.h3`
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 12px;
-  color: ${theme.colors.baseBlue.light30};
+  color: ${maskedTheme.colors.baseBlue.light30};
 `
 
 export const MinorTextH4 = styled.h3`
   font-size: 14px;
   font-weight: 300;
   margin-bottom: 8px;
-  color: ${theme.colors.baseBlack.light40};
+  color: ${maskedTheme.colors.baseBlack.light40};
 `
 
 export const GradientTextH2 = styled.h2`
   font-size: 2rem;
   font-weight: 700;
-  background: linear-gradient(360deg, ${themeConfig.neon.colors.neonBlue.base}, ${theme.colors.baseBlue.base});
+  background: linear-gradient(360deg, ${neonTheme.colors.neonBlue.base}, ${maskedTheme.colors.baseBlue.base});
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -128,16 +134,16 @@ export const GradientTextH2 = styled.h2`
 export const GradientSpan = styled.span`
   font-size: 38px;
   font-weight: 600;
-  color: ${theme.colors.textColor};
+  color: ${maskedTheme.colors.baseBlue.base};
   font-size: 1.8rem;
   font-weight: 700;
-  background: linear-gradient(135deg, ${themeConfig.neon.colors.neonPink.base}, ${themeConfig.neon.colors.neonBlue.base});
+  background: linear-gradient(135deg, ${neonTheme.colors.neonPink.base}, ${neonTheme.colors.neonBlue.base});
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 
   &:hover {
-    background: linear-gradient(360deg, ${themeConfig.neon.colors.neonBlue.base}, ${themeConfig.neon.colors.neonPink.base});
+    background: linear-gradient(360deg, ${neonTheme.colors.neonBlue.base}, ${neonTheme.colors.neonPink.base});
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -147,7 +153,7 @@ export const GradientSpan = styled.span`
 export const Line = styled.span.attrs({ 'aria-hidden': true })`
   width: 80px;
   height: 2px;
-  background: ${({ theme }) => theme.colors.baseBlack.light50};
+  background: ${maskedTheme.colors.baseBlack.light50};
   margin: 0 2px;
 `
 
@@ -155,23 +161,8 @@ export const Dot = styled.span.attrs({ 'aria-hidden': true })`
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: ${({ theme }) => theme.colors.baseBlue.base};
+  background: ${maskedTheme.colors.baseBlue.base};
   margin: 0 2px;
 `
 
-export const GlobalDiv = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 24px;
-  background-image: linear-gradient(360deg, ${theme.colors.baseBlue.light02}, ${theme.colors.baseBlack.light08});
-  border-radius: 16px;
-  padding: 18px;
-  border: 2px solid ${theme.colors.baseBlue.light02};
-  box-shadow: 3px 3px 8px 0px ${themeConfig.neon.colors.neonBlue.base};
 
-  ${media.mobile} {
-    padding: 8px;
-  }
-`

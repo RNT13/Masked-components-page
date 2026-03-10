@@ -1,5 +1,5 @@
-import { animations } from '@/styles/animations'
-import { theme } from '@/styles/theme'
+import { continuousAnimations } from '@/styles/MaskedAnimations/animations/continuousAnimations'
+import { maskedTheme } from '@/styles/MaskedThemes/MaskedThemes'
 import { styled } from 'styled-components'
 
 export const DivCardContainer = styled.div`
@@ -8,7 +8,8 @@ export const DivCardContainer = styled.div`
 
 export const DivCardContent = styled.div`
   width: 100%;
-  border-radius: 16px;
+  height: 100%;
+  border-radius: ${maskedTheme.spacing.xl};
 `
 
 export const DivCardIcon = styled.div<{ $glow?: boolean }>`
@@ -17,12 +18,12 @@ export const DivCardIcon = styled.div<{ $glow?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 32px;
-  padding: 8px;
-  border-radius: 16px;
-  background-image: linear-gradient(180deg, ${theme.colors.baseBlue.base}, ${theme.colors.baseBlue.dark});
-  border: 2px solid ${theme.colors.baseBlue.light02};
-  box-shadow: 5px 5px 15px 0px ${theme.colors.baseBlack.base};
+  font-size: ${maskedTheme.fontSize['2xl']};
+  padding: ${maskedTheme.spacing.xs};
+  border-radius: ${maskedTheme.radius.lg};
+  background-image: linear-gradient(180deg, ${maskedTheme.colors.baseBlue.base}, ${maskedTheme.colors.baseBlue.dark});
+  border: 2px solid ${maskedTheme.colors.baseBlue.light02};
+  box-shadow: 5px 5px 15px 0px ${maskedTheme.colors.baseBlack.base};
 
-  ${animations.shineInfinite}
+  ${continuousAnimations.shineInfinite}
 `

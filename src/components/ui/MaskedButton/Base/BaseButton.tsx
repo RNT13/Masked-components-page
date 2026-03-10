@@ -1,59 +1,73 @@
-'use client'
+"use client";
 
-import { forwardRef } from 'react'
-import { VscLoading } from 'react-icons/vsc'
-import { BaseButtonProps } from '../MaskedButton.types'
-import { BaseButtonContainer, ButtonContent, IconWrapper, LabelDiv } from './BaseButton.styles'
+import { forwardRef } from "react";
+import { VscLoading } from "react-icons/vsc";
+import { BaseButtonProps } from "../MaskedButton.types";
+import {
+  BaseButtonContainer,
+  ButtonContent,
+  IconWrapper,
+  TooltipDiv,
+  TooltipWrapper
+} from "./BaseButton.styles";
 
 type BaseButtonInternalProps = BaseButtonProps & {
-  href?: string
-  target?: string
-  rel?: string
-}
+  href?: string;
+  target?: string;
+  rel?: string;
+};
 
+export const BaseButton = forwardRef<
+  HTMLButtonElement | HTMLAnchorElement,
+  BaseButtonInternalProps
+>(function BaseButton(
+  {
+    size = "md",
+    state = "default",
+    tooltip,
+    children,
+    leftIcon,
+    rightIcon,
+    fullWidth,
+    href,
+    target,
+    rel,
+    tooltipPlacement,
+    type = "button",
+    shapes = "rounded",
+    ...props
+  },
+  ref,
+) {
+  const isDisabled = state === "disabled" || state === "loading";
 
-export const BaseButton = forwardRef<HTMLButtonElement | HTMLAnchorElement, BaseButtonInternalProps>(
-  function BaseButton(
-    {
-      size = 'md',
-      state = 'default',
-      label,
-      children,
-      leftIcon,
-      rightIcon,
-      fullWidth,
-      href,
-      target,
-      rel,
-      type = 'button',
-      shapes = 'rounded',
-      ...props
-    },
-    ref
-  ) {
-    const isDisabled = state === 'disabled' || state === 'loading'
+  const Component = href ? "a" : "button";
 
-    const Component = href ? 'a' : 'button'
+  const content = (
+    <ButtonContent $state={state}>
+      {state === "loading" ? (
+        <>
+          {<IconWrapper $size={size}>{<VscLoading />}</IconWrapper>}
+          <span>Loading...</span>
+        </>
+      ) : (
+        <>
+          {leftIcon && <IconWrapper $size={size}>{leftIcon}</IconWrapper>}
+          <span className="btn-text">{children}</span>
+          {rightIcon && <IconWrapper $size={size}>{rightIcon}</IconWrapper>}
+        </>
+      )}
+    </ButtonContent>
+  );
 
-    const content = (
-      <ButtonContent $state={state}>
-        {state === 'loading' ? (
-          <>
-            {<IconWrapper>{<VscLoading />}</IconWrapper>}
-            <span>Loading...</span>
-          </>
-        ) : (
-          <>
-            {leftIcon && <IconWrapper>{leftIcon}</IconWrapper>}
-            {<span>{children}</span>}
-            {rightIcon && <IconWrapper>{rightIcon}</IconWrapper>}
-          </>
-        )}
-        {label && <LabelDiv>{label}</LabelDiv>}
-      </ButtonContent>
-    )
+  return (
+    <TooltipWrapper $fullWidth={fullWidth}>
+      {tooltip && (
+        <TooltipDiv $placement={tooltipPlacement}>
+          {tooltip}
+        </TooltipDiv>
+      )}
 
-    return (
       <BaseButtonContainer
         as={Component}
         href={href}
@@ -71,5 +85,6 @@ export const BaseButton = forwardRef<HTMLButtonElement | HTMLAnchorElement, Base
       >
         {content}
       </BaseButtonContainer>
-    )
-  })
+    </TooltipWrapper>
+  );
+});

@@ -1,54 +1,101 @@
 'use client'
 
 import { MButton } from '@/components/ui/MaskedButton/MaskedButton'
-import { useHeaderScroll } from '@/hooks/useHeaderScroll'
 import { GradientTextH2 } from '@/styles/globalStyles'
-import { FaGithub } from 'react-icons/fa'
-import { RiDownload2Line } from "react-icons/ri"
-import { HeaderContainer, HeaderContent, HeaderHero, HeroNav, InfoDiv, LogoDiv, NavDiv } from './HeaderStyles'
+import { MAnimation } from '@/styles/MaskedAnimations/MAnimation'
+import { useEffect, useState } from 'react'
+import { FaGithub } from 'react-icons/fa6'
+import { RiDownload2Line } from 'react-icons/ri'
+import { HeaderContainer, HeaderContent, HeaderHero, InfoDiv, LogoDiv, NavDiv } from './HeaderStyles'
 
-const Header = () => {
-  const scrolled = useHeaderScroll(125)
+export default function Header() {
+  const [onTop, setOnTop] = useState(true)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY
+      setOnTop(scrollY === 0)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+
+  }, [])
 
   return (
-    <HeaderContainer $scrolled={scrolled}>
+    <HeaderContainer $active={onTop}>
       <HeaderContent>
 
-        <HeaderHero $scrolled={scrolled} className='container'>
-          <LogoDiv >
-            <GradientTextH2>Masked Components</GradientTextH2>
-          </LogoDiv>
-          <InfoDiv >
-            <p>
-              A complete library of polymorphic components for React. Intelligent inputs, interactive buttons, and adaptive cards with modern design and a simplified API.
-            </p>
-          </InfoDiv>
-          <NavDiv >
-            <MButton variant='default' href='#install' leftIcon={<RiDownload2Line />} className='shineButton'>
-              Install
-            </MButton>
-            <MButton variant='default' leftIcon={<FaGithub />} href='https://github.com/RNT13/masked-components-cli'>
-              See on GitHub
-            </MButton>
-          </NavDiv>
-        </HeaderHero>
+        <MAnimation trigger='controlled' variant='fadeInUp' isOn={onTop}>
+          <HeaderHero className="container" $active={onTop}>
+            <LogoDiv>
+              <GradientTextH2>{onTop ? 'Masked Components' : 'MC'}</GradientTextH2>
+            </LogoDiv>
 
-        <HeroNav $scrolled={scrolled} $isOpen={scrolled} className='container'>
-          <LogoDiv >
-            <GradientTextH2>MC</GradientTextH2>
-          </LogoDiv>
-          <NavDiv >
-            <MButton variant='link' href='#install' className='shineButton' leftIcon={<RiDownload2Line />}>
-              Install
-            </MButton>
+            <InfoDiv>
+              {onTop && (
+                <p>
+                  A complete library of polymorphic components for React. Intelligent inputs, interactive buttons, and adaptive cards with modern design and a simplified API.
+                </p>
+              )}
+            </InfoDiv>
 
-            <MButton variant="ghost" size='sm' label="See on GitHub" href='https://github.com/RNT13/masked-components-cli' leftIcon={<FaGithub />} >Go to GitHub</MButton>
-          </NavDiv>
-        </HeroNav>
+            <NavDiv>
+              {onTop ? (
+                <>
+                  <MButton
+                    variant="default"
+                    href="#install"
+                    size='md'
+                    tooltip='Install'
+                    leftIcon={<RiDownload2Line />}
+                    className="shineButton"
+                  >
+                    Install
+                  </MButton>
+
+                  <MButton
+                    variant="default"
+                    tooltip="See on GitHub"
+                    size='md'
+                    leftIcon={<FaGithub />}
+                    href="https://github.com/RNT13/masked-components-cli"
+                  >
+                    Go to GitHub
+                  </MButton>
+                </>
+              ) : (
+                <>
+                  <MButton
+                    variant="link"
+                    href="#install"
+                    size='md'
+                    tooltip='Install'
+                    leftIcon={<RiDownload2Line />}
+                    className="shineButton"
+                  >
+                    Install
+                  </MButton>
+
+                  <MButton
+                    variant="link"
+                    tooltip="See on GitHub"
+                    size='md'
+                    leftIcon={<FaGithub />}
+                    href="https://github.com/RNT13/masked-components-cli"
+                  >
+                    Go to GitHub
+                  </MButton>
+                </>
+              )}
+            </NavDiv>
+          </HeaderHero>
+        </MAnimation>
 
       </HeaderContent>
-    </HeaderContainer>
+    </HeaderContainer >
   )
 }
-
-export default Header

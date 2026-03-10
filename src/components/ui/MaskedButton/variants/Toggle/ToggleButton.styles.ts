@@ -1,4 +1,5 @@
-import { transitions } from '@/styles/animations'
+import { transitions } from '@/styles/MaskedAnimations/animations/transitions'
+import { maskedTheme } from '@/styles/MaskedThemes/MaskedThemes'
 import { css, styled } from 'styled-components'
 import { BaseButtonContainer } from '../../Base/BaseButton.styles'
 
@@ -7,20 +8,20 @@ type props = {
 }
 
 const activeStyles = css`
-  color: ${({ theme }) => theme.colors.baseBlue.light20};
-  background-color: ${({ theme }) => theme.colors.baseBlue.dark02};
-  border: 2px solid ${({ theme }) => theme.colors.baseBlue.light20};
+  color: ${maskedTheme.colors.baseBlue.light20};
+  background-color: ${maskedTheme.colors.baseBlue.dark02};
+  border: 2px solid ${maskedTheme.colors.baseBlue.light20};
 
-  box-shadow: 0px 0px 10px 1px ${({ theme }) => theme.colors.baseBlue.base};
+  box-shadow: 0px 0px 10px 1px ${maskedTheme.colors.baseBlue.base};
 
   svg {
     color: inherit;
   }
 
   &:hover {
-    color: ${({ theme }) => theme.colors.baseBlue.dark20};
-    background-color: ${({ theme }) => theme.colors.baseBlue.light08};
-    border-color: ${({ theme }) => theme.colors.baseBlue.dark08};
+    color: ${maskedTheme.colors.baseBlue.dark20};
+    background-color: ${maskedTheme.colors.baseBlue.light08};
+    border-color: ${maskedTheme.colors.baseBlue.dark08};
   }
 `
 
@@ -33,8 +34,8 @@ export const ToggleWrapper = styled.div`
 `
 
 export const ToggleButtonContainer = styled(BaseButtonContainer)<props>`
-  background-color: ${({ theme, $isActive }) => ($isActive ? theme.colors.baseBlue.light30 : theme.colors.baseBlack.light20)};
-  border: 2px solid ${({ theme, $isActive }) => ($isActive ? theme.colors.baseBlue.base : theme.colors.baseBlack.base)};
+  background-color: ${({ $isActive }) => ($isActive ? maskedTheme.colors.baseBlue.light30 : maskedTheme.colors.baseBlack.light20)};
+  border: 2px solid ${({ $isActive }) => ($isActive ? maskedTheme.colors.baseBlue.base : maskedTheme.colors.baseBlack.base)};
   width: 44px;
   height: 24px;
   border-radius: 999px;
@@ -52,14 +53,14 @@ export const ToggleButtonContainer = styled(BaseButtonContainer)<props>`
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background-color: ${({ theme, $isActive }) => ($isActive ? theme.colors.baseBlue.light20 : theme.colors.baseBlack.base)};
+    background-color: ${({ $isActive }) => ($isActive ? maskedTheme.colors.baseBlue.light20 : maskedTheme.colors.baseBlack.base)};
 
     ${transitions.slow}
   }
 
   &:hover:not(:disabled) {
     transform: scale(1.05);
-    background-color: ${({ theme, $isActive }) => ($isActive ? theme.colors.baseBlue.light04 : theme.colors.baseBlack.light20)};
+    background-color: ${({ $isActive }) => ($isActive ? maskedTheme.colors.baseBlue.light04 : maskedTheme.colors.baseBlack.light20)};
   }
 
   &:active:not(:disabled) {

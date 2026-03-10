@@ -1,11 +1,11 @@
 
 'use client'
 
+import { maskedTheme } from '@/styles/MaskedThemes/MaskedThemes'
 // ⏳ LOADING PÚBLICO - Componente de loading para páginas públicas
 // ⚠️ ARQUIVO DELETÁVEL - Pode ser removido ao criar seu próprio loading
 
 import styled, { keyframes } from 'styled-components'
-import { theme } from '@/styles/theme'
 
 const spin = keyframes`
   0% { transform: rotate(0deg); }
@@ -20,8 +20,8 @@ const LoadingContainer = styled.div`
 `
 
 const Spinner = styled.div`
-  border: 4px solid ${theme.colors.gray2};
-  border-top: 4px solid ${theme.colors.blue2};
+  border: 4px solid ${maskedTheme.colors.baseBlack.base};
+  border-top: 4px solid ${maskedTheme.colors.baseBlue.base};
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -35,4 +35,3 @@ export default function Loading() {
     </LoadingContainer>
   )
 }
-        

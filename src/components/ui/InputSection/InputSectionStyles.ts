@@ -1,36 +1,43 @@
-import { media } from '@/styles/theme'
+import { maskedTheme, media } from '@/styles/MaskedThemes/MaskedThemes'
 import { styled } from 'styled-components'
 
 export const InputSectionContainer = styled.div``
 
 export const InputSectionContent = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: ${maskedTheme.spacing.lg};
 `
 
-export const RowContainer = styled.div`
+export const InputContainer = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: row;
-  gap: 24px;
+  gap: ${maskedTheme.spacing.lg};
 
   ${media.tablet} {
     flex-direction: column;
-    gap: 24px;
   }
+`
 
-  ${media.mobile} {
-    flex-direction: column;
-    gap: 12px;
+export const InputColumn = styled.div`
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: ${maskedTheme.spacing.lg};
+
+  ${media.tablet} {
+    width: 100%;
   }
 `
 
 export const InputDiv = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: ${maskedTheme.spacing.sm};
 `
 
 export const InfoDiv = styled.div`
@@ -38,19 +45,19 @@ export const InfoDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
-  border-radius: 16px;
-  background-color: ${({ theme }) => theme.colors.baseBlue.light02};
-  padding: 12px;
-  border: 1px solid ${({ theme }) => theme.colors.baseBlue.light20};
+  gap: ${maskedTheme.spacing.sm};
+  border-radius: ${maskedTheme.radius.md};
+  padding: ${maskedTheme.spacing.sm};
+  background-color: ${maskedTheme.colors.baseBlue.light02};
+  border: 1px solid ${maskedTheme.colors.baseBlue.light20};
 
   p {
     width: 100%;
-    font-size: 12px;
-    color: ${({ theme }) => theme.colors.baseBlue.light30};
+    font-size: ${maskedTheme.fontSize.md};
+    color: ${maskedTheme.colors.baseBlue.light30};
   }
 
   svg {
-    font-size: 38px;
+    font-size: ${maskedTheme.fontSize['2xl']};
   }
 `
