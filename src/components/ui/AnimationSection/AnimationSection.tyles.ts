@@ -1,4 +1,4 @@
-import { maskedTheme, neonTheme } from '@/styles/MaskedThemes/MaskedThemes'
+import { maskedTheme, media, neonTheme } from '@/styles/MaskedThemes/MaskedThemes'
 import styled from 'styled-components'
 
 export const AnimationSectionContainer = styled.div`
@@ -29,6 +29,10 @@ export const AnimationDiv = styled.div`
   grid-template-columns: ${maskedTheme.grid.compact};
   align-items: center;
   gap: ${maskedTheme.spacing.md};
+
+  ${media.tablet} {
+    grid-template-columns: ${maskedTheme.grid.two};
+  }
 `
 
 export const AnimationCard = styled.div`
@@ -56,16 +60,18 @@ export const AnimationCard = styled.div`
     background: ${maskedTheme.colors.baseBlue.light08};
 
     box-shadow: 0px 0px 10px 1px ${neonTheme.colors.neonBlue.base};
+
+    svg {
+      color: ${neonTheme.colors.neonBlue.base};
+    }
   }
 `
 
 export const AnimationDropDown = styled.div`
-  width: 100%;
-  height: 100%;
-
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   padding: ${maskedTheme.spacing.md};
   gap: ${maskedTheme.spacing.md};
@@ -83,8 +89,6 @@ export const AnimationDropDown = styled.div`
   }
 `
 export const Window = styled.div`
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;

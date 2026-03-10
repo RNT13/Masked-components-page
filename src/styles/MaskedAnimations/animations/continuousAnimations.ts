@@ -14,7 +14,8 @@ import {
   shakeX,
   shimmer,
   shineLoop,
-  spin
+  spin,
+  starFlash
 } from './keyframes'
 import { overlayBase } from './transitions'
 
@@ -196,16 +197,22 @@ export const continuousAnimations = {
       background: conic-gradient(
         from var(--gold-angle),
         transparent 0deg,
-        transparent 280deg,
+        transparent 270deg,
 
-        rgba(255, 215, 0, 0.2) 295deg,
+        rgba(255, 215, 0, 0.15) 285deg,
+        rgba(255, 215, 0, 0.6) 295deg,
 
-        #ffd700 305deg,
+        #ffd700 302deg,
+
+        #ffffff 308deg,
         #ffffff 312deg,
-        #ffffff 318deg,
-        #ffd700 325deg,
+        #ffffff 316deg,
 
+        #ffd700 322deg,
+
+        rgba(255, 215, 0, 0.7) 330deg,
         rgba(255, 215, 0, 0.25) 340deg,
+
         transparent 360deg
       );
 
@@ -223,7 +230,38 @@ export const continuousAnimations = {
 
       pointer-events: none;
 
-      filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.8)) drop-shadow(0 0 18px rgba(255, 215, 0, 0.5)) drop-shadow(0 0 30px rgba(255, 215, 0, 0.25));
+      filter: drop-shadow(0 0 8px rgba(255, 215, 0, 1)) drop-shadow(0 0 24px rgba(255, 215, 0, 0.9)) drop-shadow(0 0 60px rgba(255, 215, 0, 0.6));
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+
+      width: 18px;
+      height: 18px;
+
+      top: 0;
+      right: 0;
+
+      transform: translate(50%, -50%);
+      pointer-events: none;
+
+      background:
+        radial-gradient(circle, #ffffff 0%, #ffd700 40%, transparent 70%), linear-gradient(#ffffff, #ffffff), linear-gradient(#ffffff, #ffffff);
+
+      background-size:
+        100% 100%,
+        2px 18px,
+        18px 2px;
+
+      background-position: center;
+      background-repeat: no-repeat;
+
+      filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.9)) drop-shadow(0 0 12px rgba(255, 215, 0, 0.6));
+
+      opacity: 0;
+
+      animation: ${starFlash} 6s linear infinite;
     }
   `,
 

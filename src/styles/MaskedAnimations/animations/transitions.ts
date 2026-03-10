@@ -32,6 +32,12 @@ export const transitions = {
       color 0.5s ease,
       box-shadow 0.5s ease;
   `,
+  drawer: css`
+    transition:
+      max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.5s ease,
+      transform 0.5s ease;
+  `,
   delay: css`
     transition:
       opacity 0.2s ease,

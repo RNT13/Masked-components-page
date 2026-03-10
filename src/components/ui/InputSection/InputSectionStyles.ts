@@ -11,18 +11,26 @@ export const InputSectionContent = styled.div`
   gap: ${maskedTheme.spacing.lg};
 `
 
-export const RowContainer = styled.div`
+export const InputContainer = styled.div`
+  width: 100%;
   display: flex;
   gap: ${maskedTheme.spacing.lg};
 
   ${media.tablet} {
     flex-direction: column;
-    gap: ${maskedTheme.spacing.md};
   }
+`
 
-  ${media.mobile} {
-    flex-direction: column;
-    gap: ${maskedTheme.spacing.sm};
+export const InputColumn = styled.div`
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: ${maskedTheme.spacing.lg};
+
+  ${media.tablet} {
+    width: 100%;
   }
 `
 

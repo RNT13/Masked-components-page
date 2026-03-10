@@ -3,65 +3,72 @@ import { transitions } from './transitions'
 
 export const controlledAnimations = {
   fadeInOut: css<{ $isOn?: boolean }>`
+    max-height: ${({ $isOn }) => ($isOn ? '600px' : '0')};
     opacity: ${({ $isOn }) => ($isOn ? 1 : 0)};
     pointer-events: ${({ $isOn }) => ($isOn ? 'auto' : 'none')};
-    ${transitions.fast}
+    ${transitions.drawer}
   `,
 
   slideFromLeft: css<{ $isOn?: boolean }>`
+    max-height: ${({ $isOn }) => ($isOn ? '600px' : '0')};
     transform: ${({ $isOn }) => ($isOn ? 'translateX(0)' : 'translateX(-16px)')};
     opacity: ${({ $isOn }) => ($isOn ? 1 : 0)};
-    ${transitions.default}
+    ${transitions.drawer}
   `,
 
   slideFromRight: css<{ $isOn?: boolean }>`
+    max-height: ${({ $isOn }) => ($isOn ? '600px' : '0')};
     transform: ${({ $isOn }) => ($isOn ? 'translateX(0)' : 'translateX(16px)')};
     opacity: ${({ $isOn }) => ($isOn ? 1 : 0)};
-    ${transitions.default}
+    ${transitions.drawer}
   `,
 
   slideFromTop: css<{ $isOn?: boolean }>`
+    max-height: ${({ $isOn }) => ($isOn ? '600px' : '0')};
     transform: ${({ $isOn }) => ($isOn ? 'translateY(0)' : 'translateY(-16px)')};
     opacity: ${({ $isOn }) => ($isOn ? 1 : 0)};
-    ${transitions.fast}
+    ${transitions.drawer}
   `,
 
   slideFromBottom: css<{ $isOn?: boolean }>`
+    max-height: ${({ $isOn }) => ($isOn ? '600px' : '0')};
     transform: ${({ $isOn }) => ($isOn ? 'translateY(0)' : 'translateY(16px)')};
     opacity: ${({ $isOn }) => ($isOn ? 1 : 0)};
-    ${transitions.default}
+    ${transitions.drawer}
   `,
 
   zoomInOut: css<{ $isOn?: boolean }>`
+    max-height: ${({ $isOn }) => ($isOn ? '600px' : '0')};
     transform: ${({ $isOn }) => ($isOn ? 'scale(1)' : 'scale(0.95)')};
     opacity: ${({ $isOn }) => ($isOn ? 1 : 0)};
-    ${transitions.fast}
+    ${transitions.drawer}
   `,
 
   drawer: css<{ $isOn?: boolean }>`
     overflow: hidden;
-    transform-origin: top;
-
-    transform: ${({ $isOn }) => ($isOn ? 'scaleY(1)' : 'scaleY(0)')};
+    max-height: ${({ $isOn }) => ($isOn ? '600px' : '0')};
     opacity: ${({ $isOn }) => ($isOn ? 1 : 0)};
+    transform: ${({ $isOn }) => ($isOn ? 'translateY(0)' : 'translateY(-6px)')};
 
-    transition:
-      transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-      opacity 0.25s ease;
+    ${transitions.drawer}
 
     pointer-events: ${({ $isOn }) => ($isOn ? 'auto' : 'none')};
   `,
 
   colapse: css<{ $isOn?: boolean }>`
+    max-height: ${({ $isOn }) => ($isOn ? '600px' : '0')};
     transform: ${({ $isOn }) => ($isOn ? 'scaleY(1)' : 'scaleY(0)')};
     opacity: ${({ $isOn }) => ($isOn ? 1 : 0)};
-    ${transitions.default}
+
+    ${transitions.drawer}
   `,
 
   hideLeft: css<{ $isOn?: boolean }>`
+    max-height: ${({ $isOn }) => ($isOn ? '600px' : '0')};
     transform: ${({ $isOn }) => ($isOn ? 'translateX(0)' : 'translateX(-50%) scale(0.5)')};
     opacity: ${({ $isOn }) => ($isOn ? 1 : 0)};
-    ${transitions.fast}
+
+    ${transitions.drawer}
 
     &::after {
       content: '';

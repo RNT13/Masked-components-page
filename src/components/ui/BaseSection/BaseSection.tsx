@@ -5,7 +5,7 @@ import { MAnimation } from '@/styles/MaskedAnimations/MAnimation'
 import { useState } from 'react'
 import { FaCheck, FaRegCopy } from 'react-icons/fa'
 import { MButton } from '../MaskedButton/MaskedButton'
-import { SectionContainer, SectionContent, SectionDiv, SectionDivBody, SectionDivHeader } from './BaseSection.styles'
+import { BaseSectionChildren, SectionContainer, SectionContent, SectionDiv, SectionDivBody, SectionDivHeader } from './BaseSection.styles'
 
 type Props = {
   id?: string
@@ -63,19 +63,19 @@ export default function BaseSection({ title, id, children, icon, fileType, descr
 
               <SectionDivBody>
                 {content1 && content2 && content3 ? (
-                  <>
-                    <p>{content1}</p>
-                    <p># or</p>
-                    <p>{content2}</p>
-                    <p># or</p>
-                    <p>{content3}</p>
-                  </>
+                  <pre>
+                    <code>{content1}</code>
+                    <code># or</code>
+                    <code>{content2}</code>
+                    <code># or</code>
+                    <code>{content3}</code>
+                  </pre>
                 ) : content1 && content2 ? (
-                  <>
-                    <p>{content1}</p>
-                    <p># or</p>
-                    <p>{content2}</p>
-                  </>
+                  <pre>
+                    <code>{content1}</code>
+                    <code># or</code>
+                    <code>{content2}</code>
+                  </pre>
                 ) : (
                   <pre>
                     <code>{content1 || content2 || content3}</code>
@@ -85,9 +85,11 @@ export default function BaseSection({ title, id, children, icon, fileType, descr
             </SectionDiv>
           </MAnimation>
         ) : (
-          <>
-            <div>{children}</div>
-          </>
+          <BaseSectionChildren>
+            <>
+              {children}
+            </>
+          </BaseSectionChildren>
         )}
       </SectionContent>
     </SectionContainer>
