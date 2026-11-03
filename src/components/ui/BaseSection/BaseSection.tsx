@@ -1,10 +1,10 @@
 'use client'
 
 import { MinorTextH4, TitleH2 } from '@/styles/globalStyles'
-import { MAnimation } from '@/styles/MaskedAnimations/MAnimation'
+import { MaskedAnimation } from '@/styles/MaskedAnimations/MaskedAnimation'
 import { useState } from 'react'
 import { FaCheck, FaRegCopy } from 'react-icons/fa'
-import { MButton } from '../MaskedButton/MaskedButton'
+import { MaskedButton } from '../MaskedButton/MaskedButton'
 import { BaseSectionChildren, SectionContainer, SectionContent, SectionDiv, SectionDivBody, SectionDivHeader } from './BaseSection.styles'
 
 type Props = {
@@ -37,27 +37,27 @@ export default function BaseSection({ title, id, children, icon, fileType, descr
   return (
     <SectionContainer id={id}>
       <SectionContent>
-        <MAnimation trigger='scroll' variant='magneticRise' >
+        <MaskedAnimation trigger='scroll' variant='revealFadeInUp' >
           <TitleH2>
             {icon}
             {title}
           </TitleH2>
-        </MAnimation>
+        </MaskedAnimation>
 
-        <MAnimation trigger='scroll' variant='fadeInLeft'>
+        <MaskedAnimation trigger='scroll' variant='revealFadeInLeft'>
           <MinorTextH4>{description}</MinorTextH4>
-        </MAnimation>
+        </MaskedAnimation>
 
         {fileType ? (
-          <MAnimation trigger='scroll' variant='fadeInLeft'>
+          <MaskedAnimation trigger='scroll' variant='revealFadeInLeft'>
             <SectionDiv>
               {header && (
                 <SectionDivHeader>
                   <p>{fileType}</p>
 
-                  <MButton variant="ghost" size="sm" leftIcon={copied ? <FaCheck /> : <FaRegCopy />} onClick={handleCopy}>
+                  <MaskedButton variant="ghost" size="sm" leftIcon={copied ? <FaCheck /> : <FaRegCopy />} onClick={handleCopy}>
                     {copied ? 'Copied' : 'Copy'}
-                  </MButton>
+                  </MaskedButton>
                 </SectionDivHeader>
               )}
 
@@ -83,7 +83,7 @@ export default function BaseSection({ title, id, children, icon, fileType, descr
                 )}
               </SectionDivBody>
             </SectionDiv>
-          </MAnimation>
+          </MaskedAnimation>
         ) : (
           <BaseSectionChildren>
             <>

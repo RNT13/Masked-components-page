@@ -1,4 +1,4 @@
-import { maskedTheme, neonTheme } from '@/styles/MaskedThemes/MaskedThemes'
+import { accentTheme, maskedTheme } from '@/styles/MaskedThemes/MaskedThemes'
 import { styled } from 'styled-components'
 
 export const SectionContainer = styled.section`
@@ -20,11 +20,11 @@ export const SectionDiv = styled.div`
   background-image: linear-gradient(360deg, ${maskedTheme.colors.baseBlue.light02}, ${maskedTheme.colors.baseBlack.light08});
   border: 2px solid ${maskedTheme.colors.baseBlue.light02};
   border-radius: ${maskedTheme.radius.md};
-  box-shadow: 3px 3px 8px 0px ${neonTheme.colors.neonBlue.base};
+  box-shadow: 3px 3px 8px 0px ${accentTheme.colors.accentBlue?.base ?? maskedTheme.colors.baseBlue.light02};
 
   &:hover {
-    box-shadow: 5px 5px 15px 0px ${neonTheme.colors.neonBlue.base};
-    border-color: ${neonTheme.colors.neonBlue.base};
+    box-shadow: 5px 5px 15px 0px ${accentTheme.colors.accentBlue?.base ?? maskedTheme.colors.baseBlue.light02};
+    border-color: ${accentTheme.colors.accentBlue?.base ?? maskedTheme.colors.baseBlue.light02};
   }
 `
 

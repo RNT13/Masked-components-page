@@ -3,7 +3,11 @@
 // 🎨 GLOBAL STYLES - Estilos globais com Styled Components
 
 import styled, { createGlobalStyle } from 'styled-components'
-import { maskedTheme, media, neonTheme } from './MaskedThemes/MaskedThemes'
+import { accentTheme, maskedTheme, media } from './MaskedThemes/MaskedThemes'
+
+// Atalhos locais para as cores accent (Partial no DefaultTheme)
+const accentBlue = accentTheme.colors.accentBlue?.base ?? '#00E5FF'
+const accentPink = accentTheme.colors.accentPink?.base ?? '#FF2DAA'
 
 export const GlobalStyles = createGlobalStyle`
   * {
@@ -28,7 +32,7 @@ export const GlobalStyles = createGlobalStyle`
     margin: 0 auto;
     width: 100%;
 
-    ${media.pc}{
+    ${media.desktop}{
       width: 95%;
     }
 
@@ -125,7 +129,7 @@ export const MinorTextH4 = styled.h3`
 export const GradientTextH2 = styled.h2`
   font-size: 2rem;
   font-weight: 700;
-  background: linear-gradient(360deg, ${neonTheme.colors.neonBlue.base}, ${maskedTheme.colors.baseBlue.base});
+  background: linear-gradient(360deg, ${accentBlue}, ${maskedTheme.colors.baseBlue.base});
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -137,13 +141,13 @@ export const GradientSpan = styled.span`
   color: ${maskedTheme.colors.baseBlue.base};
   font-size: 1.8rem;
   font-weight: 700;
-  background: linear-gradient(135deg, ${neonTheme.colors.neonPink.base}, ${neonTheme.colors.neonBlue.base});
+  background: linear-gradient(135deg, ${accentPink}, ${accentBlue});
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 
   &:hover {
-    background: linear-gradient(360deg, ${neonTheme.colors.neonBlue.base}, ${neonTheme.colors.neonPink.base});
+    background: linear-gradient(360deg, ${accentBlue}, ${accentPink});
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -164,5 +168,3 @@ export const Dot = styled.span.attrs({ 'aria-hidden': true })`
   background: ${maskedTheme.colors.baseBlue.base};
   margin: 0 2px;
 `
-
-

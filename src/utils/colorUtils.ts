@@ -1,6 +1,3 @@
-
-// 🎨 COLOR UTILS - Utilitários para geração de variantes de cores HSL
-
 export type ColorVariants = {
   base: string
   light: string
@@ -19,7 +16,7 @@ export type ColorVariants = {
   dark30: string
   dark40: string
   dark50: string
-  }
+}
 
 export function colorHSLVariants(h: number, s: number, l: number): ColorVariants {
   const clamp = (val: number) => Math.min(100, Math.max(0, val))
@@ -43,4 +40,3 @@ export function colorHSLVariants(h: number, s: number, l: number): ColorVariants
     dark50: `hsl(${h}, ${s}%, ${clamp(l - 50)}%)`
   }
 }
-    

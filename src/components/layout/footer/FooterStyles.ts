@@ -31,9 +31,9 @@ export const FooterContainer = styled.footer`
   }
 
   .shineButton {
-    ${continuousAnimations.bounce}
+    ${continuousAnimations.continuousBounce}
     &:hover {
-      ${continuousAnimations.shineInfinite}
+      ${continuousAnimations.continuousShine}
     }
   }
 `
@@ -45,7 +45,7 @@ export const ButtonDiv = styled.div`
   transform: translateX(-50%);
 
   button {
-    ${continuousAnimations.InfinityGlowDiagonal}
+    ${continuousAnimations.continuousGlowDiagonal}
   }
 `
 

@@ -1,11 +1,11 @@
-import { MAnimation } from '@/styles/MaskedAnimations/MAnimation'
+import { MaskedAnimation } from '@/styles/MaskedAnimations/MaskedAnimation'
 import { useState } from 'react'
 import { BsStars } from 'react-icons/bs'
 import { FaCheckCircle, FaCode } from 'react-icons/fa'
 import { MdOutlineInput } from "react-icons/md"
 import BaseDiv from '../BaseDiv/BaseDiv'
 import BaseSection from '../BaseSection/BaseSection'
-import { MInput } from '../MaskedInput/MaskedInput'
+import { MaskedInput } from '../MaskedInput/MaskedInput'
 import { InfoDiv, InputColumn, InputContainer, InputDiv, InputSectionContainer, InputSectionContent } from './InputSectionStyles'
 
 export default function InputSection() {
@@ -36,14 +36,14 @@ export default function InputSection() {
           fileType="tsx"
           description="Simple example of using MaskedInput."
           content1={`
-        import { MInput } from
+        import { MaskedInput  } from
         '../MaskedInput/MaskedInput'
 
         function MyForm() {
           const [value, setValue] = useState('')
 
           return (
-            <MInput
+            <MaskedInput
               radius={4}
               variant="masked"
               label="Phone number"
@@ -65,16 +65,16 @@ export default function InputSection() {
         >
 
 
-          <MAnimation trigger='scroll' variant='fadeInLeft'>
+          <MaskedAnimation trigger='scroll' variant='revealSlideImpactRight'>
 
             <BaseDiv direction="column">
 
               <InputContainer>
 
                 <InputColumn>
-                  <MAnimation trigger='scroll' variant='slideBounceRight'>
+                  <MaskedAnimation trigger='scroll' variant='revealSlideImpactRight'>
                     <InputDiv>
-                      <MInput
+                      <MaskedInput
                         variant="default"
                         placeholder="Type here"
                         icon={<BsStars />}
@@ -84,11 +84,11 @@ export default function InputSection() {
                       />
                       Value: {inputDefaultValue}
                     </InputDiv>
-                  </MAnimation>
+                  </MaskedAnimation>
 
-                  <MAnimation trigger='scroll' variant='slideBounceRight'>
+                  <MaskedAnimation trigger='scroll' variant='revealSlideImpactRight'>
                     <InputDiv>
-                      <MInput
+                      <MaskedInput
                         variant="textarea"
                         label="Input textarea"
                         icon={<BsStars />}
@@ -98,11 +98,11 @@ export default function InputSection() {
                       />
                       Value: {inputTextareaValue.length > 30 ? inputTextareaValue.slice(0, 30) + '...' : inputTextareaValue}
                     </InputDiv>
-                  </MAnimation>
+                  </MaskedAnimation>
 
-                  <MAnimation trigger='scroll' variant='slideBounceRight'>
+                  <MaskedAnimation trigger='scroll' variant='revealSlideImpactRight'>
                     <InputDiv>
-                      <MInput
+                      <MaskedInput
                         variant="masked"
                         label="Input masked"
                         icon={<BsStars />}
@@ -113,11 +113,11 @@ export default function InputSection() {
                       />
                       Value: {phoneValue}
                     </InputDiv>
-                  </MAnimation>
+                  </MaskedAnimation>
 
-                  <MAnimation trigger='scroll' variant='slideBounceRight'>
+                  <MaskedAnimation trigger='scroll' variant='revealSlideImpactRight'>
                     <InputDiv>
-                      <MInput
+                      <MaskedInput
                         variant="password"
                         label="Input password"
                         icon={<BsStars />}
@@ -127,15 +127,15 @@ export default function InputSection() {
                       />
                       Value: {inputPasswordValue}
                     </InputDiv>
-                  </MAnimation>
+                  </MaskedAnimation>
 
                 </InputColumn>
 
                 <InputColumn>
 
-                  <MAnimation trigger='scroll' variant='slideBounceLeft'>
+                  <MaskedAnimation trigger='scroll' variant='controlledSlideFromLeft'>
                     <InputDiv>
-                      <MInput
+                      <MaskedInput
                         variant="select"
                         label="Input select"
                         icon={<BsStars />}
@@ -149,17 +149,17 @@ export default function InputSection() {
                       />
                       Value: {optionValue}
                     </InputDiv>
-                  </MAnimation>
+                  </MaskedAnimation>
 
-                  <MAnimation trigger='scroll' variant='slideBounceLeft'>
+                  <MaskedAnimation trigger='scroll' variant='controlledSlideFromLeft'>
                     <InputDiv>
-                      <MInput label="Input file" icon={<BsStars />} variant="file" fileMode="cloudinary" multiple />
+                      <MaskedInput label="Input file" icon={<BsStars />} variant="file" fileMode="cloudinary" multiple />
                     </InputDiv>
-                  </MAnimation>
+                  </MaskedAnimation>
 
-                  <MAnimation trigger='scroll' variant='slideBounceLeft'>
+                  <MaskedAnimation trigger='scroll' variant='controlledSlideFromLeft'>
                     <InputDiv>
-                      <MInput
+                      <MaskedInput
                         variant="search"
                         label="Input search"
                         icon={<BsStars />}
@@ -169,11 +169,11 @@ export default function InputSection() {
                       />
                       Value: {searchValue}
                     </InputDiv>
-                  </MAnimation>
+                  </MaskedAnimation>
 
-                  <MAnimation trigger='scroll' variant='slideBounceLeft'>
+                  <MaskedAnimation trigger='scroll' variant='controlledSlideFromLeft'>
                     <InputDiv>
-                      <MInput
+                      <MaskedInput
                         variant="currency"
                         label="Input currency"
                         icon={<BsStars />}
@@ -183,23 +183,23 @@ export default function InputSection() {
                       />
                       Value: {currencyValue}
                     </InputDiv>
-                  </MAnimation>
+                  </MaskedAnimation>
 
                 </InputColumn>
 
 
               </InputContainer>
 
-              <MAnimation trigger='scroll' variant='slideImpactUp'>
+              <MaskedAnimation trigger='scroll' variant='revealSlideImpactUp'>
                 <InfoDiv>
                   <FaCheckCircle />
                   <p>All masks are applied automatically as you type. Numbers are accepted and formatted in real-time.</p>
                 </InfoDiv>
-              </MAnimation>
+              </MaskedAnimation>
 
             </BaseDiv>
 
-          </MAnimation>
+          </MaskedAnimation>
 
         </BaseSection>
 
@@ -209,7 +209,7 @@ export default function InputSection() {
           description="Inputs with intelligent masks and automatic formatting in real-time. Type into the fields below to test."
         >
 
-          <MAnimation trigger='scroll' variant='fadeInLeft'>
+          <MaskedAnimation trigger='scroll' variant='controlledSlideFromLeft'>
 
             <BaseDiv direction="column">
 
@@ -217,9 +217,9 @@ export default function InputSection() {
 
 
                 <InputColumn>
-                  <MAnimation trigger='scroll' variant='slideBounceRight'>
+                  <MaskedAnimation trigger='scroll' variant='revealSlideImpactRight'>
                     <InputDiv>
-                      <MInput
+                      <MaskedInput
                         touched={true}
                         error="Some error message"
                         showError
@@ -232,11 +232,11 @@ export default function InputSection() {
                       />
                       Value: {errorInputDefaultValue.length ? errorInputDefaultValue : 'No value'}
                     </InputDiv>
-                  </MAnimation>
+                  </MaskedAnimation>
 
-                  <MAnimation trigger='scroll' variant='slideBounceRight'>
+                  <MaskedAnimation trigger='scroll' variant='revealSlideImpactRight'>
                     <InputDiv>
-                      <MInput
+                      <MaskedInput
                         touched={true}
                         error="Some error message"
                         showError
@@ -249,11 +249,11 @@ export default function InputSection() {
                       />
                       Value: {errorInputTextareaValue.length > 30 ? errorInputTextareaValue.slice(0, 30) + '...' : 'No value'}
                     </InputDiv>
-                  </MAnimation>
+                  </MaskedAnimation>
 
-                  <MAnimation trigger='scroll' variant='slideBounceRight'>
+                  <MaskedAnimation trigger='scroll' variant='revealSlideImpactRight'>
                     <InputDiv>
-                      <MInput
+                      <MaskedInput
                         touched={true}
                         error="Some error message"
                         showError
@@ -267,11 +267,11 @@ export default function InputSection() {
                       />
                       Value: {errorPhoneValue ? errorPhoneValue : 'No value'}
                     </InputDiv>
-                  </MAnimation>
+                  </MaskedAnimation>
 
-                  <MAnimation trigger='scroll' variant='slideBounceRight'>
+                  <MaskedAnimation trigger='scroll' variant='revealSlideImpactRight'>
                     <InputDiv>
-                      <MInput
+                      <MaskedInput
                         touched={true}
                         error="Some error message"
                         showError
@@ -284,14 +284,14 @@ export default function InputSection() {
                       />
                       Value: {errorInputPasswordValue ? errorInputPasswordValue : 'No value'}
                     </InputDiv>
-                  </MAnimation>
+                  </MaskedAnimation>
                 </InputColumn>
 
                 <InputColumn>
 
-                  <MAnimation trigger='scroll' variant='slideBounceLeft'>
+                  <MaskedAnimation trigger='scroll' variant='controlledSlideFromLeft'>
                     <InputDiv>
-                      <MInput
+                      <MaskedInput
                         touched={true}
                         error="Some error message"
                         showError
@@ -308,11 +308,11 @@ export default function InputSection() {
                       />
                       Value: {errorOptionValue ? errorOptionValue : 'No value'}
                     </InputDiv>
-                  </MAnimation>
+                  </MaskedAnimation>
 
-                  <MAnimation trigger='scroll' variant='slideBounceLeft'>
+                  <MaskedAnimation trigger='scroll' variant='controlledSlideFromLeft'>
                     <InputDiv>
-                      <MInput
+                      <MaskedInput
                         touched={true}
                         error="Some error message"
                         showError
@@ -325,11 +325,11 @@ export default function InputSection() {
                       />
                       Value: {errorSearchValue ? errorSearchValue : 'No value'}
                     </InputDiv>
-                  </MAnimation>
+                  </MaskedAnimation>
 
-                  <MAnimation trigger='scroll' variant='slideBounceLeft'>
+                  <MaskedAnimation trigger='scroll' variant='controlledSlideFromLeft'>
                     <InputDiv>
-                      <MInput
+                      <MaskedInput
                         touched={true}
                         error="Some error message"
                         showError
@@ -342,23 +342,23 @@ export default function InputSection() {
                       />
                       Value: {errorCurrencyValue ? errorCurrencyValue : 'No value'}
                     </InputDiv>
-                  </MAnimation>
+                  </MaskedAnimation>
 
                 </InputColumn>
 
 
               </InputContainer>
 
-              <MAnimation trigger='scroll' variant='slideImpactUp'>
+              <MaskedAnimation trigger='scroll' variant='revealSlideImpactUp'>
                 <InfoDiv>
                   <FaCheckCircle />
                   <p>All masks are applied automatically as you type. Numbers are accepted and formatted in real-time.</p>
                 </InfoDiv>
-              </MAnimation>
+              </MaskedAnimation>
 
             </BaseDiv>
 
-          </MAnimation>
+          </MaskedAnimation>
 
         </BaseSection>
 

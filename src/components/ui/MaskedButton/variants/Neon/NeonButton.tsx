@@ -1,10 +1,19 @@
 'use client'
 
 import { ButtonVariantMap } from '../../MaskedButton.types'
-import { NeonButtonContainer } from './NeonButton.styles'
+import { NeonButtonContainer, NeonButtonWrapper } from './NeonButton.styles'
 
-type props = { variant: 'neon' } & ButtonVariantMap['neon']
+type props = { $variant: 'neon' } & ButtonVariantMap['neon']
 
 export default function NeonButton(props: props) {
-  return <NeonButtonContainer $isActive={props.$isActive} $isError={props.state === 'error'} {...props} />
+  return (
+    <NeonButtonWrapper $position={props.$position}>
+      <NeonButtonContainer
+        {...props}
+        data-testid="neon-button"
+        $isError={props.state === 'error'}
+        $isDisabled={props.state === 'disabled'}
+      />
+    </NeonButtonWrapper>
+  )
 }

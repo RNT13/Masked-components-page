@@ -1,16 +1,7 @@
 import { continuousAnimations } from '@/styles/MaskedAnimations/animations/continuousAnimations'
 import { transitions } from '@/styles/MaskedAnimations/animations/transitions'
-import { maskedTheme } from '@/styles/MaskedThemes/MaskedThemes'
 import styled, { css } from 'styled-components'
-import { ButtonShape, ButtonSize, ButtonState, TooltipPlacement } from '../MaskedButton.types'
-
-type TooltipProps = {
-  $placement?: TooltipPlacement
-}
-
-/* =========================
-   SIZE DO BOTÃO
-========================= */
+import { ButtonShape, ButtonSize, ButtonState } from '../MaskedButton.types'
 
 const sizeStyles: Record<ButtonSize, ReturnType<typeof css>> = {
   sm: css`
@@ -27,10 +18,6 @@ const sizeStyles: Record<ButtonSize, ReturnType<typeof css>> = {
   `
 }
 
-/* =========================
-   TAMANHO DO ÍCONE
-========================= */
-
 const iconSizes: Record<ButtonSize, ReturnType<typeof css>> = {
   sm: css`
     width: 16px;
@@ -45,10 +32,6 @@ const iconSizes: Record<ButtonSize, ReturnType<typeof css>> = {
     height: 24px;
   `
 }
-
-/* =========================
-   CIRCLE DINÂMICO
-========================= */
 
 const circleSizes: Record<ButtonSize, ReturnType<typeof css>> = {
   sm: css`
@@ -73,214 +56,86 @@ const getShapeStyles = ($shape?: ButtonShape, $size: ButtonSize = 'md') => {
       display: flex;
       justify-content: center;
       align-items: center;
-
       .btn-text {
         display: none;
       }
     `
   }
-
-  if ($shape === 'square') {
+  if ($shape === 'square')
     return css`
       border-radius: 6px;
     `
-  }
-
   return css`
-    border-radius: 18px;
+    border-radius: var(--mc-btn-radius, 18px);
   `
 }
-
-/* =========================
-   ESTADOS
-========================= */
 
 const stateStyles: Record<ButtonState, ReturnType<typeof css>> = {
   loading: css`
     cursor: not-allowed;
-
     svg {
-      ${continuousAnimations.spin}
-      stroke-width: 2;
+      ${continuousAnimations.continuousSpin} stroke-width: 2;
     }
   `,
   default: css``,
   disabled: css`
     cursor: not-allowed;
-    opacity: 0.5;
+    opacity: var(--mc-btn-disabled-opacity, 1);
   `,
   error: css`
     &:hover {
-      ${continuousAnimations.shakeX}
+      ${continuousAnimations.continuousShakeX}
     }
   `
 }
 
-/* =========================
-   TOOLTIP
-========================= */
-export const TooltipWrapper = styled.span<{ $fullWidth?: boolean }>`
-  position: relative;
-  display: ${({ $fullWidth }) => ($fullWidth ? 'flex' : 'inline-flex')};
-  width: ${({ $fullWidth }) => ($fullWidth ? '100%' : 'auto')};
-`
-
-export const TooltipDiv = styled.div<TooltipProps>`
+export const LabelDiv = styled.div`
   position: absolute;
+  bottom: calc(155% - 5px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
   padding: 8px 12px;
+  background-color: ${({ theme }) => theme.colors.baseBlue.dark};
+  color: white;
   border-radius: 6px;
   font-size: 12px;
   white-space: nowrap;
-
-  background-color: ${maskedTheme.colors.baseBlue.light};
-  color: white;
-
   opacity: 0;
   pointer-events: none;
-
-  transition: all 0.25s ease;
+  z-index: ${({ theme }) => theme.zIndex?.tooltip ?? 700};
   ${transitions.delay}
 
-  &::after {
+  &::before {
     content: '';
     position: absolute;
-    width: 0;
-    height: 0;
-    border-style: solid;
+    top: 87%;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 8px;
+    height: 8px;
+    background-color: ${({ theme }) => theme.colors.baseBlue.dark};
   }
-
-  ${({ $placement }) => {
-    switch ($placement) {
-      case 'bottom':
-        return css`
-          top: calc(100% + 10px);
-          left: 50%;
-          transform: translateX(-50%) translateY(-6px);
-
-          ${TooltipWrapper}:hover & {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-          }
-
-          ${TooltipWrapper}:not(:hover) & {
-            transition-delay: 0s;
-          }
-
-          &::after {
-            top: -5px;
-            left: 50%;
-            transform: translateX(-50%);
-
-            border-width: 0 5px 5px 5px;
-            border-color: transparent transparent ${maskedTheme.colors.baseBlue.light} transparent;
-          }
-        `
-
-      case 'left':
-        return css`
-          right: calc(100% + 10px);
-          top: 50%;
-          transform: translateY(-50%) translateX(6px);
-
-          ${TooltipWrapper}:hover & {
-            opacity: 1;
-            transform: translateY(-50%) translateX(0);
-          }
-
-          ${TooltipWrapper}:not(:hover) & {
-            transition-delay: 0s;
-          }
-
-          &::after {
-            right: -5px;
-            top: 50%;
-            transform: translateY(-50%);
-
-            border-width: 5px 0 5px 5px;
-            border-color: transparent transparent transparent ${maskedTheme.colors.baseBlue.light};
-          }
-        `
-
-      case 'right':
-        return css`
-          left: calc(100% + 10px);
-          top: 50%;
-          transform: translateY(-50%) translateX(-6px);
-
-          ${TooltipWrapper}:hover & {
-            opacity: 1;
-            transform: translateY(-50%) translateX(0);
-          }
-
-          ${TooltipWrapper}:not(:hover) & {
-            transition-delay: 0s;
-          }
-
-          &::after {
-            left: -5px;
-            top: 50%;
-            transform: translateY(-50%);
-
-            border-width: 5px 5px 5px 0;
-            border-color: transparent ${maskedTheme.colors.baseBlue.light} transparent transparent;
-          }
-        `
-
-      default:
-        return css`
-          bottom: calc(100% + 10px);
-          left: 50%;
-          transform: translateX(-50%) translateY(6px);
-
-          ${TooltipWrapper}:hover & {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-          }
-
-          ${TooltipWrapper}:not(:hover) & {
-            transition-delay: 0s;
-          }
-
-          &::after {
-            bottom: -5px;
-            left: 50%;
-            transform: translateX(-50%);
-
-            border-width: 5px 5px 0 5px;
-            border-color: ${maskedTheme.colors.baseBlue.light} transparent transparent transparent;
-          }
-        `
-    }
-  }}
 `
-
-/* =========================
-   CONTENT
-========================= */
 
 export const ButtonContent = styled.span<{ $state: ButtonState }>`
   position: relative;
   display: flex;
   align-items: center;
   gap: 8px;
+  ${({ $state }) =>
+    $state === 'disabled' &&
+    css`
+      opacity: 0.5;
+    `}
 `
-
-/* =========================
-   ICON WRAPPER
-========================= */
 
 export const IconWrapper = styled.span<{ $size?: ButtonSize }>`
   display: flex;
   align-items: center;
-
   svg {
     ${({ $size = 'md' }) => iconSizes[$size]}
   }
 `
-
-/* =========================
-   BOTÃO BASE
-========================= */
 
 export const BaseButtonContainer = styled.button<{
   $size?: ButtonSize
@@ -294,13 +149,28 @@ export const BaseButtonContainer = styled.button<{
   font-weight: 700;
   cursor: pointer;
   position: relative;
+  text-decoration: none;
 
   ${({ $size = 'md' }) => sizeStyles[$size]}
   ${({ $fullWidth }) => $fullWidth && 'width: 100%; justify-content: center;'}
   ${({ $state = 'default' }) => stateStyles[$state]}
   ${({ $shape, $size }) => getShapeStyles($shape, $size)}
 
-    ${transitions.slow}
+  ${transitions.fast}
+
+  &:focus-visible {
+    outline: 2px solid var(--mc-btn-ring-focus, ${({ theme }) => theme.colors.baseBlue.base});
+    outline-offset: 2px;
+  }
+
+  &:hover ${LabelDiv} {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  &:not(:hover) ${LabelDiv} {
+    transition-delay: 0s;
+  }
 
   &:active {
     transform: scale(0.97);

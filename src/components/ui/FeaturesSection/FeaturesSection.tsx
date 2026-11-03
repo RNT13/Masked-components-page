@@ -1,6 +1,6 @@
 
 import { MinorTextH4 } from "@/styles/globalStyles";
-import { MAnimation } from "@/styles/MaskedAnimations/MAnimation";
+import { MaskedAnimation } from "@/styles/MaskedAnimations/MaskedAnimation";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { FaRegStar } from "react-icons/fa6";
 import BaseDiv from "../BaseDiv/BaseDiv";
@@ -18,10 +18,10 @@ export default function FeaturesSection() {
       <FeaturesSectionContainer>
         <FeaturesSectionContent>
 
-          <MAnimation trigger="scroll" variant="fadeInLeft">
+          <MaskedAnimation trigger="scroll" variant="revealFadeInLeft">
             <BaseDiv direction="column" >
 
-              <MAnimation trigger="scroll" variant="slideImpactRight">
+              <MaskedAnimation trigger="scroll" variant="revealSlideImpactRight">
                 <FeaturesDiv >
                   <FaRegCheckCircle className='svgGreen' />
                   <div>
@@ -29,9 +29,9 @@ export default function FeaturesSection() {
                     <MinorTextH4>Full typing and intelligent autocomplete.</MinorTextH4>
                   </div>
                 </FeaturesDiv>
-              </MAnimation>
+              </MaskedAnimation>
 
-              <MAnimation trigger="scroll" variant="slideImpactRight">
+              <MaskedAnimation trigger="scroll" variant="revealSlideImpactRight">
                 <FeaturesDiv>
                   <FaRegCheckCircle className='svgGreen' />
                   <div>
@@ -39,9 +39,9 @@ export default function FeaturesSection() {
                     <MinorTextH4>Components that adapt to any use case with a simple and intuitive API.</MinorTextH4>
                   </div>
                 </FeaturesDiv>
-              </MAnimation>
+              </MaskedAnimation>
 
-              <MAnimation trigger="scroll" variant="slideImpactRight">
+              <MaskedAnimation trigger="scroll" variant="revealSlideImpactRight">
                 <FeaturesDiv>
                   <FaRegCheckCircle className='svgGreen' />
                   <div>
@@ -49,9 +49,9 @@ export default function FeaturesSection() {
                     <MinorTextH4>Contemporary styles with theme support, smooth animations, and accessibility first.</MinorTextH4>
                   </div>
                 </FeaturesDiv>
-              </MAnimation>
+              </MaskedAnimation>
 
-              <MAnimation trigger="scroll" variant="slideImpactRight">
+              <MaskedAnimation trigger="scroll" variant="revealSlideImpactRight">
                 <FeaturesDiv>
                   <FaRegCheckCircle className='svgGreen' />
                   <div>
@@ -59,13 +59,13 @@ export default function FeaturesSection() {
                     <MinorTextH4>Easy to replace CSS classes and styles.</MinorTextH4>
                   </div>
                 </FeaturesDiv>
-              </MAnimation>
+              </MaskedAnimation>
             </BaseDiv>
-          </MAnimation>
+          </MaskedAnimation>
 
-          <MAnimation trigger="scroll" variant="fadeInRight">
+          <MaskedAnimation trigger="scroll" variant="revealFadeInRight">
             <BaseDiv direction="column">
-              <MAnimation trigger="scroll" variant="slideImpactLeft">
+              <MaskedAnimation trigger="scroll" variant="revealSlideImpactLeft">
                 <FeaturesDiv>
                   <FaRegCheckCircle className='svgBlue' />
                   <div>
@@ -73,9 +73,9 @@ export default function FeaturesSection() {
                     <MinorTextH4>Works perfectly on all devices.</MinorTextH4>
                   </div>
                 </FeaturesDiv>
-              </MAnimation>
+              </MaskedAnimation>
 
-              <MAnimation trigger="scroll" variant="slideImpactLeft">
+              <MaskedAnimation trigger="scroll" variant="revealSlideImpactLeft">
                 <FeaturesDiv>
                   <FaRegCheckCircle className='svgBlue' />
                   <div>
@@ -83,9 +83,9 @@ export default function FeaturesSection() {
                     <MinorTextH4>Import only what you need.</MinorTextH4>
                   </div>
                 </FeaturesDiv>
-              </MAnimation>
+              </MaskedAnimation>
 
-              <MAnimation trigger="scroll" variant="slideImpactLeft">
+              <MaskedAnimation trigger="scroll" variant="revealSlideImpactLeft">
                 <FeaturesDiv>
                   <FaRegCheckCircle className='svgBlue' />
                   <div>
@@ -93,9 +93,9 @@ export default function FeaturesSection() {
                     <MinorTextH4>Detailed examples and guides.</MinorTextH4>
                   </div>
                 </FeaturesDiv>
-              </MAnimation>
+              </MaskedAnimation>
 
-              <MAnimation trigger="scroll" variant="slideImpactLeft">
+              <MaskedAnimation trigger="scroll" variant="revealSlideImpactLeft">
                 <FeaturesDiv>
                   <FaRegCheckCircle className='svgBlue' />
                   <div>
@@ -103,10 +103,10 @@ export default function FeaturesSection() {
                     <MinorTextH4>Efficient rendering, optimized bundle size, and zero unnecessary dependencies.</MinorTextH4>
                   </div>
                 </FeaturesDiv>
-              </MAnimation>
+              </MaskedAnimation>
 
             </BaseDiv>
-          </MAnimation>
+          </MaskedAnimation>
 
         </FeaturesSectionContent>
       </FeaturesSectionContainer>

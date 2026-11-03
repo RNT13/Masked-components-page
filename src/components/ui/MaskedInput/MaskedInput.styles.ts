@@ -1,15 +1,18 @@
 import { transitions } from '@/styles/MaskedAnimations/animations/transitions'
 import { maskedTheme } from '@/styles/MaskedThemes/MaskedThemes'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 type props = {
   $variant?: string
   $hasToggle?: boolean
   $radius?: number
+  $icon?: boolean
+  $open?: boolean
+  $required?: boolean
 }
 
 /* ============================================================
- * CONTAINER
+ * CONTAINER — todas as cores passam por var(--mc-input-*, fallback)
  * ============================================================ */
 
 export const MaskedInputContainer = styled.div<props>`
@@ -19,25 +22,26 @@ export const MaskedInputContainer = styled.div<props>`
   flex-direction: column;
   gap: 6px;
 
+  z-index: ${({ $open }) => ($open ? 999 : 1)};
+
   input,
   textarea,
   select,
-  button {
+  #masked-select-trigger,
+  #masked-time-trigger {
     width: 100%;
-    padding: 12px;
     border-radius: ${({ $radius }) => ($radius ? `${$radius}px` : '18px')};
-    border: 2px solid ${maskedTheme.colors.baseBlue.light20};
-    font-size: 1rem;
+    border: 2px solid var(--mc-input-border, ${maskedTheme.colors.baseBlue.light08});
+    font-size: ${maskedTheme.fontSize.md};
+    font-weight: 800;
     line-height: 1.4;
-    color: ${maskedTheme.colors.baseBlue.light30};
-    background-color: ${maskedTheme.colors.baseBlue.light02};
-    z-index: 2;
+    color: var(--mc-input-fg, ${maskedTheme.colors.baseBlue.base});
+    background-color: var(--mc-input-bg, ${maskedTheme.colors.baseBlue.light40});
     text-align: left;
-
     ${transitions.slow}
 
-    ${({ $hasToggle }) => $hasToggle && `padding-right: 44px;`}
-
+    ${({ $hasToggle }) => $hasToggle && `padding-right: 44px;`}  
+  
     input.input-hidden {
       position: absolute;
       inset: 0;
@@ -45,155 +49,64 @@ export const MaskedInputContainer = styled.div<props>`
       cursor: pointer;
     }
 
-    /* Hover */
     &:hover {
-      border-color: ${maskedTheme.colors.baseBlue.base};
+      border-color: var(--mc-input-border-hover, ${maskedTheme.colors.baseBlue.base});
     }
 
-    /* Focus */
     &:focus {
       outline: none;
-      background-color: ${maskedTheme.colors.baseBlue.light04};
-      border-color: ${maskedTheme.colors.baseBlue.light};
-      box-shadow: 0px 0px 10px 2px ${maskedTheme.colors.baseBlue.light};
+      background-color: var(--mc-input-bg-focus, ${maskedTheme.colors.baseBlue.light04});
+      border-color: var(--mc-input-focus-ring, ${maskedTheme.colors.baseBlue.light});
+      box-shadow: 0px 0px 10px 2px var(--mc-input-focus-ring, ${maskedTheme.colors.baseBlue.light});
+      color: var(--mc-input-fg, ${maskedTheme.colors.baseBlue.base});
 
       &::placeholder {
-        color: ${maskedTheme.colors.baseBlue.light40};
+        color: var(--mc-input-focus-ring, ${maskedTheme.colors.baseBlue.light});
       }
     }
 
-    /* Disabled */
     &:disabled {
-      background-color: ${maskedTheme.colors.baseBlue.light20};
+      background-color: var(--mc-input-disabled-bg, ${maskedTheme.colors.baseBlue.light20});
       cursor: not-allowed;
       opacity: 0.7;
     }
 
-    /* Error */
     &.error {
-      border-color: ${maskedTheme.colors.baseRed.base};
-      background-color: ${maskedTheme.colors.baseRed.light02};
-      color: ${maskedTheme.colors.baseRed.light20};
+      border-color: var(--mc-input-error-border, ${maskedTheme.colors.baseRed.base});
+      background-color: var(--mc-input-error-bg, ${maskedTheme.colors.baseRed.light02});
+      color: var(--mc-input-error-fg, ${maskedTheme.colors.baseRed.light20});
 
       &:focus {
-        box-shadow: 0 0 0 3px ${maskedTheme.colors.baseRed.light20};
+        box-shadow: 0 0 0 3px var(--mc-input-error-ring, ${maskedTheme.colors.baseRed.light20});
       }
 
-      &.error::placeholder {
-        color: ${maskedTheme.colors.baseRed.light20};
+      &::placeholder {
+        color: var(--mc-input-error-fg, ${maskedTheme.colors.baseRed.light20});
       }
     }
 
     &::placeholder {
-      color: ${maskedTheme.colors.baseBlue.light40};
+      color: var(--mc-input-placeholder, ${maskedTheme.colors.baseBlue.light08});
     }
   }
 
   input,
-  textarea,
-  select {
+  select,
+  #masked-select-trigger,
+  #masked-time-trigger {
     min-height: 44px;
-    padding: 0 12px;
+    padding: ${({ $icon }) => ($icon ? '0 12px' : '0 12px 0 44px')};
     line-height: 40px;
   }
 
-  /* ===================== TEXTAREA ===================== */
-
   textarea {
+    padding: ${({ $icon }) => ($icon ? '12px' : '12px 12px 12px 44px')};
     min-height: 96px;
     width: 100%;
     resize: none;
     scrollbar-width: thin;
-    scrollbar-color: ${maskedTheme.colors.baseBlue.base} ${maskedTheme.colors.baseBlue.light20};
-  }
-`
-
-/* ============================================================
- * SEARCH ICON
- * ============================================================ */
-
-export const SearchIcon = styled.div`
-  position: absolute;
-  left: 12px;
-  top: 42px;
-  font-size: 1.3rem;
-  color: ${maskedTheme.colors.baseBlue.light30};
-  pointer-events: none;
-  z-index: 3;
-`
-
-/* ============================================================
- * PASSWORD TOGGLE
- * ============================================================ */
-
-export const PasswordToggle = styled.div`
-  position: absolute;
-  right: 12px;
-  top: 43px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  z-index: 2;
-  color: ${maskedTheme.colors.baseBlue.light};
-
-  svg {
-    font-size: 1.5rem;
-  }
-`
-
-/* ============================================================
- * FILE PREVIEW
- * ============================================================ */
-
-export const PreviewImageDiv = styled.div`
-  margin-top: 10px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
-  gap: 10px;
-
-  img {
-    border-radius: 10px;
-    object-fit: cover;
-    border: 2px solid ${maskedTheme.colors.baseBlue.light20};
-    background: ${maskedTheme.colors.baseBlue.light02};
-  }
-`
-
-/* ============================================================
- * FILE BUTTON
- * ============================================================ */
-
-export const FileTrigger = styled.button`
-  width: 100%;
-  height: 40px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-
-  border-radius: 16px;
-  border: 2px solid ${maskedTheme.colors.baseBlue.light20};
-  color: ${maskedTheme.colors.baseBlue.light40};
-  background-color: ${maskedTheme.colors.baseBlue.light02};
-  font-size: 0.95rem;
-  font-weight: 500;
-
-  cursor: pointer;
-
-  transition:
-    border-color 0.2s ease,
-    background-color 0.2s ease,
-    color 0.2s ease;
-
-  &:hover {
-    border-color: ${maskedTheme.colors.baseBlue.base};
-    background: ${maskedTheme.colors.baseBlue.light};
-  }
-
-  &:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 3px ${maskedTheme.colors.baseBlue.light20};
+    scrollbar-color: var(--mc-input-fg, ${maskedTheme.colors.baseBlue.base})
+      var(--mc-input-disabled-bg, ${maskedTheme.colors.baseBlue.light20});
   }
 `
 
@@ -202,10 +115,10 @@ export const FileTrigger = styled.button`
  * ============================================================ */
 
 export const ErrorDiv = styled.div`
-  color: ${maskedTheme.colors.baseRed.light30};
+  color: var(--mc-input-error-fg, ${maskedTheme.colors.baseRed.dark30});
   font-size: 0.85rem;
   font-weight: 500;
-  background-color: ${maskedTheme.colors.baseRed.light04};
+  background-color: var(--mc-input-error-bg, ${maskedTheme.colors.baseRed.light20});
   padding: 6px 12px;
   border-radius: 10px;
 `
@@ -213,8 +126,10 @@ export const ErrorDiv = styled.div`
 /* ============================================================
  * LABEL
  * ============================================================ */
-export const InputLabel = styled.label`
-  color: ${maskedTheme.colors.baseBlue.light30};
+
+export const InputLabel = styled.label<props>`
+  width: 100%;
+  color: var(--mc-input-label-fg, ${maskedTheme.colors.baseBlue.dark20});
   font-size: 18px;
   font-weight: 500;
   margin-bottom: 6px;
@@ -225,74 +140,28 @@ export const InputLabel = styled.label`
   svg {
     font-size: 20px;
   }
+
+  ${({ $required }) =>
+    $required &&
+    css`
+      &::after {
+        content: '*';
+        color: var(--mc-input-error-border, ${maskedTheme.colors.baseRed.base});
+        font-size: 1.2rem;
+        font-weight: 700;
+      }
+    `}
 `
 
-/* ============================================================
- * SELECT
- * ============================================================ */
-export const SelectTrigger = styled.button`
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 16px;
-  color: ${maskedTheme.colors.baseBlue.light40};
-  background-color: ${maskedTheme.colors.baseBlue.light02};
-  border: 2px solid ${maskedTheme.colors.baseBlue.light20};
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-`
-
-export const SelectDropdown = styled.div`
+export const InputIconWrapper = styled.div`
   position: absolute;
-  top: 100%;
-  padding: 4px 4px 0px 4px;
-  left: 0;
-  width: 100%;
-  border-radius: 14px;
-  overflow: hidden;
-  background: ${maskedTheme.colors.baseBlue.base};
-  z-index: 5;
-`
+  left: 12px;
+  top: 44px;
+  background: none;
+  border: none;
+  color: var(--mc-input-icon-fg, ${maskedTheme.colors.baseBlue.dark});
 
-export const SelectOption = styled.div`
-  width: 100%;
-  padding: 8px;
-  border-radius: 14px;
-  margin-bottom: 4px;
-  background: ${maskedTheme.colors.baseBlue.dark20};
-  color: ${maskedTheme.colors.baseBlue.light50};
-  border: 2px solid ${maskedTheme.colors.baseBlue.light20};
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  font-weight: 800;
-
-  &:hover {
-    background: ${maskedTheme.colors.baseBlue.light20};
-    color: ${maskedTheme.colors.baseBlue.base};
-    border-color: ${maskedTheme.colors.baseBlue.dark20};
-  }
-`
-
-/* ============================================================
- * CURRENCY
- * ============================================================ */
-export const CurrencyWrapper = styled.div`
-  position: relative;
-
-  span {
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-weight: 600;
-    color: ${maskedTheme.colors.baseBlue.light30};
-    pointer-events: none;
-  }
-
-  input {
-    padding-left: 44px;
+  svg {
+    font-size: 1.5rem;
   }
 `

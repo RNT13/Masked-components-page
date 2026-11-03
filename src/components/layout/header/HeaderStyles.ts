@@ -65,6 +65,6 @@ export const NavDiv = styled.div`
   }
 
   .shineButton {
-    ${continuousAnimations.InfinityGlowDiagonal}
+    ${continuousAnimations.continuousGlowDiagonal}
   }
 `

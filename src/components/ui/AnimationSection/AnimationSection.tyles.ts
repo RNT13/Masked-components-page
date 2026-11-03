@@ -1,4 +1,4 @@
-import { maskedTheme, media, neonTheme } from '@/styles/MaskedThemes/MaskedThemes'
+import { maskedTheme, media, accentTheme } from '@/styles/MaskedThemes/MaskedThemes'
 import styled from 'styled-components'
 
 export const AnimationSectionContainer = styled.div`
@@ -26,7 +26,7 @@ export const Section = styled.div`
 export const AnimationDiv = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: ${maskedTheme.grid.compact};
+  grid-template-columns: ${maskedTheme.grid.one};
   align-items: center;
   gap: ${maskedTheme.spacing.md};
 
@@ -59,10 +59,10 @@ export const AnimationCard = styled.div`
   &:hover {
     background: ${maskedTheme.colors.baseBlue.light08};
 
-    box-shadow: 0px 0px 10px 1px ${neonTheme.colors.neonBlue.base};
+    box-shadow: 0px 0px 10px 1px ${accentTheme.colors.accentBlue?.base ?? maskedTheme.colors.baseBlue.light};
 
     svg {
-      color: ${neonTheme.colors.neonBlue.base};
+      color: ${accentTheme.colors.accentBlue?.base ?? maskedTheme.colors.baseBlue.light};
     }
   }
 `
@@ -85,7 +85,7 @@ export const AnimationDropDown = styled.div`
   &:hover {
     background: ${maskedTheme.colors.baseBlue.light08};
 
-    box-shadow: 0px 0px 10px 1px ${neonTheme.colors.neonBlue.base};
+    box-shadow: 0px 0px 10px 1px ${accentTheme.colors.accentBlue?.base ?? maskedTheme.colors.baseBlue.light};
   }
 `
 export const Window = styled.div`

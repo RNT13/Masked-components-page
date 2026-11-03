@@ -24,6 +24,6 @@ export const ButtonDiv = styled.div`
 
   button,
   a {
-    ${continuousAnimations.goldBorderPremium}
+    ${continuousAnimations.continuousGoldBorderPremium}
   }
 `

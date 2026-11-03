@@ -4,12 +4,20 @@ import { TitleH3 } from "@/styles/globalStyles"
 import { BsStars } from "react-icons/bs"
 import { FaCode } from "react-icons/fa6"
 
-import { MAnimation } from "@/styles/MaskedAnimations/MAnimation"
+import { MaskedAnimation } from "@/styles/MaskedAnimations/MaskedAnimation"
 import { useState } from "react"
 import BaseDiv from "../BaseDiv/BaseDiv"
 import BaseSection from "../BaseSection/BaseSection"
-import { MButton } from "../MaskedButton/MaskedButton"
-import { AnimationCard, AnimationDiv, AnimationDropDown, AnimationSectionContainer, AnimationSectionContent, Section, Window } from "./AnimationSection.tyles"
+import { MaskedButton } from "../MaskedButton/MaskedButton"
+import {
+  AnimationCard,
+  AnimationDiv,
+  AnimationDropDown,
+  AnimationSectionContainer,
+  AnimationSectionContent,
+  Section,
+  Window
+} from "./AnimationSection.tyles"
 
 export default function AnimationSection() {
   const [open, setOpen] = useState(false)
@@ -21,40 +29,40 @@ export default function AnimationSection() {
         <BaseSection
           header
           icon={<FaCode />}
-          title="Basic usage of MAnimation"
+          title="Basic usage of MaskedAnimation"
           fileType="tsx"
-          description="Simple example of using MAnimation."
-          content1={`
-              <Div>
-                <MAnimation trigger="hover" variant="blurIn" center>
-                  <p>blurIn</p>
-                </MAnimation>
-              </Div>
+          description="Simple example of using MaskedAnimation."
+          content1={`  
+              <Div>  
+                <MaskedAnimation trigger="hover" variant="revealBlurIn" center>  
+                  <p>revealBlurIn</p>  
+                </MaskedAnimation>  
+              </Div>  
               `}
 
-          content2={`
-              <MAnimation trigger="hover" variant="spin"  >
-                <div>
-                  <BsStars />
-                  spin
-                </div>
-              </MAnimation>
+          content2={`  
+              <MaskedAnimation trigger="hover" variant="continuousSpin">  
+                <div>  
+                  <BsStars />  
+                  continuousSpin  
+                </div>  
+              </MaskedAnimation>  
               `}
 
-          content3={`
-              <div>
-
-                <MButton variant="default" onClick={() => setOpen(!open)}>
-                  Click here
-                </MButton>
-
-                <MAnimation trigger="controlled" variant="drawer" isOn={open}>
-                  <Window>
-                    Menu Content
-                  </Window>
-                </MAnimation>
-
-              </div>
+          content3={`  
+              <div>  
+  
+                <MaskedButton variant="default" onClick={() => setOpen(!open)}>  
+                  Click here  
+                </MaskedButton>  
+  
+                <MaskedAnimation trigger="controlled" variant="controlledDrawer" isOn={open}>  
+                  <Window>  
+                    Menu Content  
+                  </Window>  
+                </MaskedAnimation>  
+  
+              </div>  
               `}
         />
 
@@ -67,197 +75,197 @@ export default function AnimationSection() {
         <BaseDiv direction="column">
 
           {/* ================= REVEAL ================= */}
-          <MAnimation trigger="scroll" variant="fadeInLeft">
+          <MaskedAnimation trigger="scroll" variant="revealFadeInLeft">
             <Section>
               <TitleH3>Reveal Animations</TitleH3>
 
               <AnimationDiv>
 
-                <MAnimation trigger="hover" variant="blurIn" center>
+                <MaskedAnimation trigger="hover" variant="revealBlurIn">
                   <AnimationCard>
                     <BsStars />
-                    <p>blurIn</p>
+                    <p>revealBlurIn</p>
                   </AnimationCard>
-                </MAnimation>
+                </MaskedAnimation>
 
-                <MAnimation trigger="hover" variant="fadeInLeft">
+                <MaskedAnimation trigger="hover" variant="revealFadeInLeft">
                   <AnimationCard>
                     <BsStars />
-                    <p>fadeInLeft</p>
+                    <p>revealFadeInLeft</p>
                   </AnimationCard >
-                </MAnimation>
+                </MaskedAnimation>
 
-                <MAnimation trigger="hover" variant="fadeInRight">
+                <MaskedAnimation trigger="hover" variant="revealFadeInRight">
                   <AnimationCard>
                     <BsStars />
-                    <p>fadeInRight</p>
+                    <p>revealFadeInRight</p>
                   </AnimationCard>
-                </MAnimation>
+                </MaskedAnimation>
 
-                <MAnimation trigger="hover" variant="fadeInUp">
+                <MaskedAnimation trigger="hover" variant="revealFadeInUp">
                   <AnimationCard>
                     <BsStars />
-                    <p>fadeInUp</p>
+                    <p>revealFadeInUp</p>
                   </AnimationCard>
-                </MAnimation>
+                </MaskedAnimation>
 
-                <MAnimation trigger="hover" variant="fadeInUpRotate">
+                <MaskedAnimation trigger="hover" variant="revealFadeInUpRotate">
                   <AnimationCard>
                     <BsStars />
-                    <p>fadeInUpRotate</p>
+                    <p>revealFadeInUpRotate</p>
                   </AnimationCard>
-                </MAnimation>
+                </MaskedAnimation>
 
-                <MAnimation trigger="hover" variant="fadeOutDown">
+                <MaskedAnimation trigger="hover" variant="revealFadeInDown">
                   <AnimationCard>
                     <BsStars />
-                    <p>fadeOutDown</p>
+                    <p>revealFadeInDown</p>
                   </AnimationCard>
-                </MAnimation>
+                </MaskedAnimation>
 
-                <MAnimation trigger="hover" variant="flipX" >
+                <MaskedAnimation trigger="hover" variant="revealFlipX" >
                   <AnimationCard>
                     <BsStars />
-                    <p>flipX</p>
+                    <p>revealFlipX</p>
                   </AnimationCard>
-                </MAnimation>
+                </MaskedAnimation>
 
-                <MAnimation trigger="hover" variant="flipY">
+                <MaskedAnimation trigger="hover" variant="revealFlipY">
                   <AnimationCard>
                     <BsStars />
-                    <p>flipY</p>
+                    <p>revealFlipY</p>
                   </AnimationCard>
-                </MAnimation>
+                </MaskedAnimation>
 
-                <MAnimation trigger="hover" variant="magneticRise">
+                <MaskedAnimation trigger="hover" variant="revealFadeInUp">
                   <AnimationCard>
                     <BsStars />
-                    <p>magneticRise</p>
+                    <p>revealFadeInUp</p>
                   </AnimationCard>
-                </MAnimation>
+                </MaskedAnimation>
 
-                <MAnimation trigger="hover" variant="popElastic">
+                <MaskedAnimation trigger="hover" variant="revealPopElastic">
                   <AnimationCard>
                     <BsStars />
-                    <p>popElastic</p>
+                    <p>revealPopElastic</p>
                   </AnimationCard>
-                </MAnimation>
+                </MaskedAnimation>
 
-                <MAnimation trigger="hover" variant="rotateDrop" delay={0.5}>
+                <MaskedAnimation trigger="hover" variant="oneShotJumpRotate" delay={0.5}>
                   <AnimationCard>
                     <BsStars />
-                    <p>rotateDrop</p>
+                    <p>oneShotJumpRotate</p>
                   </AnimationCard>
-                </MAnimation>
+                </MaskedAnimation>
 
-                <MAnimation trigger="hover" variant="zoomFromDeep">
+                <MaskedAnimation trigger="hover" variant="revealZoomFromDeep">
                   <AnimationCard>
                     <BsStars />
-                    <p>zoomFromDeep</p>
+                    <p>revealZoomFromDeep</p>
                   </AnimationCard>
-                </MAnimation>
+                </MaskedAnimation>
 
               </AnimationDiv>
             </Section>
-          </MAnimation>
+          </MaskedAnimation>
 
           {/* ================= CONTINUOUS ================= */}
-          <MAnimation trigger="scroll" variant="fadeInLeft">
+          <MaskedAnimation trigger="scroll" variant="revealFadeInLeft">
             <Section>
               <TitleH3>Continuous Animations</TitleH3>
 
               <AnimationDiv>
 
-                <MAnimation trigger="hover" variant="spin"  >
+                <MaskedAnimation trigger="hover" variant="continuousSpin">
                   <AnimationCard>
                     <BsStars />
-                    spin
+                    continuousSpin
                   </AnimationCard>
-                </MAnimation>
+                </MaskedAnimation>
 
-                <MAnimation trigger="hover" variant="pulse" >
+                <MaskedAnimation trigger="hover" variant="continuousShine" >
                   <AnimationCard >
                     <BsStars />
-                    pulse
+                    continuousShine
                   </AnimationCard>
-                </MAnimation>
+                </MaskedAnimation>
 
-                <MAnimation trigger="hover" variant="bounce">
+                <MaskedAnimation trigger="hover" variant="continuousBounce">
                   <AnimationCard>
                     <BsStars />
-                    bounce
+                    continuousBounce
                   </AnimationCard>
-                </MAnimation>
+                </MaskedAnimation>
 
-                <MAnimation trigger="hover" variant="float">
+                <MaskedAnimation trigger="hover" variant="continuousFloat">
                   <AnimationCard>
                     <BsStars />
-                    float
+                    continuousFloat
                   </AnimationCard>
-                </MAnimation>
+                </MaskedAnimation>
 
-                <MAnimation trigger="hover" variant="jumpRotate">
+                <MaskedAnimation trigger="hover" variant="continuousJumpRotate">
                   <AnimationCard>
                     <BsStars />
-                    jumpRotate
+                    continuousJumpRotate
                   </AnimationCard>
-                </MAnimation>
+                </MaskedAnimation>
 
-                <MAnimation trigger="hover" variant="horizontalLine">
+                <MaskedAnimation trigger="hover" variant="continuousHorizontalLine">
                   <AnimationCard>
                     <BsStars />
-                    horizontalLine
+                    continuousHorizontalLine
                   </AnimationCard>
-                </MAnimation>
+                </MaskedAnimation>
 
-                <MAnimation trigger="hover" variant="shakeX">
+                <MaskedAnimation trigger="hover" variant="oneShotShakeX">
                   <AnimationCard>
                     <BsStars />
-                    shakeX
+                    oneShotShakeX
                   </AnimationCard>
-                </MAnimation>
+                </MaskedAnimation>
 
-                <MAnimation trigger="hover" variant="skeleton">
+                <MaskedAnimation trigger="hover" variant="continuousSkeleton">
                   <AnimationCard>
                     <BsStars />
-                    skeleton
+                    continuousSkeleton
                   </AnimationCard>
-                </MAnimation>
+                </MaskedAnimation>
 
-                <MAnimation trigger="hover" variant="glow">
+                <MaskedAnimation trigger="hover" variant="continuousGlowDiagonal">
                   <AnimationCard>
                     <BsStars />
-                    glow
+                    continuousGlowDiagonal
                   </AnimationCard>
-                </MAnimation>
+                </MaskedAnimation>
 
-                <MAnimation trigger="hover" variant="InfinityGlowDiagonal">
+                <MaskedAnimation trigger="hover" variant="continuousGlowDiagonal">
                   <AnimationCard>
                     <BsStars />
-                    InfinityGlowDiagonal
+                    continuousGlowDiagonal
                   </AnimationCard>
-                </MAnimation>
+                </MaskedAnimation>
 
-                <MAnimation trigger="hover" variant="InfinityGlowGold">
+                <MaskedAnimation trigger="hover" variant="continuousGlowGold">
                   <AnimationCard>
                     <BsStars />
-                    InfinityGlowGold
+                    continuousGlowGold
                   </AnimationCard>
-                </MAnimation>
+                </MaskedAnimation>
 
-                <MAnimation trigger="hover" variant="goldBorderPremium">
+                <MaskedAnimation trigger="hover" variant="continuousGlow">
                   <AnimationCard>
                     <BsStars />
-                    goldBorderPremium
+                    continuousGlow
                   </AnimationCard>
-                </MAnimation>
+                </MaskedAnimation>
 
               </AnimationDiv>
             </Section>
-          </MAnimation>
+          </MaskedAnimation>
 
           {/* ================= CONTROLLED ================= */}
-          <MAnimation trigger="scroll" variant="fadeInLeft">
+          <MaskedAnimation trigger="scroll" variant="revealFadeInLeft">
             <Section>
               <TitleH3>State Based Animations</TitleH3>
 
@@ -265,120 +273,120 @@ export default function AnimationSection() {
 
                 <AnimationDropDown>
 
-                  <MButton variant="default" onClick={() => setOpen(!open)}>
+                  <MaskedButton variant="default" onClick={() => setOpen(!open)}>
                     Click here
-                  </MButton>
+                  </MaskedButton>
 
-                  <MAnimation trigger="controlled" variant="drawer" isOn={open}>
+                  <MaskedAnimation trigger="controlled" variant="controlledDrawer" isOn={open}>
                     <Window >
                       Menu Content
                     </Window>
-                  </MAnimation>
+                  </MaskedAnimation>
 
                 </AnimationDropDown>
 
                 <AnimationDropDown>
 
-                  <MButton variant="default" onClick={() => setOpen(!open)}>
+                  <MaskedButton variant="default" onClick={() => setOpen(!open)}>
                     Click here
-                  </MButton>
+                  </MaskedButton>
 
-                  <MAnimation trigger="controlled" variant="fadeInOut" isOn={open}>
+                  <MaskedAnimation trigger="controlled" variant="controlledFadeInOut" isOn={open}>
                     <Window>
                       Menu Content
                     </Window>
-                  </MAnimation>
+                  </MaskedAnimation>
 
                 </AnimationDropDown>
 
                 <AnimationDropDown>
 
-                  <MButton variant="default" onClick={() => setOpen(!open)}>
+                  <MaskedButton variant="default" onClick={() => setOpen(!open)}>
                     Click here
-                  </MButton>
+                  </MaskedButton>
 
-                  <MAnimation trigger="controlled" variant="slideFromLeft" isOn={open}>
+                  <MaskedAnimation trigger="controlled" variant="controlledSlideFromLeft" isOn={open}>
                     <Window>
                       Menu Content
                     </Window>
-                  </MAnimation>
+                  </MaskedAnimation>
 
                 </AnimationDropDown>
 
                 <AnimationDropDown>
 
-                  <MButton variant="default" onClick={() => setOpen(!open)}>
+                  <MaskedButton variant="default" onClick={() => setOpen(!open)}>
                     Click here
-                  </MButton>
+                  </MaskedButton>
 
-                  <MAnimation trigger="controlled" variant="slideFromRight" isOn={open}>
+                  <MaskedAnimation trigger="controlled" variant="controlledSlideFromRight" isOn={open}>
                     <Window>
                       Menu Content
                     </Window>
-                  </MAnimation>
+                  </MaskedAnimation>
 
                 </AnimationDropDown>
 
                 <AnimationDropDown>
 
-                  <MButton variant="default" onClick={() => setOpen(!open)}>
+                  <MaskedButton variant="default" onClick={() => setOpen(!open)}>
                     Click here
-                  </MButton>
+                  </MaskedButton>
 
-                  <MAnimation trigger="controlled" variant="slideFromTop" isOn={open}>
+                  <MaskedAnimation trigger="controlled" variant="controlledSlideFromTop" isOn={open}>
                     <Window>
                       Menu Content
                     </Window>
-                  </MAnimation>
+                  </MaskedAnimation>
 
                 </AnimationDropDown>
 
                 <AnimationDropDown>
 
-                  <MButton variant="default" onClick={() => setOpen(!open)}>
+                  <MaskedButton variant="default" onClick={() => setOpen(!open)}>
                     Click here
-                  </MButton>
+                  </MaskedButton>
 
-                  <MAnimation trigger="controlled" variant="slideFromBottom" isOn={open}>
+                  <MaskedAnimation trigger="controlled" variant="controlledSlideFromBottom" isOn={open}>
                     <Window>
                       Menu Content
                     </Window>
-                  </MAnimation>
+                  </MaskedAnimation>
 
                 </AnimationDropDown>
 
                 <AnimationDropDown>
 
-                  <MButton variant="default" onClick={() => setOpen(!open)}>
+                  <MaskedButton variant="default" onClick={() => setOpen(!open)}>
                     Click here
-                  </MButton>
+                  </MaskedButton>
 
-                  <MAnimation trigger="controlled" variant="colapse" isOn={open}>
+                  <MaskedAnimation trigger="controlled" variant="controlledCollapse" isOn={open}>
                     <Window>
                       Menu Content
                     </Window>
-                  </MAnimation>
+                  </MaskedAnimation>
 
                 </AnimationDropDown>
 
                 <AnimationDropDown>
 
-                  <MButton variant="default" onClick={() => setOpen(!open)}>
+                  <MaskedButton variant="default" onClick={() => setOpen(!open)}>
                     Click here
-                  </MButton>
+                  </MaskedButton>
 
-                  <MAnimation trigger="controlled" variant="hideLeft" isOn={open}>
+                  <MaskedAnimation trigger="controlled" variant="controlledHideLeft" isOn={open}>
                     <Window>
                       Menu Content
                     </Window>
-                  </MAnimation>
+                  </MaskedAnimation>
 
                 </AnimationDropDown>
 
               </AnimationDiv>
 
             </Section>
-          </MAnimation>
+          </MaskedAnimation>
 
         </BaseDiv>
       </AnimationSectionContent>

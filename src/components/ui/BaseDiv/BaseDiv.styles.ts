@@ -1,4 +1,4 @@
-import { maskedTheme, media, neonTheme } from '@/styles/MaskedThemes/MaskedThemes'
+import { maskedTheme, media, accentTheme } from '@/styles/MaskedThemes/MaskedThemes'
 import { styled } from 'styled-components'
 
 type Props = {
@@ -19,14 +19,14 @@ export const BaseDivContent = styled.div<Props>`
   border-radius: ${maskedTheme.radius.md};
   padding: ${maskedTheme.spacing.md};
   border: 2px solid ${maskedTheme.colors.baseBlue.light02};
-  box-shadow: 3px 3px 8px 0px ${neonTheme.colors.neonBlue.base};
+  box-shadow: 3px 3px 8px 0px ${accentTheme.colors.accentBlue?.base ?? maskedTheme.colors.baseBlue.light02};
 
   ${media.mobile} {
     padding: ${maskedTheme.spacing.sm};
   }
 
   &:hover {
-    box-shadow: 5px 5px 15px 0px ${neonTheme.colors.neonBlue.base};
-    border-color: ${neonTheme.colors.neonBlue.base};
+    box-shadow: 5px 5px 15px 0px ${accentTheme.colors.accentBlue?.base ?? maskedTheme.colors.baseBlue.light02};
+    border-color: ${accentTheme.colors.accentBlue?.base ?? maskedTheme.colors.baseBlue.light02};
   }
 `

@@ -1,8 +1,8 @@
 'use client'
 
-import { MButton } from '@/components/ui/MaskedButton/MaskedButton'
+import { MaskedButton } from '@/components/ui/MaskedButton/MaskedButton'
 import { GradientTextH2 } from '@/styles/globalStyles'
-import { MAnimation } from '@/styles/MaskedAnimations/MAnimation'
+import { MaskedAnimation } from '@/styles/MaskedAnimations/MaskedAnimation'
 import { useEffect, useState } from 'react'
 import { FaGithub } from 'react-icons/fa6'
 import { RiDownload2Line } from 'react-icons/ri'
@@ -29,7 +29,7 @@ export default function Header() {
     <HeaderContainer $active={onTop}>
       <HeaderContent>
 
-        <MAnimation trigger='controlled' variant='fadeInUp' isOn={onTop}>
+        <MaskedAnimation trigger='controlled' variant='revealFadeInUp' isOn={onTop}>
           <HeaderHero className="container" $active={onTop}>
             <LogoDiv>
               <GradientTextH2>{onTop ? 'Masked Components' : 'MC'}</GradientTextH2>
@@ -46,54 +46,54 @@ export default function Header() {
             <NavDiv>
               {onTop ? (
                 <>
-                  <MButton
+                  <MaskedButton
                     variant="default"
                     href="#install"
                     size='md'
-                    tooltip='Install'
+                    label='Install'
                     leftIcon={<RiDownload2Line />}
                     className="shineButton"
                   >
                     Install
-                  </MButton>
+                  </MaskedButton>
 
-                  <MButton
+                  <MaskedButton
                     variant="default"
-                    tooltip="See on GitHub"
+                    label="See on GitHub"
                     size='md'
                     leftIcon={<FaGithub />}
                     href="https://github.com/RNT13/masked-components-cli"
                   >
                     Go to GitHub
-                  </MButton>
+                  </MaskedButton>
                 </>
               ) : (
                 <>
-                  <MButton
+                  <MaskedButton
                     variant="link"
                     href="#install"
                     size='md'
-                    tooltip='Install'
+                    label='Install'
                     leftIcon={<RiDownload2Line />}
                     className="shineButton"
                   >
                     Install
-                  </MButton>
+                  </MaskedButton>
 
-                  <MButton
+                  <MaskedButton
                     variant="link"
-                    tooltip="See on GitHub"
+                    label="See on GitHub"
                     size='md'
                     leftIcon={<FaGithub />}
                     href="https://github.com/RNT13/masked-components-cli"
                   >
                     Go to GitHub
-                  </MButton>
+                  </MaskedButton>
                 </>
               )}
             </NavDiv>
           </HeaderHero>
-        </MAnimation>
+        </MaskedAnimation>
 
       </HeaderContent>
     </HeaderContainer >

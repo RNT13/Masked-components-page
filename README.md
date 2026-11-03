@@ -63,7 +63,7 @@ This command will:
 
 ### 🔘 MaskedButton
 
-Highly customizable buttons with multiple variants, states, sizes, shapes, icons, and behaviors.
+Highly customizable buttons with multiple variants, states, sizes, shape, icons, and behaviors.
 
 #### Variants
 
@@ -87,7 +87,7 @@ Highly customizable buttons with multiple variants, states, sizes, shapes, icons
 
 - Left & right icons
 - Loading spinner
-- Tooltip label
+- label label
 - Full width support
 - Polymorphic (`button` or `a`)
 - Toggle mode
@@ -129,7 +129,7 @@ Powerful input system with intelligent masks and real-time formatting.
 #### Example
 
 ```tsx
-<MInput variant="masked" tooltip="Phone" mask="(00) 0000-0000" placeholder="Phone number" value={value} onChange={setValue} />
+<MaskedInput variant="masked" label="Phone" mask="(00) 0000-0000" placeholder="Phone number" value={value} onChange={setValue} />
 ```
 
 ---
@@ -155,7 +155,7 @@ The website provides a full interactive playground where you can:
 - Test all button variants
 - Change states dynamically
 - Try input masks in real time
-- Preview sizes, shapes and icons
+- Preview sizes, shape and icons
 
 ---
 

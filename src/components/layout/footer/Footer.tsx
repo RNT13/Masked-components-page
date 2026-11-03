@@ -1,14 +1,14 @@
 
 'use client'
 
-import { MButton } from '@/components/ui/MaskedButton/MaskedButton'
+import { MaskedButton } from '@/components/ui/MaskedButton/MaskedButton'
 import { MinorTextH4 } from '@/styles/globalStyles'
 // 🦶 FOOTER COMPONENT - Rodapé da aplicação
 // ⚠️ ARQUIVO DELETÁVEL - Pode ser removido ao criar seu próprio footer
 
-import { MAnimation } from '@/styles/MaskedAnimations/MAnimation'
 import { FaAnglesUp } from "react-icons/fa6"
 import { ButtonDiv, DivRow, FooterContainer, ProjectDiv } from './FooterStyles'
+import { MaskedAnimation } from '@/styles/MaskedAnimations/MaskedAnimation'
 
 
 
@@ -21,32 +21,32 @@ const Footer = () => {
   return (
     <FooterContainer>
       <ButtonDiv>
-        <MButton variant="default" shapes='circle' className='shineButton' tooltip='Go to Top' leftIcon={<FaAnglesUp />} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
+        <MaskedButton variant="default" shape='circle' className='shineButton' aria-label='Go to Top' leftIcon={<FaAnglesUp />} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
       </ButtonDiv>
 
-      <MAnimation trigger='scroll' variant='fadeInUp'>
+      <MaskedAnimation trigger='scroll' variant='revealFadeInUp'>
         <ProjectDiv>
           <h3>Masked Components</h3>
           <p>Created by RNT</p>
         </ProjectDiv>
-      </MAnimation>
+      </MaskedAnimation>
 
-      <MAnimation trigger='scroll' variant='fadeInUp'>
+      <MaskedAnimation trigger='scroll' variant='revealFadeInUp'>
         <DivRow>
           <MinorTextH4>A polymorphic React component library. Open source and free.</MinorTextH4>
         </DivRow>
-      </MAnimation>
+      </MaskedAnimation>
 
-      <MAnimation trigger='scroll' variant='zoomFromDeep'>
+      <MaskedAnimation trigger='scroll' variant='revealFadeInUp'>
         <DivRow>
-          <MButton className='greyButton' variant="ghost" size='sm' href='https://' >Documentation (soon)</MButton>
-          <MButton className='greyButton' variant="ghost" size='sm' href='https://github.com/RNT13' >GitHub</MButton>
-          <MButton className='greyButton' variant="ghost" size='sm' href='https://www.npmjs.com/~renatornt' >NPM</MButton>
-          <MButton className='greyButton' variant="ghost" size='sm' href='https://www.instagram.com/renatominoita/' >Instagram</MButton>
-          <MButton className='greyButton' variant="ghost" size='sm' href='https://www.linkedin.com/in/renato-minoita/' >Linkedin</MButton>
-          <MButton className='greyButton' variant="ghost" size='sm' href='https://renato-s-dev-page.vercel.app/' >RNT-dev-page</MButton>
+          <MaskedButton className='greyButton' variant="ghost" size='sm' href='https://' >Documentation (soon)</MaskedButton>
+          <MaskedButton className='greyButton' variant="ghost" size='sm' href='https://github.com/RNT13' >GitHub</MaskedButton>
+          <MaskedButton className='greyButton' variant="ghost" size='sm' href='https://www.npmjs.com/~renatornt' >NPM</MaskedButton>
+          <MaskedButton className='greyButton' variant="ghost" size='sm' href='https://www.instagram.com/renatominoita/' >Instagram</MaskedButton>
+          <MaskedButton className='greyButton' variant="ghost" size='sm' href='https://www.linkedin.com/in/renato-minoita/' >Linkedin</MaskedButton>
+          <MaskedButton className='greyButton' variant="ghost" size='sm' href='https://renato-s-dev-page.vercel.app/' >RNT-dev-page</MaskedButton>
         </DivRow>
-      </MAnimation>
+      </MaskedAnimation>
 
       <p>&copy; {getCurrentYear()} RNT Projects. All rights reserved.</p>
     </FooterContainer>

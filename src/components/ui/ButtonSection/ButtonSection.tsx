@@ -1,13 +1,13 @@
 import { TitleH3 } from '@/styles/globalStyles'
 import { LuMousePointerClick } from 'react-icons/lu'
 
-import { MAnimation } from '@/styles/MaskedAnimations/MAnimation'
+import { MaskedAnimation } from '@/styles/MaskedAnimations/MaskedAnimation'
 import { useState } from 'react'
 import { BsStars } from 'react-icons/bs'
 import { FaCode } from 'react-icons/fa6'
 import BaseDiv from '../BaseDiv/BaseDiv'
 import BaseSection from '../BaseSection/BaseSection'
-import { MButton } from '../MaskedButton/MaskedButton'
+import { MaskedButton } from '../MaskedButton/MaskedButton'
 import { ButtonRow, ButtonSectionContainer, ButtonSectionContent, Section } from './ButtonSectionStyles'
 
 export default function ButtonSection() {
@@ -43,286 +43,286 @@ export default function ButtonSection() {
           icon={<LuMousePointerClick />}
           title="Masked Buttons"
           description='Buttons with multiple variants and states, including loading, disabled, and error.
-          They support left and right icons and include an optional visual tooltip displayed via a label, enhancing user feedback and overall experience.'
+          They support left and right icons and include an optional visual label displayed via a label, enhancing user feedback and overall experience.'
         />
 
         <BaseDiv direction="column">
           {/* ================= VARIANTS ================= */}
-          <MAnimation trigger='scroll' variant="fadeInLeft">
+          <MaskedAnimation trigger='scroll' variant="revealFadeInLeft">
             <Section>
               <TitleH3> Variants</TitleH3>
 
               <ButtonRow>
-                <MButton variant="default" tooltip="It's a default button" >Default</MButton>
-                <MButton variant="outline" tooltip="it's an outline button" >Outline</MButton>
-                <MButton variant="ghost" tooltip="it's a ghost button" >Ghost</MButton>
-                <MButton variant="gradient" tooltip="it's a gradient button">Gradient</MButton>
-                <MButton variant="neon" tooltip="it's a neon button">Neon</MButton>
-                <MButton href="https://google.com" variant="link" tooltip="Go to google" >Link</MButton>
-                <MButton variant="toggle" tooltip='Toggle' $toggleLabel='Toggle' $isActive={toggle} onClick={() => setToggle(!toggle)} />
+                <MaskedButton variant="default" label="It's a default button" >Default</MaskedButton>
+                <MaskedButton variant="outline" label="it's an outline button" >Outline</MaskedButton>
+                <MaskedButton variant="ghost" label="it's a ghost button" >Ghost</MaskedButton>
+                <MaskedButton variant="gradient" label="it's a gradient button">Gradient</MaskedButton>
+                <MaskedButton variant="neon" label="it's a neon button">Neon</MaskedButton>
+                <MaskedButton href="https://google.com" variant="link" label="Go to google" >Link</MaskedButton>
+                <MaskedButton variant="toggle" label='Toggle' toggleLabel='Toggle' active={toggle} onClick={() => setToggle(!toggle)} />
               </ButtonRow>
             </Section>
-          </MAnimation>
+          </MaskedAnimation>
 
           {/* ================= STATES ================= */}
-          <MAnimation trigger='scroll' variant="fadeInLeft">
+          <MaskedAnimation trigger='scroll' variant="revealFadeInLeft">
             <Section>
               <TitleH3>States</TitleH3>
 
               <ButtonRow>
-                <MButton variant="default" state="error" tooltip="It has an error" >Default + Error</MButton>
-                <MButton variant="default" state="loading" tooltip="It's loading" >Default + Loading</MButton>
-                <MButton variant="default" state="disabled" tooltip="It's disabled" >Default + Disabled</MButton>
+                <MaskedButton variant="default" state="error" label="It has an error" >Default + Error</MaskedButton>
+                <MaskedButton variant="default" state="loading" label="It's loading" >Default + Loading</MaskedButton>
+                <MaskedButton variant="default" state="disabled" label="It's disabled" >Default + Disabled</MaskedButton>
               </ButtonRow>
 
               <ButtonRow>
-                <MButton variant="outline" state="error" tooltip="It has an error" >Outline + Error</MButton>
-                <MButton variant="outline" state="loading" tooltip="It's loading" >Outline + Loading</MButton>
-                <MButton variant="outline" state="disabled" tooltip="It's disabled" >Outline + Disabled</MButton>
+                <MaskedButton variant="outline" state="error" label="It has an error" >Outline + Error</MaskedButton>
+                <MaskedButton variant="outline" state="loading" label="It's loading" >Outline + Loading</MaskedButton>
+                <MaskedButton variant="outline" state="disabled" label="It's disabled" >Outline + Disabled</MaskedButton>
               </ButtonRow>
 
               <ButtonRow>
-                <MButton variant="ghost" state="error" tooltip="It has an error" >Ghost + Error</MButton>
-                <MButton variant="ghost" state="loading" tooltip="It's loading" >Ghost + Loading</MButton>
-                <MButton variant="ghost" state="disabled" tooltip="It's disabled" >Ghost + Disabled</MButton>
+                <MaskedButton variant="ghost" state="error" label="It has an error" >Ghost + Error</MaskedButton>
+                <MaskedButton variant="ghost" state="loading" label="It's loading" >Ghost + Loading</MaskedButton>
+                <MaskedButton variant="ghost" state="disabled" label="It's disabled" >Ghost + Disabled</MaskedButton>
               </ButtonRow>
 
               <ButtonRow>
-                <MButton variant="gradient" state="error" tooltip="It has an error" >Link + Error</MButton>
-                <MButton variant="gradient" state="loading" tooltip="It's loading" >Gradient + Loading</MButton>
-                <MButton variant="gradient" state="disabled" tooltip="It's disabled" >Gradient + Disabled</MButton>
+                <MaskedButton variant="gradient" state="error" label="It has an error" >Link + Error</MaskedButton>
+                <MaskedButton variant="gradient" state="loading" label="It's loading" >Gradient + Loading</MaskedButton>
+                <MaskedButton variant="gradient" state="disabled" label="It's disabled" >Gradient + Disabled</MaskedButton>
               </ButtonRow>
 
               <ButtonRow>
-                <MButton variant="neon" state="error" tooltip="It has an error" >Neon + Error</MButton>
-                <MButton variant="neon" state="loading" tooltip="It's loading" >Neon + Loading</MButton>
-                <MButton variant="neon" state="disabled" tooltip="It's disabled" >Neon + Disabled</MButton>
+                <MaskedButton variant="neon" state="error" label="It has an error" >Neon + Error</MaskedButton>
+                <MaskedButton variant="neon" state="loading" label="It's loading" >Neon + Loading</MaskedButton>
+                <MaskedButton variant="neon" state="disabled" label="It's disabled" >Neon + Disabled</MaskedButton>
               </ButtonRow>
 
               <ButtonRow>
-                <MButton variant="link" state="error" tooltip="It has an error" >Link + Error</MButton>
-                <MButton variant="link" state="loading" tooltip="It's loading" >Link + Loading</MButton>
-                <MButton variant="link" state="disabled" tooltip="It's disabled" >Link + Disabled</MButton>
+                <MaskedButton variant="link" state="error" label="It has an error" >Link + Error</MaskedButton>
+                <MaskedButton variant="link" state="loading" label="It's loading" >Link + Loading</MaskedButton>
+                <MaskedButton variant="link" state="disabled" label="It's disabled" >Link + Disabled</MaskedButton>
               </ButtonRow>
             </Section>
-          </MAnimation>
+          </MaskedAnimation>
 
           {/* ================= VARIANT + STATE ================= */}
-          <MAnimation trigger='scroll' variant="fadeInLeft">
+          <MaskedAnimation trigger='scroll' variant="revealFadeInLeft">
             <Section>
               <TitleH3> Variant + Active</TitleH3>
 
               <ButtonRow>
-                <MButton variant="default" tooltip="Clique para ativar" $isActive={isActive} onClick={() => setIsActive(!isActive)} >Default</MButton>
+                <MaskedButton variant="default" label="Clique para ativar" active={isActive} onClick={() => setIsActive(!isActive)} >Default</MaskedButton>
 
-                <MButton
+                <MaskedButton
                   variant="outline"
-                  tooltip="Clique para ativar"
-                  $isActive={isActive}
+                  label="Clique para ativar"
+                  active={isActive}
                   onClick={() => setIsActive(!isActive)}
-                >Outline</MButton>
+                >Outline</MaskedButton>
 
-                <MButton variant="ghost" tooltip="Clique para ativar" $isActive={isActive} onClick={() => setIsActive(!isActive)} >Ghost</MButton>
+                <MaskedButton variant="ghost" label="Clique para ativar" active={isActive} onClick={() => setIsActive(!isActive)} >Ghost</MaskedButton>
 
-                <MButton
+                <MaskedButton
                   variant="gradient"
-                  tooltip="Clique para ativar"
-                  $isActive={isActive}
+                  label="Clique para ativar"
+                  active={isActive}
                   onClick={() => setIsActive(!isActive)}
-                >Gradient</MButton>
+                >Gradient</MaskedButton>
 
-                <MButton variant="neon" tooltip="Clique para ativar" $isActive={isActive} onClick={() => setIsActive(!isActive)} >Neon</MButton>
+                <MaskedButton variant="neon" label="Clique para ativar" active={isActive} onClick={() => setIsActive(!isActive)} >Neon</MaskedButton>
 
-                <MButton variant="toggle" tooltip="Clique para ativar" $toggleLabel='on / off' $isActive={isActive} onClick={() => setIsActive(!isActive)} />
+                <MaskedButton variant="toggle" label="Clique para ativar" toggleLabel='on / off' active={isActive} onClick={() => setIsActive(!isActive)} />
 
-                <MButton variant="link" tooltip="Clique para ativar" $isActive={isActive} onClick={() => setIsActive(!isActive)} >Link</MButton>
+                <MaskedButton variant="link" label="Clique para ativar" active={isActive} onClick={() => setIsActive(!isActive)} >Link</MaskedButton>
               </ButtonRow>
             </Section>
-          </MAnimation>
+          </MaskedAnimation>
 
           {/* ================= ICONS ================= */}
-          <MAnimation trigger='scroll' variant="fadeInLeft">
+          <MaskedAnimation trigger='scroll' variant="revealFadeInLeft">
             <Section>
               <TitleH3>Icons</TitleH3>
 
               <ButtonRow>
-                <MButton variant="default" tooltip="Clique para ativar" leftIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
+                <MaskedButton variant="default" label="Clique para ativar" leftIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
                   Default + leftIcon
-                </MButton>
+                </MaskedButton>
 
-                <MButton variant="default" tooltip="Clique para ativar" rightIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
+                <MaskedButton variant="default" label="Clique para ativar" rightIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
                   Default + rightIcon
-                </MButton>
+                </MaskedButton>
               </ButtonRow>
 
               <ButtonRow>
-                <MButton variant="outline" tooltip="Clique para ativar" leftIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
+                <MaskedButton variant="outline" label="Clique para ativar" leftIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
                   Outline + leftIcon
-                </MButton>
+                </MaskedButton>
 
-                <MButton variant="outline" tooltip="Clique para ativar" rightIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
+                <MaskedButton variant="outline" label="Clique para ativar" rightIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
                   Outline + rightIcon
-                </MButton>
+                </MaskedButton>
               </ButtonRow>
 
               <ButtonRow>
-                <MButton variant="ghost" tooltip="Clique para ativar" leftIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
+                <MaskedButton variant="ghost" label="Clique para ativar" leftIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
                   Ghost + leftIcon
-                </MButton>
+                </MaskedButton>
 
-                <MButton variant="ghost" tooltip="Clique para ativar" rightIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
+                <MaskedButton variant="ghost" label="Clique para ativar" rightIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
                   Ghost + rightIcon
-                </MButton>
+                </MaskedButton>
               </ButtonRow>
 
               <ButtonRow>
-                <MButton variant="gradient" tooltip="Clique para ativar" leftIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
+                <MaskedButton variant="gradient" label="Clique para ativar" leftIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
                   Gradient + leftIcon
-                </MButton>
+                </MaskedButton>
 
-                <MButton variant="gradient" tooltip="Clique para ativar" rightIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
+                <MaskedButton variant="gradient" label="Clique para ativar" rightIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
                   Gradient + rightIcon
-                </MButton>
+                </MaskedButton>
               </ButtonRow>
 
               <ButtonRow>
-                <MButton variant="link" href='www.google.com' tooltip="Clique para ativar" leftIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
+                <MaskedButton variant="link" href='www.google.com' label="Clique para ativar" leftIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
                   Link + leftIcon
-                </MButton>
+                </MaskedButton>
 
-                <MButton variant="link" href='www.google.com' tooltip="Clique para ativar" rightIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
+                <MaskedButton variant="link" href='www.google.com' label="Clique para ativar" rightIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
                   Link + rightIcon
-                </MButton>
+                </MaskedButton>
               </ButtonRow>
 
               <ButtonRow>
-                <MButton variant="neon" tooltip="Clique para ativar" leftIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
+                <MaskedButton variant="neon" label="Clique para ativar" leftIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
                   Neon + leftIcon
-                </MButton>
+                </MaskedButton>
 
-                <MButton variant="neon" tooltip="Clique para ativar" rightIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
+                <MaskedButton variant="neon" label="Clique para ativar" rightIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
                   Neon + rightIcon
-                </MButton>
+                </MaskedButton>
               </ButtonRow>
             </Section>
-          </MAnimation>
+          </MaskedAnimation>
 
           {/* ================= SIZES ================= */}
-          <MAnimation trigger='scroll' variant="fadeInLeft">
+          <MaskedAnimation trigger='scroll' variant="revealFadeInLeft">
             <Section>
               <TitleH3>Sizes</TitleH3>
 
               <ButtonRow>
-                <MButton variant="default" size="sm" tooltip="It's a small default button" >Default</MButton>
-                <MButton variant="default" size="md" tooltip="It's a medium default button" >Default</MButton>
-                <MButton variant="default" size="lg" tooltip="It's a large default button" >Default</MButton>
+                <MaskedButton variant="default" size="sm" label="It's a small default button" >Default</MaskedButton>
+                <MaskedButton variant="default" size="md" label="It's a medium default button" >Default</MaskedButton>
+                <MaskedButton variant="default" size="lg" label="It's a large default button" >Default</MaskedButton>
               </ButtonRow>
 
               <ButtonRow>
-                <MButton variant="outline" size="sm" tooltip="It's a small outline button" >Outline</MButton>
-                <MButton variant="outline" size="md" tooltip="It's a medium outline button" >Outline</MButton>
-                <MButton variant="outline" size="lg" tooltip="It's a large outline button" >Outline</MButton>
+                <MaskedButton variant="outline" size="sm" label="It's a small outline button" >Outline</MaskedButton>
+                <MaskedButton variant="outline" size="md" label="It's a medium outline button" >Outline</MaskedButton>
+                <MaskedButton variant="outline" size="lg" label="It's a large outline button" >Outline</MaskedButton>
               </ButtonRow>
 
               <ButtonRow>
-                <MButton variant="ghost" size="sm" tooltip="It's a small ghost button" >Ghost</MButton>
-                <MButton variant="ghost" size="md" tooltip="It's a medium ghost button" >Ghost</MButton>
-                <MButton variant="ghost" size="lg" tooltip="It's a large ghost button" >Ghost</MButton>
+                <MaskedButton variant="ghost" size="sm" label="It's a small ghost button" >Ghost</MaskedButton>
+                <MaskedButton variant="ghost" size="md" label="It's a medium ghost button" >Ghost</MaskedButton>
+                <MaskedButton variant="ghost" size="lg" label="It's a large ghost button" >Ghost</MaskedButton>
               </ButtonRow>
 
               <ButtonRow>
-                <MButton variant="gradient" size="sm" tooltip="It's a small gradient button" >Gradient</MButton>
-                <MButton variant="gradient" size="md" tooltip="It's a medium gradient button" >Gradient</MButton>
-                <MButton variant="gradient" size="lg" tooltip="It's a large gradient button" >Gradient</MButton>
+                <MaskedButton variant="gradient" size="sm" label="It's a small gradient button" >Gradient</MaskedButton>
+                <MaskedButton variant="gradient" size="md" label="It's a medium gradient button" >Gradient</MaskedButton>
+                <MaskedButton variant="gradient" size="lg" label="It's a large gradient button" >Gradient</MaskedButton>
               </ButtonRow>
 
               <ButtonRow>
-                <MButton variant="neon" size="sm" tooltip="It's a small neon button" >Neon</MButton>
-                <MButton variant="neon" size="md" tooltip="It's a medium neon button" >Neon</MButton>
-                <MButton variant="neon" size="lg" tooltip="It's a large neon button" >Neon</MButton>
+                <MaskedButton variant="neon" size="sm" label="It's a small neon button" >Neon</MaskedButton>
+                <MaskedButton variant="neon" size="md" label="It's a medium neon button" >Neon</MaskedButton>
+                <MaskedButton variant="neon" size="lg" label="It's a large neon button" >Neon</MaskedButton>
               </ButtonRow>
 
               <ButtonRow>
-                <MButton variant="link" href='www.google.com' size="sm" tooltip="It's a small link button" >Link</MButton>
-                <MButton variant="link" href='www.google.com' size="md" tooltip="It's a medium link button" > Link</MButton>
-                <MButton variant="link" href='www.google.com' size="lg" tooltip="It's a large link button" > Link</MButton>
+                <MaskedButton variant="link" href='www.google.com' size="sm" label="It's a small link button" >Link</MaskedButton>
+                <MaskedButton variant="link" href='www.google.com' size="md" label="It's a medium link button" > Link</MaskedButton>
+                <MaskedButton variant="link" href='www.google.com' size="lg" label="It's a large link button" > Link</MaskedButton>
               </ButtonRow>
             </Section>
-          </MAnimation>
+          </MaskedAnimation>
 
-          {/* ================= SHAPES ================= */}
-          <MAnimation trigger='scroll' variant="fadeInLeft">
+          {/* ================= shape ================= */}
+          <MaskedAnimation trigger='scroll' variant="revealFadeInLeft">
             <Section>
-              <TitleH3>Shapes</TitleH3>
+              <TitleH3>shape</TitleH3>
 
               <ButtonRow>
-                <MButton variant="default" shapes="circle" tooltip="It's a default button" leftIcon={<BsStars />} />
+                <MaskedButton variant="default" shape="circle" label="It's a default button" leftIcon={<BsStars />} />
 
-                <MButton variant="default" shapes="rounded" tooltip="It's a default button" >Default</MButton>
+                <MaskedButton variant="default" shape="rounded" label="It's a default button" >Default</MaskedButton>
 
-                <MButton variant="default" shapes="square" tooltip="It's a default button" >Default</MButton>
+                <MaskedButton variant="default" shape="square" label="It's a default button" >Default</MaskedButton>
               </ButtonRow>
 
               <ButtonRow>
-                <MButton variant="outline" shapes="circle" tooltip="It's a outline button" leftIcon={<BsStars />} />
+                <MaskedButton variant="outline" shape="circle" label="It's a outline button" leftIcon={<BsStars />} />
 
-                <MButton variant="outline" shapes="rounded" tooltip="It's a outline button" >Outline</MButton>
+                <MaskedButton variant="outline" shape="rounded" label="It's a outline button" >Outline</MaskedButton>
 
-                <MButton variant="outline" shapes="square" tooltip="It's a outline button" >Outline</MButton>
+                <MaskedButton variant="outline" shape="square" label="It's a outline button" >Outline</MaskedButton>
               </ButtonRow>
 
               <ButtonRow>
-                <MButton variant="ghost" shapes="circle" tooltip="It's a ghost button" leftIcon={<BsStars />} />
+                <MaskedButton variant="ghost" shape="circle" label="It's a ghost button" leftIcon={<BsStars />} />
 
-                <MButton variant="ghost" shapes="rounded" tooltip="It's a ghost button" >Ghost</MButton>
+                <MaskedButton variant="ghost" shape="rounded" label="It's a ghost button" >Ghost</MaskedButton>
 
-                <MButton variant="ghost" shapes="square" tooltip="It's a ghost button" >Ghost</MButton>
+                <MaskedButton variant="ghost" shape="square" label="It's a ghost button" >Ghost</MaskedButton>
               </ButtonRow>
 
               <ButtonRow>
-                <MButton variant="gradient" shapes="circle" tooltip="It's a gradient button" leftIcon={<BsStars />} />
+                <MaskedButton variant="gradient" shape="circle" label="It's a gradient button" leftIcon={<BsStars />} />
 
-                <MButton variant="gradient" shapes="rounded" tooltip="It's a gradient button" >Gradient</MButton>
+                <MaskedButton variant="gradient" shape="rounded" label="It's a gradient button" >Gradient</MaskedButton>
 
-                <MButton variant="gradient" shapes="square" tooltip="It's a gradient button" >Gradient</MButton>
+                <MaskedButton variant="gradient" shape="square" label="It's a gradient button" >Gradient</MaskedButton>
               </ButtonRow>
 
               <ButtonRow>
-                <MButton variant="neon" shapes="circle" tooltip="It's a neon button" leftIcon={<BsStars />} />
+                <MaskedButton variant="neon" shape="circle" label="It's a neon button" leftIcon={<BsStars />} />
 
-                <MButton variant="neon" shapes="rounded" tooltip="It's a neon button" >Neon</MButton>
+                <MaskedButton variant="neon" shape="rounded" label="It's a neon button" >Neon</MaskedButton>
 
-                <MButton variant="neon" shapes="square" tooltip="It's a neon button" >Neon</MButton>
+                <MaskedButton variant="neon" shape="square" label="It's a neon button" >Neon</MaskedButton>
               </ButtonRow>
             </Section>
-          </MAnimation>
+          </MaskedAnimation>
 
           {/* ================= FULL WIDTH ================= */}
-          <MAnimation trigger='scroll' variant="fadeInLeft">
+          <MaskedAnimation trigger='scroll' variant="revealFadeInLeft">
             <Section>
               <TitleH3> Full Width</TitleH3>
 
               <ButtonRow>
-                <MButton variant="default" size="md" fullWidth tooltip="It's a full width button" >Full width</MButton>
+                <MaskedButton variant="default" size="md" fullWidth label="It's a full width button" >Full width</MaskedButton>
               </ButtonRow>
 
               <ButtonRow>
-                <MButton variant="outline" size="md" fullWidth tooltip="It's a full width button" >Full width</MButton>
+                <MaskedButton variant="outline" size="md" fullWidth label="It's a full width button" >Full width</MaskedButton>
               </ButtonRow>
 
               <ButtonRow>
-                <MButton variant="ghost" size="md" fullWidth tooltip="It's a full width button" >Full width</MButton>
+                <MaskedButton variant="ghost" size="md" fullWidth label="It's a full width button" >Full width</MaskedButton>
               </ButtonRow>
 
               <ButtonRow>
-                <MButton variant="gradient" size="md" fullWidth tooltip="It's a full width button" >Full width</MButton>
+                <MaskedButton variant="gradient" size="md" fullWidth label="It's a full width button" >Full width</MaskedButton>
               </ButtonRow>
 
               <ButtonRow>
-                <MButton variant="neon" size="md" fullWidth tooltip="It's a full width button" >Full width</MButton>
+                <MaskedButton variant="neon" size="md" fullWidth label="It's a full width button" >Full width</MaskedButton>
               </ButtonRow>
             </Section>
-          </MAnimation>
+          </MaskedAnimation>
         </BaseDiv>
       </ButtonSectionContent>
     </ButtonSectionContainer>
