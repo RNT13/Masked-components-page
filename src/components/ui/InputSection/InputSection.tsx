@@ -1,368 +1,114 @@
-import { MaskedAnimation } from '@/styles/MaskedAnimations/MaskedAnimation'
+'use client'
+
 import { useState } from 'react'
-import { BsStars } from 'react-icons/bs'
-import { FaCheckCircle, FaCode } from 'react-icons/fa'
-import { MdOutlineInput } from "react-icons/md"
+import styled from 'styled-components'
+import { TitleH3 } from '@/styles/globalStyles'
+import { MaskedAnimation } from '@/styles/MaskedAnimations/MaskedAnimation'
+import { MaskedInput } from '@/components/ui/MaskedInput/MaskedInput'
+import { FormikTextInput } from '@/components/ui/MaskedInput/formikVariants/FormikTextInput'
 import BaseDiv from '../BaseDiv/BaseDiv'
 import BaseSection from '../BaseSection/BaseSection'
-import { MaskedInput } from '../MaskedInput/MaskedInput'
-import { InfoDiv, InputColumn, InputContainer, InputDiv, InputSectionContainer, InputSectionContent } from './InputSectionStyles'
+import { SectionLabel, DemoGrid, FieldColumn, CodeBlock } from './InputSection.styles'
+
+const selectOptions = [
+  { value: 'react', label: 'React' },
+  { value: 'next', label: 'Next.js' },
+  { value: 'vue', label: 'Vue' }
+]
 
 export default function InputSection() {
-  const [inputDefaultValue, setInputDefaultValue] = useState('')
-  const [phoneValue, setPhoneValue] = useState('')
-  const [inputTextareaValue, setInputTextareaValue] = useState('')
-  const [inputPasswordValue, setInputPasswordValue] = useState('')
-  const [optionValue, setOptionValue] = useState('')
-  const [searchValue, setSearchValue] = useState('')
-  const [currencyValue, setCurrencyValue] = useState('')
-
-  const [errorInputDefaultValue, setErrorInputDefaultValue] = useState('')
-  const [errorPhoneValue, setErrorPhoneValue] = useState('')
-  const [errorInputTextareaValue, setErrorInputTextareaValue] = useState('')
-  const [errorInputPasswordValue, setErrorInputPasswordValue] = useState('')
-  const [errorOptionValue, setErrorOptionValue] = useState('')
-  const [errorSearchValue, setErrorSearchValue] = useState('')
-  const [errorCurrencyValue, setErrorCurrencyValue] = useState('')
+  const [search, setSearch] = useState('')
 
   return (
-    <InputSectionContainer>
-      <InputSectionContent>
+    <BaseSection id="inputs">
+      <MaskedAnimation variant="revealFadeInUp" trigger="scroll" once>
+        <BaseDiv>
+          <SectionLabel>MaskedInput</SectionLabel>
+          <TitleH3>Um componente, todas as variantes de input</TitleH3>
+          <p>
+            O <code>MaskedInput</code> resolve text, password, search, select, date, time,
+            currency e file pela prop <code>variant</code>. Validação, label, helperText e
+            tokens <code>--mc-input-*</code> vêm de fábrica.
+          </p>
+        </BaseDiv>
+      </MaskedAnimation>
 
-        <BaseSection
-          header
-          icon={<FaCode />}
-          title="Basic Usage of MaskedInput"
-          fileType="tsx"
-          description="Simple example of using MaskedInput."
-          content1={`
-        import { MaskedInput  } from
-        '../MaskedInput/MaskedInput'
-
-        function MyForm() {
-          const [value, setValue] = useState('')
-
-          return (
+      <MaskedAnimation variant="revealFadeInUp" trigger="scroll" once delay={100}>
+        <DemoGrid>
+          <FieldColumn>
             <MaskedInput
-              radius={4}
-              variant="masked"
-              label="Phone number"
-              icon={<BsStars />}
-              mask="(00) 0000-0000"
-              placeholder="Telefone"
-              value={phoneValue}
-              onChange={v => setPhoneValue(v)}
+              variant="textarea"
+              label="Nome"
+              placeholder="Seu nome"
+              helperText="Como aparece no perfil"
             />
-          )
-        }
-                    `}
-        />
+            <MaskedInput
+              variant="password"
+              label="Senha"
+              placeholder="••••••••"
+              helperText="Mínimo de 8 caracteres"
+            />
+            <MaskedInput
+              variant="search"
+              label="Buscar"
+              placeholder="Buscar componente..."
+              value={search}
+              onChange={setSearch}
+            />
+            <MaskedInput
+              variant="select"
+              label="Framework"
+              options={selectOptions}
+              placeholder="Selecione"
+            />
+          </FieldColumn>
 
-        <BaseSection
-          title='MaskedInput Variants'
-          icon={<MdOutlineInput />}
-          description="Inputs with intelligent masks and automatic formatting in real-time. Type into the fields below to test."
-        >
+          <FieldColumn>
+            <MaskedInput variant="time" label="Horário" minuteStep={15} clearable />
+            <MaskedInput
+              variant="currency"
+              label="Preço"
+              currencyConfig={{ locale: 'pt-BR', currency: 'BRL' }}
+            />
+            <MaskedInput
+              variant="textarea"
+              label="Com erro"
+              placeholder="Campo obrigatório"
+              error="Este campo é obrigatório"
+              touched
+              showError
+            />
+          </FieldColumn>
+        </DemoGrid>
+      </MaskedAnimation>
 
+      <MaskedAnimation variant="revealFadeInUp" trigger="scroll" once delay={150}>
+        <CodeBlock>
+          {`<MaskedInput variant="textarea" label="Nome" helperText="Como aparece no perfil" />
+<MaskedInput variant="password" label="Senha" />
+<MaskedInput variant="search" value={q} onChange={setQ} />
+<MaskedInput variant="select" options={options} />
+<MaskedInput variant="date" label="Data" />
+<MaskedInput variant="time" minuteStep={15} clearable />
+<MaskedInput variant="currency" currencyConfig={{ locale: 'pt-BR', currency: 'BRL' }} />
+<MaskedInput variant="file" multiple previewMode="grid" />`}
+        </CodeBlock>
+      </MaskedAnimation>
 
-          <MaskedAnimation trigger='scroll' variant='revealSlideImpactRight'>
+      <MaskedAnimation variant="revealFadeInUp" trigger="scroll" once delay={200}>
+        <BaseDiv>
+          <SectionLabel>Formik</SectionLabel>
+          <p>
+            Para formulários, cada variante tem um wrapper <code>Formik*Input</code> que
+            conecta <code>useField</code> automaticamente — basta passar <code>name</code>:
+          </p>
+          <CodeBlock>
+            {`import { FormikTextInput } from '@/components/ui/MaskedInput/formikVariants/FormikTextInput'
 
-            <BaseDiv direction="column">
-
-              <InputContainer>
-
-                <InputColumn>
-                  <MaskedAnimation trigger='scroll' variant='revealSlideImpactRight'>
-                    <InputDiv>
-                      <MaskedInput
-                        variant="default"
-                        placeholder="Type here"
-                        icon={<BsStars />}
-                        label="Input default"
-                        value={inputDefaultValue}
-                        onChange={v => setInputDefaultValue(v)}
-                      />
-                      Value: {inputDefaultValue}
-                    </InputDiv>
-                  </MaskedAnimation>
-
-                  <MaskedAnimation trigger='scroll' variant='revealSlideImpactRight'>
-                    <InputDiv>
-                      <MaskedInput
-                        variant="textarea"
-                        label="Input textarea"
-                        icon={<BsStars />}
-                        placeholder="Type here"
-                        value={inputTextareaValue}
-                        onChange={v => setInputTextareaValue(v)}
-                      />
-                      Value: {inputTextareaValue.length > 30 ? inputTextareaValue.slice(0, 30) + '...' : inputTextareaValue}
-                    </InputDiv>
-                  </MaskedAnimation>
-
-                  <MaskedAnimation trigger='scroll' variant='revealSlideImpactRight'>
-                    <InputDiv>
-                      <MaskedInput
-                        variant="masked"
-                        label="Input masked"
-                        icon={<BsStars />}
-                        mask="(00) 0000-0000"
-                        placeholder="(00) 0000-0000"
-                        value={phoneValue}
-                        onChange={v => setPhoneValue(v)}
-                      />
-                      Value: {phoneValue}
-                    </InputDiv>
-                  </MaskedAnimation>
-
-                  <MaskedAnimation trigger='scroll' variant='revealSlideImpactRight'>
-                    <InputDiv>
-                      <MaskedInput
-                        variant="password"
-                        label="Input password"
-                        icon={<BsStars />}
-                        placeholder="Type here"
-                        value={inputPasswordValue}
-                        onChange={v => setInputPasswordValue(v)}
-                      />
-                      Value: {inputPasswordValue}
-                    </InputDiv>
-                  </MaskedAnimation>
-
-                </InputColumn>
-
-                <InputColumn>
-
-                  <MaskedAnimation trigger='scroll' variant='controlledSlideFromLeft'>
-                    <InputDiv>
-                      <MaskedInput
-                        variant="select"
-                        label="Input select"
-                        icon={<BsStars />}
-                        options={[
-                          { value: 'option1', label: 'Option 1' },
-                          { value: 'option2', label: 'Option 2' },
-                          { value: 'option3', label: 'Option 3' }
-                        ]}
-                        value={optionValue}
-                        onChange={v => setOptionValue(v)}
-                      />
-                      Value: {optionValue}
-                    </InputDiv>
-                  </MaskedAnimation>
-
-                  <MaskedAnimation trigger='scroll' variant='controlledSlideFromLeft'>
-                    <InputDiv>
-                      <MaskedInput label="Input file" icon={<BsStars />} variant="file" fileMode="cloudinary" multiple />
-                    </InputDiv>
-                  </MaskedAnimation>
-
-                  <MaskedAnimation trigger='scroll' variant='controlledSlideFromLeft'>
-                    <InputDiv>
-                      <MaskedInput
-                        variant="search"
-                        label="Input search"
-                        icon={<BsStars />}
-                        placeholder="Search"
-                        value={searchValue}
-                        onChange={v => setSearchValue(v)}
-                      />
-                      Value: {searchValue}
-                    </InputDiv>
-                  </MaskedAnimation>
-
-                  <MaskedAnimation trigger='scroll' variant='controlledSlideFromLeft'>
-                    <InputDiv>
-                      <MaskedInput
-                        variant="currency"
-                        label="Input currency"
-                        icon={<BsStars />}
-                        placeholder="0,00"
-                        value={currencyValue}
-                        onChange={v => setCurrencyValue(v)}
-                      />
-                      Value: {currencyValue}
-                    </InputDiv>
-                  </MaskedAnimation>
-
-                </InputColumn>
-
-
-              </InputContainer>
-
-              <MaskedAnimation trigger='scroll' variant='revealSlideImpactUp'>
-                <InfoDiv>
-                  <FaCheckCircle />
-                  <p>All masks are applied automatically as you type. Numbers are accepted and formatted in real-time.</p>
-                </InfoDiv>
-              </MaskedAnimation>
-
-            </BaseDiv>
-
-          </MaskedAnimation>
-
-        </BaseSection>
-
-        <BaseSection
-          title='MaskedInput with errors'
-          icon={<MdOutlineInput />}
-          description="Inputs with intelligent masks and automatic formatting in real-time. Type into the fields below to test."
-        >
-
-          <MaskedAnimation trigger='scroll' variant='controlledSlideFromLeft'>
-
-            <BaseDiv direction="column">
-
-              <InputContainer>
-
-
-                <InputColumn>
-                  <MaskedAnimation trigger='scroll' variant='revealSlideImpactRight'>
-                    <InputDiv>
-                      <MaskedInput
-                        touched={true}
-                        error="Some error message"
-                        showError
-                        variant="default"
-                        placeholder="Type here"
-                        icon={<BsStars />}
-                        label="Input default"
-                        value={errorInputDefaultValue}
-                        onChange={v => setErrorInputDefaultValue(v)}
-                      />
-                      Value: {errorInputDefaultValue.length ? errorInputDefaultValue : 'No value'}
-                    </InputDiv>
-                  </MaskedAnimation>
-
-                  <MaskedAnimation trigger='scroll' variant='revealSlideImpactRight'>
-                    <InputDiv>
-                      <MaskedInput
-                        touched={true}
-                        error="Some error message"
-                        showError
-                        variant="textarea"
-                        label="Input textarea"
-                        icon={<BsStars />}
-                        placeholder="Type here"
-                        value={errorInputTextareaValue}
-                        onChange={v => setErrorInputTextareaValue(v)}
-                      />
-                      Value: {errorInputTextareaValue.length > 30 ? errorInputTextareaValue.slice(0, 30) + '...' : 'No value'}
-                    </InputDiv>
-                  </MaskedAnimation>
-
-                  <MaskedAnimation trigger='scroll' variant='revealSlideImpactRight'>
-                    <InputDiv>
-                      <MaskedInput
-                        touched={true}
-                        error="Some error message"
-                        showError
-                        variant="masked"
-                        label="Input masked"
-                        icon={<BsStars />}
-                        mask="(00) 0000-0000"
-                        placeholder="(00) 0000-0000"
-                        value={errorPhoneValue}
-                        onChange={v => setErrorPhoneValue(v)}
-                      />
-                      Value: {errorPhoneValue ? errorPhoneValue : 'No value'}
-                    </InputDiv>
-                  </MaskedAnimation>
-
-                  <MaskedAnimation trigger='scroll' variant='revealSlideImpactRight'>
-                    <InputDiv>
-                      <MaskedInput
-                        touched={true}
-                        error="Some error message"
-                        showError
-                        variant="password"
-                        label="Input password"
-                        icon={<BsStars />}
-                        placeholder="Type here"
-                        value={errorInputPasswordValue}
-                        onChange={v => setErrorInputPasswordValue(v)}
-                      />
-                      Value: {errorInputPasswordValue ? errorInputPasswordValue : 'No value'}
-                    </InputDiv>
-                  </MaskedAnimation>
-                </InputColumn>
-
-                <InputColumn>
-
-                  <MaskedAnimation trigger='scroll' variant='controlledSlideFromLeft'>
-                    <InputDiv>
-                      <MaskedInput
-                        touched={true}
-                        error="Some error message"
-                        showError
-                        variant="select"
-                        label="Input select"
-                        icon={<BsStars />}
-                        options={[
-                          { value: 'option1', label: 'Option 1' },
-                          { value: 'option2', label: 'Option 2' },
-                          { value: 'option3', label: 'Option 3' }
-                        ]}
-                        value={errorOptionValue}
-                        onChange={v => setErrorOptionValue(v)}
-                      />
-                      Value: {errorOptionValue ? errorOptionValue : 'No value'}
-                    </InputDiv>
-                  </MaskedAnimation>
-
-                  <MaskedAnimation trigger='scroll' variant='controlledSlideFromLeft'>
-                    <InputDiv>
-                      <MaskedInput
-                        touched={true}
-                        error="Some error message"
-                        showError
-                        variant="search"
-                        label="Input search"
-                        icon={<BsStars />}
-                        placeholder="Search"
-                        value={errorSearchValue}
-                        onChange={v => setErrorSearchValue(v)}
-                      />
-                      Value: {errorSearchValue ? errorSearchValue : 'No value'}
-                    </InputDiv>
-                  </MaskedAnimation>
-
-                  <MaskedAnimation trigger='scroll' variant='controlledSlideFromLeft'>
-                    <InputDiv>
-                      <MaskedInput
-                        touched={true}
-                        error="Some error message"
-                        showError
-                        variant="currency"
-                        label="Input currency"
-                        icon={<BsStars />}
-                        placeholder="0,00"
-                        value={errorCurrencyValue}
-                        onChange={v => setErrorCurrencyValue(v)}
-                      />
-                      Value: {errorCurrencyValue ? errorCurrencyValue : 'No value'}
-                    </InputDiv>
-                  </MaskedAnimation>
-
-                </InputColumn>
-
-
-              </InputContainer>
-
-              <MaskedAnimation trigger='scroll' variant='revealSlideImpactUp'>
-                <InfoDiv>
-                  <FaCheckCircle />
-                  <p>All masks are applied automatically as you type. Numbers are accepted and formatted in real-time.</p>
-                </InfoDiv>
-              </MaskedAnimation>
-
-            </BaseDiv>
-
-          </MaskedAnimation>
-
-        </BaseSection>
-
-      </InputSectionContent>
-    </InputSectionContainer>
+<FormikTextInput name="email" label="E-mail" placeholder="voce@email.com" />`}
+          </CodeBlock>
+        </BaseDiv>
+      </MaskedAnimation>
+    </BaseSection>
   )
 }
