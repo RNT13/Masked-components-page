@@ -1,195 +1,235 @@
 'use client'
 
 import { useState } from 'react'
-import { FaGithub, FaHeart } from 'react-icons/fa6'
-import { RiDownload2Line } from 'react-icons/ri'
+import { BsStar } from 'react-icons/bs'
+import { FaCode } from 'react-icons/fa6'
 
 import { MaskedAnimation } from '@/styles/MaskedAnimations/MaskedAnimation'
-import { MaskedButton } from '../MaskedButton/MaskedButton'
-import { MaskedButtonGroup } from '../MaskedButton/MaskedButtonGroup'
+import { TitleH3 } from '@/styles/globalStyles'
 import BaseDiv from '../BaseDiv/BaseDiv'
 import BaseSection from '../BaseSection/BaseSection'
-import { TitleH3 } from '@/styles/globalStyles'
-import { SectionSubtitle, DemoCard, DemoCardTitle, ButtonShowcase, CodeBlock, ButtonGrid } from './ButtonSection.styles'
+import { MaskedButton } from '../MaskedButton/MaskedButton'
+import { MaskedButtonGroup } from '../MaskedButton/MaskedButtonGroup'
+import { SectionLabel } from '../AnimationSection/AnimationSection.styles'
+import { DemoGrid } from '../InputSection/InputSection.styles'
+import { InfoDiv, DemoCard, CodeBlock, ButtonRow } from './ButtonSection.styles'
 
-/* ---------- exemplos de código exibidos na página ---------- */
+const variantsCode = `import { MaskedButton } from '@/components/ui/MaskedButton/MaskedButton'
 
-const codeVariants = `<MaskedButton variant="default">Default</MaskedButton>
+<MaskedButton variant="default">Default</MaskedButton>
 <MaskedButton variant="outline">Outline</MaskedButton>
 <MaskedButton variant="ghost">Ghost</MaskedButton>
-<MaskedButton variant="soft">Soft</MaskedButton>
+<MaskedButton variant="link">Link</MaskedButton>
 <MaskedButton variant="gradient">Gradient</MaskedButton>
 <MaskedButton variant="neon">Neon</MaskedButton>
-<MaskedButton variant="link">Link</MaskedButton>`
+<MaskedButton variant="soft">Soft</MaskedButton>`
 
-const codeStates = `<MaskedButton state="loading" loadingText="Instalando...">
-  Instalar
+const statesCode = `// loading: spinner + disabled automáticos
+<MaskedButton variant="default" state="loading">
+  Saving...
 </MaskedButton>
 
-<MaskedButton disabled>Desabilitado</MaskedButton>
+// shape: 'rounded' | 'circle' | 'square'
+<MaskedButton variant="default" shape="circle" icon={<BsStar />} />
+<MaskedButton variant="outline" shape="square" icon={<BsStar />} />`
 
-<MaskedButton shape="circle" ariaLabel="GitHub"
-  leftIcon={<FaGithub />} />`
-
-const codeFields = `// switch controlado
-const [on, setOn] = useState(false)
+const fieldsCode = `// toggle / checkbox / switch / radio — variants de campo
+<MaskedButton variant="toggle" $toggleLabel="Notifications" />
+<MaskedButton variant="checkbox" $checkboxLabel="Accept terms" />
 <MaskedButton
   variant="switch"
-  checked={on}
-  onCheckedChange={setOn}
-  switchLabel="Notificações"
+  switchLabel="Dark mode"
+  checked={enabled}
+  onCheckedChange={setEnabled}
 />
+<MaskedButton variant="radio" name="plan" radioLabel="Pro" />`
 
-// segmented control
+const groupCode = `import { MaskedButtonGroup } from '@/components/ui/MaskedButton/MaskedButtonGroup'
+
 <MaskedButtonGroup
-  variant="radio"
-  defaultValue="react"
-  onChange={(v) => console.log(v)}
   options={[
-    { value: 'react', label: 'React' },
-    { value: 'next', label: 'Next.js' },
-    { value: 'vite', label: 'Vite' }
+    { value: 'day', label: 'Day' },
+    { value: 'week', label: 'Week' },
+    { value: 'month', label: 'Month' }
   ]}
+  value={period}
+  onChange={setPeriod}
+  variant="toggle"
+  role="radiogroup"
+  ariaLabel="Select period"
 />`
 
-const codeTokens = `// colorTheme: paleta registrada em masked-themes
-<MaskedButton variant="default" colorTheme="ruby">
-  Ruby
+const tokensCode = `// tokens: overrides granulares via CSS vars --mc-btn-*
+<MaskedButton
+  variant="default"
+  tokens={{ bg: '#7C3AED', 'bg-hover': '#8B5CF6', fg: '#FFFFFF', radius: '999px' }}
+>
+  Custom tokens
 </MaskedButton>
 
-// tokens: override granular (prop > colorTheme > default)
-<MaskedButton
-  variant="outline"
-  tokens={{ 'bg-hover': '#FF2DAA', 'fg': '#fff', 'radius': 999 }}
->
-  Custom
+// colorTheme: paleta registrada via registerColorTheme()
+<MaskedButton variant="default" colorTheme="baseBlue">
+  Themed
 </MaskedButton>`
 
-/* ---------- componente ---------- */
+export function ButtonSection() {
+  const [lastClicked, setLastClicked] = useState<string | null>(null)
+  const [enabled, setEnabled] = useState(false)
+  const [period, setPeriod] = useState('week')
 
-export default function ButtonSection() {
-  const [notify, setNotify] = useState(true)
-  const [framework, setFramework] = useState('next')
+  const click = (name: string) => () => setLastClicked(name)
 
   return (
     <BaseSection id="buttons">
       <BaseDiv>
-        <MaskedAnimation variant="revealFadeInUp" trigger="mount" >
-          <TitleH3>MaskedButton</TitleH3>
-          <SectionSubtitle>
-            Um componente, onze variantes. Toda a aparência é controlada por
-            tokens CSS <code>--mc-btn-*</code> — sem classes utilitárias, sem
-            props de cor soltas.
-          </SectionSubtitle>
+        <MaskedAnimation variant="revealFadeInUp" trigger="scroll" once>
+          <SectionLabel>Component</SectionLabel>
+          <TitleH3>
+            <FaCode /> MaskedButton
+          </TitleH3>
         </MaskedAnimation>
 
-        {/* ---- 1. Variantes visuais ---- */}
-        <MaskedAnimation variant="revealFadeInUp" trigger="mount" >
-          <DemoCard>
-            <DemoCardTitle>Variantes</DemoCardTitle>
-            <ButtonShowcase>
-              <MaskedButton variant="default">Default</MaskedButton>
-              <MaskedButton variant="outline">Outline</MaskedButton>
-              <MaskedButton variant="ghost">Ghost</MaskedButton>
-              <MaskedButton variant="soft">Soft</MaskedButton>
-              <MaskedButton variant="gradient">Gradient</MaskedButton>
-              <MaskedButton variant="neon">Neon</MaskedButton>
-              <MaskedButton variant="link">Link</MaskedButton>
-            </ButtonShowcase>
-            <CodeBlock>{codeVariants}</CodeBlock>
-          </DemoCard>
+        <MaskedAnimation variant="revealFadeInUp" trigger="scroll" once delay={0.05}>
+          <InfoDiv>
+            One component, eleven variants — from plain buttons to form fields
+            (toggle, checkbox, switch, radio) and segmented groups. Click any
+            button to see the feedback below.
+            {lastClicked && <strong> · Clicked: {lastClicked}</strong>}
+          </InfoDiv>
         </MaskedAnimation>
 
-        {/* ---- 2. Estados e formas ---- */}
-        <MaskedAnimation variant="revealFadeInUp" trigger="mount">
-          <DemoCard>
-            <DemoCardTitle>Estados, formas e ícones</DemoCardTitle>
-            <ButtonShowcase>
-              <MaskedButton state="loading" loadingText="Instalando...">
-                Instalar
-              </MaskedButton>
-              <MaskedButton disabled>Desabilitado</MaskedButton>
-              <MaskedButton
-                shape="circle"
-                ariaLabel="GitHub"
-                leftIcon={<FaGithub />}
-              />
-              <MaskedButton
-                variant="outline"
-                leftIcon={<RiDownload2Line />}
-                label="Baixar pacote"
-              >
-                Download
-              </MaskedButton>
-              <MaskedButton variant="soft" rightIcon={<FaHeart />}>
-                Favoritar
-              </MaskedButton>
-            </ButtonShowcase>
-            <CodeBlock>{codeStates}</CodeBlock>
-          </DemoCard>
-        </MaskedAnimation>
+        <DemoGrid>
+          <MaskedAnimation variant="revealFadeInUp" trigger="scroll" once delay={0.1}>
+            <DemoCard>
+              <SectionLabel>Variants</SectionLabel>
+              <ButtonRow>
+                <MaskedButton variant="default" onClick={click('default')}>Default</MaskedButton>
+                <MaskedButton variant="outline" onClick={click('outline')}>Outline</MaskedButton>
+                <MaskedButton variant="ghost" onClick={click('ghost')}>Ghost</MaskedButton>
+                <MaskedButton variant="link" onClick={click('link')}>Link</MaskedButton>
+                <MaskedButton variant="gradient" onClick={click('gradient')}>Gradient</MaskedButton>
+                <MaskedButton variant="neon" onClick={click('neon')}>Neon</MaskedButton>
+                <MaskedButton variant="soft" onClick={click('soft')}>Soft</MaskedButton>
+              </ButtonRow>
+              <CodeBlock title="Variants">{variantsCode}</CodeBlock>
+            </DemoCard>
+          </MaskedAnimation>
 
-        {/* ---- 3. Variantes de campo (switch/toggle/checkbox/radio + group) ---- */}
-        <MaskedAnimation variant="revealFadeInUp" trigger="mount">
-          <DemoCard>
-            <DemoCardTitle>Campos: switch, toggle e grupo</DemoCardTitle>
-            <ButtonGrid>
-              <MaskedButton
-                variant="switch"
-                checked={notify}
-                onCheckedChange={setNotify}
-                switchLabel="Notificações"
-              />
-              <MaskedButton
-                variant="toggle"
-                toggleLabel="Modo compacto"
-                onToggle={(active) => console.log('toggle', active)}
-              >
-                Compacto
-              </MaskedButton>
-              <MaskedButton
-                variant="checkbox"
-                defaultChecked
-                checkboxLabel="Aceito os termos"
-              />
-            </ButtonGrid>
+          <MaskedAnimation variant="revealFadeInUp" trigger="scroll" once delay={0.15}>
+            <DemoCard>
+              <SectionLabel>States &amp; shapes</SectionLabel>
+              <ButtonRow>
+                <MaskedButton variant="default" state="loading">
+                  Saving...
+                </MaskedButton>
+                <MaskedButton
+                  variant="default"
+                  shape="circle"
+                  leftIcon={<BsStar />}
+                  aria-label="Favorite"
+                  onClick={click('circle icon')}
+                />
+                <MaskedButton
+                  variant="outline"
+                  shape="square"
+                  leftIcon={<BsStar />}
+                  aria-label="Favorite"
+                  onClick={click('square icon')}
+                />
+              </ButtonRow>
+              <CodeBlock title="States & shapes">{statesCode}</CodeBlock>
+            </DemoCard>
+          </MaskedAnimation>
 
-            <MaskedButtonGroup
-              variant="radio"
-              value={framework}
-              onChange={setFramework}
-              ariaLabel="Framework favorito"
-              options={[
-                { value: 'react', label: 'React' },
-                { value: 'next', label: 'Next.js' },
-                { value: 'vite', label: 'Vite' }
-              ]}
-            />
-            <CodeBlock>{codeFields}</CodeBlock>
-          </DemoCard>
-        </MaskedAnimation>
+          <MaskedAnimation variant="revealFadeInUp" trigger="scroll" once delay={0.2}>
+            <DemoCard>
+              <SectionLabel>Field variants</SectionLabel>
+              <ButtonRow>
+                <MaskedButton
+                  variant="toggle"
+                  $toggleLabel="Notifications"
+                  onToggle={(active) => setLastClicked(`toggle: ${active}`)}
+                />
+                <MaskedButton
+                  variant="checkbox"
+                  $checkboxLabel="Accept terms"
+                  onCheckedChange={(c) => setLastClicked(`checkbox: ${c}`)}
+                />
+                <MaskedButton
+                  variant="switch"
+                  switchLabel="Dark mode"
+                  checked={enabled}
+                  onCheckedChange={(c) => {
+                    setEnabled(c)
+                    setLastClicked(`switch: ${c}`)
+                  }}
+                />
+                <MaskedButton
+                  variant="radio"
+                  name="plan"
+                  radioLabel="Pro"
+                  onCheckedChange={(c) => setLastClicked(`radio: ${c}`)}
+                />
+              </ButtonRow>
+              <CodeBlock title="Field variants">{fieldsCode}</CodeBlock>
+            </DemoCard>
+          </MaskedAnimation>
 
-        {/* ---- 4. Temas e tokens ---- */}
-        <MaskedAnimation variant="revealFadeInUp" trigger="mount">
-          <DemoCard>
-            <DemoCardTitle>colorTheme e tokens</DemoCardTitle>
-            <ButtonShowcase>
-              <MaskedButton variant="default" colorTheme="ruby">
-                Ruby
-              </MaskedButton>
-              <MaskedButton variant="default" colorTheme="ocean">
-                Ocean
-              </MaskedButton>
-              <MaskedButton
-                variant="outline"
-                tokens={{ 'bg-hover': '#FF2DAA', fg: '#fff', radius: 999 }}
-              >
-                Pill custom
-              </MaskedButton>
-            </ButtonShowcase>
-            <CodeBlock>{codeTokens}</CodeBlock>
-          </DemoCard>
-        </MaskedAnimation>
+          <MaskedAnimation variant="revealFadeInUp" trigger="scroll" once delay={0.25}>
+            <DemoCard>
+              <SectionLabel>MaskedButtonGroup — segmented control</SectionLabel>
+              <ButtonRow>
+                <MaskedButtonGroup
+                  options={[
+                    { value: 'day', label: 'Day' },
+                    { value: 'week', label: 'Week' },
+                    { value: 'month', label: 'Month' }
+                  ]}
+                  value={period}
+                  onChange={(v) => {
+                    setPeriod(v)
+                    setLastClicked(`group: ${v}`)
+                  }}
+                  variant="toggle"
+                  role="radiogroup"
+                  ariaLabel="Select period"
+                />
+              </ButtonRow>
+              <InfoDiv>Selected: {period}</InfoDiv>
+              <CodeBlock title="Button group">{groupCode}</CodeBlock>
+            </DemoCard>
+          </MaskedAnimation>
+
+          <MaskedAnimation variant="revealFadeInUp" trigger="scroll" once delay={0.3}>
+            <DemoCard>
+              <SectionLabel>colorTheme &amp; tokens</SectionLabel>
+              <ButtonRow>
+                <MaskedButton
+                  variant="default"
+                  tokens={{ bg: '#7C3AED', 'bg-hover': '#8B5CF6', fg: '#FFFFFF', radius: '999px' }}
+                  onClick={click('custom tokens')}
+                >
+                  Custom tokens
+                </MaskedButton>
+                <MaskedButton
+                  variant="default"
+                  colorTheme="baseBlue"
+                  onClick={click('colorTheme baseBlue')}
+                >
+                  Themed
+                </MaskedButton>
+                <MaskedButton
+                  variant="outline"
+                  colorTheme="baseLilac"
+                  onClick={click('colorTheme baseLilac')}
+                >
+                  Lilac outline
+                </MaskedButton>
+              </ButtonRow>
+              <CodeBlock title="colorTheme & tokens">{tokensCode}</CodeBlock>
+            </DemoCard>
+          </MaskedAnimation>
+        </DemoGrid>
       </BaseDiv>
     </BaseSection>
   )

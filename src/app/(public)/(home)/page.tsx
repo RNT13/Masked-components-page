@@ -9,11 +9,13 @@ import FeaturesSection from '@/components/ui/FeaturesSection/FeaturesSection'
 import InstallSection from '@/components/ui/InstallSection/InstallSection'
 import { HomeContainer, HomeContent } from './homeStyles'
 import { InputSection } from '@/components/ui/InputSection/InputSection'
+import { HeroSection } from '@/components/ui/HeroSection/HeroSection'
 
 export default function Home() {
   return (
     <HomeContainer className="container">
       <HomeContent>
+        <HeroSection />
         <AboutSection />
         <InstallSection />
 

@@ -24,7 +24,7 @@ export function InputSection() {
 
   return (
     <BaseSection id="inputs">
-      <BaseDiv>
+      <BaseDiv gap='10px'>
         <MaskedAnimation trigger="scroll" variant="revealFadeInUp">
           <SectionLabel>MaskedInput</SectionLabel>
         </MaskedAnimation>

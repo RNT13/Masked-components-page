@@ -54,3 +54,25 @@ export const CodeBlock = styled.pre`
   font-size: 0.8rem;
   line-height: 1.5;
 `
+
+export const InfoDiv = styled.div`
+  padding: ${({ theme }) => theme.spacing.md};
+  border: 1px solid ${({ theme }) => theme.colors.borderColor ?? 'transparent'};
+  border-radius: ${({ theme }) => theme.radius.md};
+  background: ${({ theme }) => theme.colors.surfaceColor ?? theme.colors.baseBlack.light08};
+  font-size: ${({ theme }) => theme.fontSize.sm};
+  line-height: 1.6;
+  color: ${({ theme }) => theme.colors.textMuted ?? theme.colors.baseGray.base};
+
+  strong {
+    color: ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.base};
+  }
+`
+
+export const ButtonRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.md};
+  margin-bottom: ${({ theme }) => theme.spacing.md};
+`

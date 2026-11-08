@@ -48,10 +48,10 @@ const GroupContext = createContext<{
 const GroupContainer = styled.div<{ $fullWidth?: boolean }>`
   display: inline-flex;
   align-items: stretch;
-  gap: 0;
+  gap: ${({ theme }) => theme.spacing.xs};
   ${({ $fullWidth }) => $fullWidth && 'width: 100%;'}
 
-  /* botões adjacentes compartilham borda (segmented control) */  
+  /* botões adjacentes compartilham borda (segmented control) */
   & > *:not(:first-child) {
     margin-left: -1px;
   }
