@@ -1,124 +1,164 @@
 'use client'
 
 import { useState } from 'react'
-import { FaKeyboard } from 'react-icons/fa6'
+import { BsInputCursorText } from 'react-icons/bs'
+import { FaCode } from 'react-icons/fa6'
 
 import { MaskedAnimation } from '@/styles/MaskedAnimations/MaskedAnimation'
 import { TitleH3 } from '@/styles/globalStyles'
 import BaseDiv from '../BaseDiv/BaseDiv'
 import BaseSection from '../BaseSection/BaseSection'
 import { MaskedInput } from '../MaskedInput/MaskedInput'
-import {
-  CodeBlock,
-  DemoGrid,
-  FieldColumn,
-  SectionLabel
-} from './InputSection.styles'
+import { CodeBlock } from '../CodeBlock/CodeBlock'
+import { DemoGrid, FieldColumn, SectionLabel, InfoDiv } from './InputSection.styles'
 
-const SELECT_OPTIONS = [
-  { value: 'br', label: 'Brasil' },
-  { value: 'us', label: 'Estados Unidos' },
-  { value: 'pt', label: 'Portugal' }
-]
-
-export default function InputSection() {
+export function InputSection() {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [search, setSearch] = useState('')
+  const [plan, setPlan] = useState('')
+  const [date, setDate] = useState('')
+  const [time, setTime] = useState('')
+  const [price, setPrice] = useState('')
 
   return (
     <BaseSection id="inputs">
-      <MaskedAnimation variant="revealFadeInDown" trigger="scroll">
-        <SectionLabel>Componentes</SectionLabel>
-        <TitleH3>
-          <FaKeyboard /> MaskedInput
-        </TitleH3>
-      </MaskedAnimation>
+      <BaseDiv>
+        <MaskedAnimation trigger="scroll" variant="revealFadeInUp">
+          <SectionLabel>MaskedInput</SectionLabel>
+        </MaskedAnimation>
 
-      <MaskedAnimation variant="revealFadeInUp" trigger="scroll">
-        <BaseDiv>
-          <DemoGrid>
-            <FieldColumn>
-              <MaskedInput
-                variant="default"
-                label="Nome"
-                placeholder="Digite seu nome"
-                helperText="Variant default com label e helperText"
-              />
+        <MaskedAnimation trigger="scroll" variant="revealFadeInUp">
+          <TitleH3>
+            <BsInputCursorText /> One component, nine variants
+          </TitleH3>
+        </MaskedAnimation>
 
-              <MaskedInput
-                variant="password"
-                label="Senha"
-                placeholder="••••••••"
-                helperText="Toggle de visibilidade embutido"
-              />
+        <MaskedAnimation trigger="scroll" variant="revealFadeInUp">
+          <InfoDiv>
+            Every variant shares the same props contract — <code>label</code>,{' '}
+            <code>icon</code>, <code>error</code>, <code>colorTheme</code>,{' '}
+            <code>tokens</code>. Switch behavior with a single{' '}
+            <code>variant</code> prop.
+          </InfoDiv>
+        </MaskedAnimation>
 
-              <MaskedInput
-                variant="search"
-                label="Busca"
-                placeholder="Buscar componente..."
-                value={search}
-                onChange={setSearch}
-              />
-            </FieldColumn>
+        <DemoGrid>
+          <FieldColumn>
+            <MaskedInput
+              variant="default"
+              label="Name"
+              placeholder="Your name"
+              value={name}
+              onChange={setName}
+            />
+            <MaskedInput
+              variant="default"
+              label="Email"
+              type="email"
+              placeholder="you@mail.com"
+              value={email}
+              onChange={setEmail}
+              colorTheme="baseBlue"
+            />
+            <MaskedInput
+              variant="password"
+              label="Password"
+              placeholder="••••••••"
+              value={password}
+              onChange={setPassword}
+            />
+            <MaskedInput
+              variant="search"
+              label="Search"
+              placeholder="Search components..."
+              value={search}
+              onChange={setSearch}
+            />
+          </FieldColumn>
 
-            <FieldColumn>
-              <MaskedInput
-                variant="select"
-                label="País"
-                options={SELECT_OPTIONS}
-                placeholder="Selecione..."
-              />
+          <FieldColumn>
+            <MaskedInput
+              variant="select"
+              label="Plan"
+              placeholder="Choose a plan"
+              value={plan}
+              onChange={setPlan}
+              options={[
+                { value: 'free', label: 'Free' },
+                { value: 'pro', label: 'Pro' },
+                { value: 'team', label: 'Team' }
+              ]}
+            />
+            <MaskedInput
+              variant="masked"
+              label="Birth date"
+              mask="00/00/0000"
+              placeholder="DD/MM/YYYY"
+              value={date}
+              onChange={setDate}
+            />
+            <MaskedInput
+              variant="time"
+              label="Meeting time"
+              value={time}
+              onChange={setTime}
+            />
+            <MaskedInput
+              variant="currency"
+              label="Price"
+              value={price}
+              onChange={setPrice}
+              currencyConfig={{ locale: 'en-US', currency: 'USD' }}
+            />
+          </FieldColumn>
+        </DemoGrid>
 
-              <MaskedInput
-                variant="masked"
-                label="Data"
-                mask="00/00/0000"
-                placeholder="DD/MM/AAAA"
-                helperText="Variant masked — máscara livre"
-              />
+        <MaskedAnimation trigger="scroll" variant="revealFadeInUp">
+          <TitleH3>
+            <FaCode /> Usage
+          </TitleH3>
+        </MaskedAnimation>
 
-              <MaskedInput
-                variant="currency"
-                label="Preço"
-                currencyConfig={{ locale: 'pt-BR', currency: 'BRL' }}
-              />
-            </FieldColumn>
+        <CodeBlock
+          title="Controlled inputs"
+          code={`const [value, setValue] = useState('')
 
-            <FieldColumn>
-              <MaskedInput
-                variant="time"
-                label="Horário"
-                minuteStep={15}
-                clearable
-              />
+<MaskedInput
+  variant="select"
+  label="Plan"
+  value={value}
+  onChange={setValue}
+  options={[
+    { value: 'free', label: 'Free' },
+    { value: 'pro', label: 'Pro' }
+  ]}
 
-              <MaskedInput
-                variant="file"
-                label="Avatar"
-                selectFilesLabel="Selecionar imagem"
-              />
+<MaskedInput
+  variant="time"
+  label="Meeting time"
+  value={time}
+  onChange={setTime}
+/>
 
-              <MaskedInput
-                variant="default"
-                label="Com erro"
-                error="Campo obrigatório"
-                touched
-                showError
-              />
-            </FieldColumn>
-          </DemoGrid>
-        </BaseDiv>
-      </MaskedAnimation>
+<MaskedInput
+  variant="masked"
+  label="Birth date"
+  mask="00/00/0000"
+  value={date}
+  onChange={setDate}
+/>`}
+        />
 
-      <MaskedAnimation variant="revealFadeInUp" trigger="scroll">
-        <CodeBlock>{`<MaskedInput variant="default" label="Nome" helperText="..." />
-<MaskedInput variant="password" label="Senha" />
-<MaskedInput variant="search" value={v} onChange={setV} />
-<MaskedInput variant="select" options={options} />
-<MaskedInput variant="masked" mask="00/00/0000" />
-<MaskedInput variant="currency" currencyConfig={{ locale: 'pt-BR', currency: 'BRL' }} />
-<MaskedInput variant="time" minuteStep={15} clearable />
-<MaskedInput variant="file" selectFilesLabel="Selecionar imagem" />`}</CodeBlock>
-      </MaskedAnimation>
+        <CodeBlock
+          title="Formik integration"
+          code={`import { FormikTextInput } from '@/components/ui/MaskedInput/formikVariants/FormikTextInput'
+
+// Inside <Formik> — wires useField() automatically
+<FormikTextInput name="email" label="Email" />`}
+        />
+      </BaseDiv>
     </BaseSection>
   )
 }

@@ -31,3 +31,13 @@ export const CodeBlock = styled.pre`
   font-size: ${({ theme }) => theme.fontSize.sm};
   line-height: 1.6;
 `
+
+export const InfoDiv = styled.div`
+  padding: ${({ theme }) => theme.spacing.lg};
+  border: 1px solid ${({ theme }) => theme.colors.borderColor ?? 'transparent'};
+  border-radius: ${({ theme }) => theme.radius.md};
+  background: ${({ theme }) => theme.colors.surfaceColor ?? theme.colors.baseBlack.light08};
+  font-size: ${({ theme }) => theme.fontSize.sm};
+  line-height: 1.6;
+  color: ${({ theme }) => theme.colors.textMuted ?? theme.colors.baseGray.base};
+`
