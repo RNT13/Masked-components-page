@@ -108,7 +108,7 @@ export default function HeroSection() {
             variant="neon"
             size="lg"
             shape="rounded"
-            colorTheme="accentBlue"
+            colorTheme="baseBlue"
             href="#components"
             label="Explorar a lib"
           >
