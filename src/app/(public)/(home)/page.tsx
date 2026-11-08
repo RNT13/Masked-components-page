@@ -2,12 +2,11 @@
 
 import AboutSection from '@/components/ui/AboutSection/AboutSection'
 import AnimationSection from '@/components/ui/AnimationSection/AnimationSection'
-import Section from '@/components/ui/BaseSection/BaseSection'
 import ButtonSection from '@/components/ui/ButtonSection/ButtonSection'
+import CardSection from '@/components/ui/CardSection/CardSection'
 import DisclaimerSection from '@/components/ui/DisclaimerSection/DisclaimerSection'
 import FeaturesSection from '@/components/ui/FeaturesSection/FeaturesSection'
 import InstallSection from '@/components/ui/InstallSection/InstallSection'
-import { TbPlayCardStarFilled } from "react-icons/tb"
 import { HomeContainer, HomeContent } from './homeStyles'
 import { InputSection } from '@/components/ui/InputSection/InputSection'
 
@@ -20,13 +19,8 @@ export default function Home() {
 
         <InputSection />
         <ButtonSection />
+        <CardSection />
         <AnimationSection />
-
-        <Section
-          header
-          icon={<TbPlayCardStarFilled />}
-          title="Masked Cards Soon"
-        />
 
         <FeaturesSection />
 

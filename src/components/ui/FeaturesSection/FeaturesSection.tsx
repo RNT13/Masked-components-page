@@ -1,115 +1,115 @@
+'use client'
 
-import { MinorTextH4 } from "@/styles/globalStyles";
-import { MaskedAnimation } from "@/styles/MaskedAnimations/MaskedAnimation";
-import { FaRegCheckCircle } from "react-icons/fa";
-import { FaRegStar } from "react-icons/fa6";
-import BaseDiv from "../BaseDiv/BaseDiv";
-import BaseSection from "../BaseSection/BaseSection";
-import { FeaturesDiv, FeaturesSectionContainer, FeaturesSectionContent } from "./FeaturesSection.styles";
+import { FaRegCheckCircle } from 'react-icons/fa'
+import { FaRegStar } from 'react-icons/fa6'
+
+import { MaskedAnimation } from '@/styles/MaskedAnimations/MaskedAnimation'
+import { MinorTextH4, TitleH3 } from '@/styles/globalStyles'
+import BaseDiv from '../BaseDiv/BaseDiv'
+import BaseSection from '../BaseSection/BaseSection'
+import {
+  FeaturesDiv,
+  FeaturesSectionContainer,
+  FeaturesSectionContent,
+  SectionLabel
+} from './FeaturesSection.styles'
+
+const featuresLeft = [
+  {
+    title: 'TypeScript Native',
+    description: 'Full typing and intelligent autocomplete.'
+  },
+  {
+    title: 'Polymorphic & Flexible',
+    description: 'Components that adapt to any use case with a simple and intuitive API.'
+  },
+  {
+    title: 'Modern Design',
+    description: 'Contemporary styles with theme support, smooth animations, and accessibility first.'
+  },
+  {
+    title: 'Customizable',
+    description: 'Easy to replace CSS classes and styles.'
+  }
+]
+
+const featuresRight = [
+  {
+    title: 'Responsive',
+    description: 'Works perfectly on all devices.'
+  },
+  {
+    title: 'Tree Shaking',
+    description: 'Import only what you need.'
+  },
+  {
+    title: 'Complete Documentation',
+    description: 'Detailed examples and guides.'
+  },
+  {
+    title: 'Optimized Performance',
+    description: 'Efficient rendering, optimized bundle size, and zero unnecessary dependencies.'
+  }
+]
 
 export default function FeaturesSection() {
   return (
-    <BaseSection
-      header
-      icon={<FaRegStar />}
-      title="Features"
-      description="Everything you need to create modern and functional interfaces."
-    >
-      <FeaturesSectionContainer>
-        <FeaturesSectionContent>
+    <BaseSection id="features">
+      <BaseDiv>
+        <MaskedAnimation variant="revealFadeInUp" trigger="scroll">
+          <SectionLabel>
+            <FaRegStar /> Features
+          </SectionLabel>
+          <TitleH3>Everything you need</TitleH3>
+          <MinorTextH4>
+            Everything you need to create modern and functional interfaces.
+          </MinorTextH4>
+        </MaskedAnimation>
 
-          <MaskedAnimation trigger="scroll" variant="revealFadeInLeft">
-            <BaseDiv direction="column" >
+        <FeaturesSectionContainer>
+          <FeaturesSectionContent>
+            <MaskedAnimation variant="revealFadeInLeft" trigger="scroll">
+              <BaseDiv direction="column">
+                {featuresLeft.map((feature) => (
+                  <MaskedAnimation
+                    key={feature.title}
+                    variant="revealSlideImpactRight"
+                    trigger="scroll"
+                  >
+                    <FeaturesDiv>
+                      <FaRegCheckCircle className="svgGreen" />
+                      <div>
+                        <p>{feature.title}</p>
+                        <MinorTextH4>{feature.description}</MinorTextH4>
+                      </div>
+                    </FeaturesDiv>
+                  </MaskedAnimation>
+                ))}
+              </BaseDiv>
+            </MaskedAnimation>
 
-              <MaskedAnimation trigger="scroll" variant="revealSlideImpactRight">
-                <FeaturesDiv >
-                  <FaRegCheckCircle className='svgGreen' />
-                  <div>
-                    <p>TypeScript Native</p>
-                    <MinorTextH4>Full typing and intelligent autocomplete.</MinorTextH4>
-                  </div>
-                </FeaturesDiv>
-              </MaskedAnimation>
-
-              <MaskedAnimation trigger="scroll" variant="revealSlideImpactRight">
-                <FeaturesDiv>
-                  <FaRegCheckCircle className='svgGreen' />
-                  <div>
-                    <p>Polymorphic & Flexible</p>
-                    <MinorTextH4>Components that adapt to any use case with a simple and intuitive API.</MinorTextH4>
-                  </div>
-                </FeaturesDiv>
-              </MaskedAnimation>
-
-              <MaskedAnimation trigger="scroll" variant="revealSlideImpactRight">
-                <FeaturesDiv>
-                  <FaRegCheckCircle className='svgGreen' />
-                  <div>
-                    <p>Modern Design</p>
-                    <MinorTextH4>Contemporary styles with theme support, smooth animations, and accessibility first.</MinorTextH4>
-                  </div>
-                </FeaturesDiv>
-              </MaskedAnimation>
-
-              <MaskedAnimation trigger="scroll" variant="revealSlideImpactRight">
-                <FeaturesDiv>
-                  <FaRegCheckCircle className='svgGreen' />
-                  <div>
-                    <p>Customizable</p>
-                    <MinorTextH4>Easy to replace CSS classes and styles.</MinorTextH4>
-                  </div>
-                </FeaturesDiv>
-              </MaskedAnimation>
-            </BaseDiv>
-          </MaskedAnimation>
-
-          <MaskedAnimation trigger="scroll" variant="revealFadeInRight">
-            <BaseDiv direction="column">
-              <MaskedAnimation trigger="scroll" variant="revealSlideImpactLeft">
-                <FeaturesDiv>
-                  <FaRegCheckCircle className='svgBlue' />
-                  <div>
-                    <p>Responsive</p>
-                    <MinorTextH4>Works perfectly on all devices.</MinorTextH4>
-                  </div>
-                </FeaturesDiv>
-              </MaskedAnimation>
-
-              <MaskedAnimation trigger="scroll" variant="revealSlideImpactLeft">
-                <FeaturesDiv>
-                  <FaRegCheckCircle className='svgBlue' />
-                  <div>
-                    <p>Tree Shaking</p>
-                    <MinorTextH4>Import only what you need.</MinorTextH4>
-                  </div>
-                </FeaturesDiv>
-              </MaskedAnimation>
-
-              <MaskedAnimation trigger="scroll" variant="revealSlideImpactLeft">
-                <FeaturesDiv>
-                  <FaRegCheckCircle className='svgBlue' />
-                  <div>
-                    <p>Complete Documentation</p>
-                    <MinorTextH4>Detailed examples and guides.</MinorTextH4>
-                  </div>
-                </FeaturesDiv>
-              </MaskedAnimation>
-
-              <MaskedAnimation trigger="scroll" variant="revealSlideImpactLeft">
-                <FeaturesDiv>
-                  <FaRegCheckCircle className='svgBlue' />
-                  <div>
-                    <p>Optimized Performance</p>
-                    <MinorTextH4>Efficient rendering, optimized bundle size, and zero unnecessary dependencies.</MinorTextH4>
-                  </div>
-                </FeaturesDiv>
-              </MaskedAnimation>
-
-            </BaseDiv>
-          </MaskedAnimation>
-
-        </FeaturesSectionContent>
-      </FeaturesSectionContainer>
+            <MaskedAnimation variant="revealFadeInRight" trigger="scroll">
+              <BaseDiv direction="column">
+                {featuresRight.map((feature) => (
+                  <MaskedAnimation
+                    key={feature.title}
+                    variant="revealSlideImpactLeft"
+                    trigger="scroll"
+                  >
+                    <FeaturesDiv>
+                      <FaRegCheckCircle className="svgBlue" />
+                      <div>
+                        <p>{feature.title}</p>
+                        <MinorTextH4>{feature.description}</MinorTextH4>
+                      </div>
+                    </FeaturesDiv>
+                  </MaskedAnimation>
+                ))}
+              </BaseDiv>
+            </MaskedAnimation>
+          </FeaturesSectionContent>
+        </FeaturesSectionContainer>
+      </BaseDiv>
     </BaseSection>
   )
 }
