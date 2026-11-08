@@ -2,7 +2,6 @@
 
 import { MaskedButton } from '@/components/ui/MaskedButton/MaskedButton'
 import { GradientTextH2 } from '@/styles/globalStyles'
-import { MaskedAnimation } from '@/styles/MaskedAnimations/MaskedAnimation'
 import { useEffect, useState } from 'react'
 import { FaGithub } from 'react-icons/fa6'
 import { RiDownload2Line } from 'react-icons/ri'
@@ -13,89 +12,58 @@ export default function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollY = window.scrollY
-      setOnTop(scrollY === 0)
+      setOnTop(window.scrollY === 0)
     }
 
-    window.addEventListener('scroll', handleScroll)
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
 
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
-
   }, [])
 
   return (
     <HeaderContainer $active={onTop}>
       <HeaderContent>
+        <HeaderHero className="container" $active={onTop}>
+          <LogoDiv>
+            <GradientTextH2>{onTop ? 'Masked Components' : 'MC'}</GradientTextH2>
+          </LogoDiv>
 
-        <MaskedAnimation trigger='controlled' variant='revealFadeInUp' isOn={onTop}>
-          <HeaderHero className="container" $active={onTop}>
-            <LogoDiv>
-              <GradientTextH2>{onTop ? 'Masked Components' : 'MC'}</GradientTextH2>
-            </LogoDiv>
+          <InfoDiv>
+            {onTop && (
+              <p>
+                A complete library of polymorphic components for React. Intelligent inputs,
+                interactive buttons, and adaptive cards with modern design and a simplified API.
+              </p>
+            )}
+          </InfoDiv>
 
-            <InfoDiv>
-              {onTop && (
-                <p>
-                  A complete library of polymorphic components for React. Intelligent inputs, interactive buttons, and adaptive cards with modern design and a simplified API.
-                </p>
-              )}
-            </InfoDiv>
+          <NavDiv>
+            <MaskedButton
+              variant={onTop ? 'default' : 'link'}
+              href="#install"
+              size="md"
+              label="Install"
+              leftIcon={<RiDownload2Line />}
+              className="shineButton"
+            >
+              Install
+            </MaskedButton>
 
-            <NavDiv>
-              {onTop ? (
-                <>
-                  <MaskedButton
-                    variant="default"
-                    href="#install"
-                    size='md'
-                    label='Install'
-                    leftIcon={<RiDownload2Line />}
-                    className="shineButton"
-                  >
-                    Install
-                  </MaskedButton>
-
-                  <MaskedButton
-                    variant="default"
-                    label="See on GitHub"
-                    size='md'
-                    leftIcon={<FaGithub />}
-                    href="https://github.com/RNT13/masked-components-cli"
-                  >
-                    Go to GitHub
-                  </MaskedButton>
-                </>
-              ) : (
-                <>
-                  <MaskedButton
-                    variant="link"
-                    href="#install"
-                    size='md'
-                    label='Install'
-                    leftIcon={<RiDownload2Line />}
-                    className="shineButton"
-                  >
-                    Install
-                  </MaskedButton>
-
-                  <MaskedButton
-                    variant="link"
-                    label="See on GitHub"
-                    size='md'
-                    leftIcon={<FaGithub />}
-                    href="https://github.com/RNT13/masked-components-cli"
-                  >
-                    Go to GitHub
-                  </MaskedButton>
-                </>
-              )}
-            </NavDiv>
-          </HeaderHero>
-        </MaskedAnimation>
-
+            <MaskedButton
+              variant={onTop ? 'default' : 'link'}
+              label="See on GitHub"
+              size="md"
+              leftIcon={<FaGithub />}
+              href="https://github.com/RNT13/masked-components-cli"
+            >
+              Go to GitHub
+            </MaskedButton>
+          </NavDiv>
+        </HeaderHero>
       </HeaderContent>
-    </HeaderContainer >
+    </HeaderContainer>
   )
 }
