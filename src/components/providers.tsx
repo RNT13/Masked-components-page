@@ -1,13 +1,15 @@
 'use client'
 
 import { AnimationProvider } from '@/styles/MaskedAnimations/AnimationProvider'
+import { ThemeEngineProvider } from '@/styles/ThemeEngine/ThemeEngineProvider'
 import { ReactNode } from 'react'
-import { ThemeModeProvider } from './providers/ThemeModeProvider'
 
 export function Providers({ children }: { children: ReactNode }) {
   return (
-    <ThemeModeProvider>
-      <AnimationProvider>{children}</AnimationProvider>
-    </ThemeModeProvider>
+    <ThemeEngineProvider defaultTheme="maskedTheme">
+      <AnimationProvider>
+        {children}
+      </AnimationProvider>
+    </ThemeEngineProvider>
   )
 }
