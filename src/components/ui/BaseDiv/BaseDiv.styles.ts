@@ -1,32 +1,33 @@
-import { maskedTheme, media, accentTheme } from '@/styles/MaskedThemes/MaskedThemes'
+import { media } from '@/styles/MaskedThemes/MaskedThemes'
 import { styled } from 'styled-components'
 
 type Props = {
   $direction?: 'row' | 'column'
+  $gap?: string
 }
 
 export const BaseDivContainer = styled.div`
   width: 100%;
 `
 
-export const BaseDivContent = styled.div<Props>`
+export const BaseDivRoot = styled.div<Props>`
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: ${props => props.$direction};
-  gap: ${maskedTheme.spacing.lg};
-  background-image: linear-gradient(360deg, ${maskedTheme.colors.baseBlue.light02}, ${maskedTheme.colors.baseBlack.light08});
-  border-radius: ${maskedTheme.radius.md};
-  padding: ${maskedTheme.spacing.md};
-  border: 2px solid ${maskedTheme.colors.baseBlue.light02};
-  box-shadow: 3px 3px 8px 0px ${accentTheme.colors.accentBlue?.base ?? maskedTheme.colors.baseBlue.light02};
+  flex-direction: ${({ $direction }) => $direction ?? 'column'};
+  gap: ${({ $gap }) => $gap ?? '0'};
+  background-image: linear-gradient(360deg, ${({ theme }) => theme.colors.baseBlue.light02}, ${({ theme }) => theme.colors.baseBlack.light08});
+  border-radius: ${({ theme }) => theme.radius.md};
+  padding: ${({ theme }) => theme.spacing.md};
+  border: 2px solid ${({ theme }) => theme.colors.baseBlue.light02};
+  box-shadow: 3px 3px 8px 0px ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.light02};
 
   ${media.mobile} {
-    padding: ${maskedTheme.spacing.sm};
+    padding: ${({ theme }) => theme.spacing.sm};
   }
 
   &:hover {
-    box-shadow: 5px 5px 15px 0px ${accentTheme.colors.accentBlue?.base ?? maskedTheme.colors.baseBlue.light02};
-    border-color: ${accentTheme.colors.accentBlue?.base ?? maskedTheme.colors.baseBlue.light02};
+    box-shadow: 5px 5px 15px 0px ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.light02};
+    border-color: ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.light02};
   }
 `

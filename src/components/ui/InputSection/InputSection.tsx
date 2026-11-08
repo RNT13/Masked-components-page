@@ -9,7 +9,7 @@ import { TitleH3 } from '@/styles/globalStyles'
 import BaseDiv from '../BaseDiv/BaseDiv'
 import BaseSection from '../BaseSection/BaseSection'
 import { MaskedInput } from '../MaskedInput/MaskedInput'
-import { CodeBlock } from '../CodeBlock/CodeBlock'
+import { CodeBlock } from '../../layout/CodeBlock/CodeBlock'
 import { DemoGrid, FieldColumn, SectionLabel, InfoDiv } from './InputSection.styles'
 
 export function InputSection() {
