@@ -30,12 +30,12 @@ const statesCode = `// loading: spinner + disabled automáticos
 </MaskedButton>
 
 // shape: 'rounded' | 'circle' | 'square'
-<MaskedButton variant="default" shape="circle" icon={<BsStar />} />
-<MaskedButton variant="outline" shape="square" icon={<BsStar />} />`
+<MaskedButton variant="default" shape="circle" leftIcon={<BsStar />} aria-label="Favorite" />
+<MaskedButton variant="outline" shape="square" leftIcon={<BsStar />} aria-label="Favorite" />`
 
 const fieldsCode = `// toggle / checkbox / switch / radio — variants de campo
-<MaskedButton variant="toggle" $toggleLabel="Notifications" />
-<MaskedButton variant="checkbox" $checkboxLabel="Accept terms" />
+<MaskedButton variant="toggle" toggleLabel="Notifications" />
+<MaskedButton variant="checkbox" checkboxLabel="Accept terms" />
 <MaskedButton
   variant="switch"
   switchLabel="Dark mode"
@@ -111,7 +111,7 @@ export function ButtonSection() {
                 <MaskedButton variant="neon" onClick={click('neon')}>Neon</MaskedButton>
                 <MaskedButton variant="soft" onClick={click('soft')}>Soft</MaskedButton>
               </ButtonRow>
-              <CodeBlock title="Variants">{variantsCode}</CodeBlock>
+              <CodeBlock>{variantsCode}</CodeBlock>
             </DemoCard>
           </MaskedAnimation>
 
@@ -126,18 +126,18 @@ export function ButtonSection() {
                   variant="default"
                   shape="circle"
                   leftIcon={<BsStar />}
-                  aria-label="Favorite"
+                  ariaLabel="Favorite"
                   onClick={click('circle icon')}
                 />
                 <MaskedButton
                   variant="outline"
                   shape="square"
                   leftIcon={<BsStar />}
-                  aria-label="Favorite"
+                  ariaLabel="Favorite"
                   onClick={click('square icon')}
                 />
               </ButtonRow>
-              <CodeBlock title="States & shapes">{statesCode}</CodeBlock>
+              <CodeBlock>{statesCode}</CodeBlock>
             </DemoCard>
           </MaskedAnimation>
 
@@ -147,12 +147,12 @@ export function ButtonSection() {
               <ButtonRow>
                 <MaskedButton
                   variant="toggle"
-                  $toggleLabel="Notifications"
+                  toggleLabel="Notifications"
                   onToggle={(active) => setLastClicked(`toggle: ${active}`)}
                 />
                 <MaskedButton
                   variant="checkbox"
-                  $checkboxLabel="Accept terms"
+                  checkboxLabel="Accept terms"
                   onCheckedChange={(c) => setLastClicked(`checkbox: ${c}`)}
                 />
                 <MaskedButton
@@ -171,7 +171,7 @@ export function ButtonSection() {
                   onCheckedChange={(c) => setLastClicked(`radio: ${c}`)}
                 />
               </ButtonRow>
-              <CodeBlock title="Field variants">{fieldsCode}</CodeBlock>
+              <CodeBlock>{fieldsCode}</CodeBlock>
             </DemoCard>
           </MaskedAnimation>
 
@@ -196,7 +196,7 @@ export function ButtonSection() {
                 />
               </ButtonRow>
               <InfoDiv>Selected: {period}</InfoDiv>
-              <CodeBlock title="Button group">{groupCode}</CodeBlock>
+              <CodeBlock>{groupCode}</CodeBlock>
             </DemoCard>
           </MaskedAnimation>
 
@@ -226,7 +226,7 @@ export function ButtonSection() {
                   Lilac outline
                 </MaskedButton>
               </ButtonRow>
-              <CodeBlock title="colorTheme & tokens">{tokensCode}</CodeBlock>
+              <CodeBlock>{tokensCode}</CodeBlock>
             </DemoCard>
           </MaskedAnimation>
         </DemoGrid>
@@ -234,3 +234,5 @@ export function ButtonSection() {
     </BaseSection>
   )
 }
+
+export default ButtonSection

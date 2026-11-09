@@ -10,22 +10,20 @@ const accentBlue = accentTheme.colors.accentBlue?.base ?? '#00E5FF'
 const accentPink = accentTheme.colors.accentPink?.base ?? '#FF2DAA'
 
 export const GlobalStyles = createGlobalStyle`
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  body {
+    background: ${({ theme }) => theme.colors.primaryColor ?? maskedTheme.colors.baseBlack.base};
+    color: ${({ theme }) => theme.colors.textColor ?? maskedTheme.colors.baseBlue.light30};
+    font-family: var(--primary-font, system-ui), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
   }
 
-  html {
-    scroll-behavior: smooth;
-  }
-
-  body{
-    background-image: linear-gradient(to bottom, ${maskedTheme.colors.baseBlack.light20}, ${maskedTheme.colors.baseBlack.dark30});
-    background-attachment: fixed;
-    color: ${maskedTheme.colors.baseBlue.light30};
-    font-family: var(--primary-font);
-  }
+  button, input, textarea, select { font-family: inherit; }
 
   .container {
     max-width: 1024px;

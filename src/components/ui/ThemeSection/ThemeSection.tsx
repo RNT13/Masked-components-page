@@ -10,14 +10,24 @@ import { TitleH3 } from '@/styles/globalStyles'
 import BaseDiv from '../BaseDiv/BaseDiv'
 import BaseSection from '../BaseSection/BaseSection'
 import { MaskedButton } from '../MaskedButton/MaskedButton'
-import { ThemeSectionContainer, ThemeSectionContent, SectionLabel, ThemeGrid, ThemeCard, ThemeSwatch, CodeBlock } from './ThemeSection.styles'
+import {
+  ThemeSectionContainer,
+  ThemeSectionContent,
+  SectionLabel,
+  ThemeGrid,
+  ThemeCard,
+  ThemeSwatch,
+  CodeBlock
+} from './ThemeSection.styles'
+
+const DEFAULT_THEME = 'dark'
 
 const codeProvider = `// providers.tsx — uma linha e todo o app ganha troca de tema
 import { ThemeEngineProvider } from '@/styles/ThemeEngine/ThemeEngineProvider'
 
 export function Providers({ children }: { children: ReactNode }) {
   return (
-    <ThemeEngineProvider defaultTheme="maskedTheme">
+    <ThemeEngineProvider defaultTheme="${DEFAULT_THEME}">
       {children}
     </ThemeEngineProvider>
   )
@@ -33,7 +43,7 @@ import { useThemeEngine } from '@/styles/ThemeEngine/ThemeEngineProvider'
 
 const { themeName, availableThemes, setThemeName } = useThemeEngine()
 
-setThemeName('dark')   // persiste em localStorage automaticamente`
+setThemeName('${DEFAULT_THEME}')   // persiste em localStorage automaticamente`
 
 export default function ThemeSection() {
   const { themeName, availableThemes, setThemeName } = useThemeEngine()
@@ -74,7 +84,7 @@ export default function ThemeSection() {
                 ))}
               </ThemeGrid>
 
-              <MaskedButton variant="soft" onClick={() => setThemeName('maskedTheme')}>
+              <MaskedButton variant="soft" onClick={() => setThemeName(DEFAULT_THEME)}>
                 Reset to default
               </MaskedButton>
             </MaskedAnimation>

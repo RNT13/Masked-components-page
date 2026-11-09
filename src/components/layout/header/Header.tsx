@@ -2,6 +2,7 @@
 
 import { MaskedButton } from '@/components/ui/MaskedButton/MaskedButton'
 import { GradientTextH2 } from '@/styles/globalStyles'
+import { ThemeSwitcher } from '@/styles/ThemeEngine/ThemeSwitcher'
 import { useEffect, useState } from 'react'
 import { FaGithub } from 'react-icons/fa6'
 import { RiDownload2Line } from 'react-icons/ri'
@@ -61,6 +62,8 @@ export default function Header() {
             >
               Go to GitHub
             </MaskedButton>
+
+            <ThemeSwitcher />
           </NavDiv>
         </HeaderHero>
       </HeaderContent>
