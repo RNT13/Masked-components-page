@@ -1,182 +1,63 @@
-# ✨ Masked Components CLI
+# ✨ Masked Components: website
 
-A modern, type-safe and flexible component system for **Next.js + React**, designed to boost developer experience and speed up UI creation using a simple **CLI installer**.
+Live documentation and playground for **Masked Components**, a set of polymorphic React + TypeScript components that you install **into your own project** with one command.
 
-Masked Components provides **polymorphic**, **theme-ready**, and **highly customizable** UI components with first-class **TypeScript support**.
-
----
-
-## 🚀 Live Demo
-
-👉 **Website:** https://masked-components.vercel.app/
-👉 **CLI Install Command:**
+🌐 https://masked-components.vercel.app/
 
 ```bash
 npx masked-components-cli
 ```
 
----
-
-## 📦 What is Masked Components?
-
-Masked Components is a UI component library combined with a CLI that allows you to **install and scaffold pre-configured components** directly into your project.
-
-It focuses on:
-
-- Developer Experience (DX)
-- Clean and scalable architecture
-- Modern UI patterns
-- Performance and tree-shaking
+> The CLI does **not** create a project. It copies component source files into an existing React + TypeScript project, installs the npm packages they need with your package manager, and never overwrites files you edited unless you pass `--force`.
 
 ---
 
-## 🧱 Tech Stack
+## What is in this repository
 
-- **Next.js** – Optimized routing, SSR and App Router ready
-- **React** – Component-based architecture
-- **TypeScript** – Strong typing and intelligent autocomplete
-- **Styled Components** – Theme-driven and dynamic styling
-- **React Icons** – Flexible icon support
-- **IMask** – Advanced input masking
-- **CLI (Node.js)** – Simple and fast installation
+This is the Next.js app that powers the website. The components shown here are copies of the templates that live in the CLI repository ([masked-components-cli](https://github.com/RNT13/masked-components-cli)). The CLI repository is the source of truth: fix components there first, then mirror the change here.
 
----
+| Area                                                                 | Path                    |
+| -------------------------------------------------------------------- | ----------------------- |
+| Pages and layout                                                     | `src/app`               |
+| Site layout primitives (Tabs, Panel, Stage, SectionShell, CodeBlock) | `src/components/layout` |
+| Library components (the same files the CLI installs)                 | `src/components/ui`     |
+| Themes, animations and Theme Engine                                  | `src/styles`            |
 
-## ⚡ Installation
+## Components
 
-Install Masked Components in seconds using the CLI:
+- **MaskedButton**: default, outline, ghost, soft, link, gradient, neon, toggle, switch, checkbox, radio (+ `MaskedButtonGroup`).
+- **MaskedInput**: default, masked, password, search, select, textarea, time, currency, file.
+- **MaskedCards**: metric, stat, compare, product, feature, plan.
+- **MaskedDrawer**, **MaskedPopup**, **MaskedSkeleton**, **MaskedToaster**.
+- **MaskedAnimation**: reveal, continuous, controlled and one-shot animations.
+- **Theme Engine**: nine ready-made themes, runtime switching, `colorTheme` and `--mc-*` tokens.
+
+Run `npx masked-components-cli --list` for the exact, current list.
+
+## Tech stack
+
+Next.js (App Router), React, TypeScript and styled-components. Every component works without a provider; add `ThemeEngineProvider` to switch themes at runtime.
+
+## Getting started
 
 ```bash
-npx masked-components-cli
+npm install
+npm run dev        # http://localhost:3000
+npm run typecheck  # tsc --noEmit
+npm test           # jest
+npm run build
 ```
 
-This command will:
+## Contributing a component fix
 
-- Create a new Next.js project
-- Configure TypeScript
-- Install dependencies
-- Add Masked Components structure
+1. Fix it in `templates/` of the CLI repository (and its tests).
+2. Copy the same change into `src/components/ui` here.
+3. Run `npm run typecheck && npm test` in both repositories.
 
----
+## Author
 
-## 🧩 Components Overview
+Created by **Renato Minoita**: [LinkedIn](https://www.linkedin.com/in/renato-minoita/) · [GitHub](https://github.com/RNT13)
 
-### 🔘 MaskedButton
+## License
 
-Highly customizable buttons with multiple variants, states, sizes, shape, icons, and behaviors.
-
-#### Variants
-
-- `default`
-- `outline`
-- `ghost`
-- `gradient`
-- `neon`
-- `link`
-- `toggle`
-
-#### States
-
-- `default`
-- `loading`
-- `disabled`
-- `error`
-- `active`
-
-#### Features
-
-- Left & right icons
-- Loading spinner
-- label label
-- Full width support
-- Polymorphic (`button` or `a`)
-- Toggle mode
-
-#### Basic Example
-
-```tsx
-<MaskedButton variant="default" size="sm" leftIcon={<FaCode />}>
-  Default Button
-</MaskedButton>
-```
-
----
-
-### ⌨️ MaskedInput
-
-Powerful input system with intelligent masks and real-time formatting.
-
-#### Input Variants
-
-- `default`
-- `textarea`
-- `masked`
-- `password`
-- `select`
-- `file`
-- `search`
-- `currency`
-
-#### Features
-
-- Automatic masking
-- Controlled & uncontrolled support
-- Icons
-- Validation-ready
-- Cloudinary file upload support
-- Currency formatting
-
-#### Example
-
-```tsx
-<MaskedInput variant="masked" label="Phone" mask="(00) 0000-0000" placeholder="Phone number" value={value} onChange={setValue} />
-```
-
----
-
-## ✨ Key Features
-
-- ✅ TypeScript Native
-- ✅ Polymorphic Components
-- ✅ Responsive by default
-- ✅ Tree-shaking support
-- ✅ Zero unnecessary dependencies
-- ✅ Theme-ready styles
-- ✅ Modern animations
-- ✅ Accessibility-friendly
-- ✅ Optimized performance
-
----
-
-## 🧪 Playground
-
-The website provides a full interactive playground where you can:
-
-- Test all button variants
-- Change states dynamically
-- Try input masks in real time
-- Preview sizes, shape and icons
-
----
-
-## 🛣️ Roadmap
-
-- 🃏 Masked Cards (Coming Soon)
-- 🎞️ Masked Animations (Coming Soon)
-- 📚 Extended documentation
-- 🧩 More components
-
----
-
-## 👤 Author
-
-Created with 💙 by **Renato Minoita**
-
-- 💼 LinkedIn: https://www.linkedin.com/in/renato-minoita/
-- 🧑‍💻 GitHub: https://github.com/RNT13
-
----
-
-## 📄 License
-
-MIT License © 2026
+MIT © 2026

@@ -1,11 +1,43 @@
 'use client'
 
-import { MaskedAnimation } from '@/styles/MaskedAnimations/MaskedAnimation'
+import { CodeBlock } from '@/components/layout/CodeBlock/CodeBlock'
+import { Tabs, type TabItem } from '@/components/layout/Tabs/Tabs'
 import { TitleH3 } from '@/styles/globalStyles'
+import { MaskedAnimation } from '@/styles/MaskedAnimations/MaskedAnimation'
 import BaseDiv from '../BaseDiv/BaseDiv'
 import BaseSection from '../BaseSection/BaseSection'
-import { InstallSectionContainer, InstallSectionContent, SectionLabel } from './InstallSection.styles'
-import { CodeBlock } from '@/components/layout/CodeBlock/CodeBlock'
+import {
+  InstallSectionContainer,
+  InstallSectionContent,
+  SectionLabel
+} from './InstallSection.styles'
+
+const RUNNERS = [
+  { id: 'install-npx', label: 'npx', run: 'npx' },
+  { id: 'install-pnpm', label: 'pnpm', run: 'pnpm dlx' },
+  { id: 'install-yarn', label: 'yarn 2+', run: 'yarn dlx' },
+  { id: 'install-bun', label: 'bun', run: 'bunx' }
+]
+
+const CLI = 'masked-components-cli'
+
+const ITEMS: TabItem[] = RUNNERS.map(({ id, label, run }) => ({
+  id,
+  label,
+  panel: (
+    <InstallSectionContent>
+      <CodeBlock title="Pick components interactively" code={`${run} ${CLI}`} />
+      <CodeBlock
+        title="Add specific components"
+        code={`${run} ${CLI} masked-buttons masked-input masked-toaster`}
+      />
+      <CodeBlock
+        title="Preview before writing anything"
+        code={`${run} ${CLI} --list\n${run} ${CLI} masked-cards --dry-run`}
+      />
+    </InstallSectionContent>
+  )
+}))
 
 export default function InstallSection() {
   return (
@@ -13,32 +45,11 @@ export default function InstallSection() {
       <BaseDiv>
         <MaskedAnimation variant="revealFadeInUp" trigger="scroll" once>
           <TitleH3>Installation</TitleH3>
-          <SectionLabel>Get started in seconds</SectionLabel>
+          <SectionLabel>Copy-in components: the files become yours</SectionLabel>
         </MaskedAnimation>
 
         <InstallSectionContainer>
-          <InstallSectionContent>
-            <MaskedAnimation variant="revealFadeInUp" trigger="scroll" once>
-              <CodeBlock
-                title="Install the CLI"
-                code={`npx masked-components-cli`}
-              />
-            </MaskedAnimation>
-
-            <MaskedAnimation variant="revealFadeInUp" trigger="scroll" once delay={0.1}>
-              <CodeBlock
-                title="Add a component"
-                code={`npx masked-components-cli masked-button\nnpx masked-components-cli masked-input\nnpx masked-components-cli masked-cards`}
-              />
-            </MaskedAnimation>
-
-            <MaskedAnimation variant="revealFadeInUp" trigger="scroll" once delay={0.2}>
-              <CodeBlock
-                title="Add themes + animations"
-                code={`npx masked-components-cli masked-themes\nnpx masked-components-cli masked-animations`}
-              />
-            </MaskedAnimation>
-          </InstallSectionContent>
+          <Tabs items={ITEMS} ariaLabel="Package manager" />
         </InstallSectionContainer>
       </BaseDiv>
     </BaseSection>
