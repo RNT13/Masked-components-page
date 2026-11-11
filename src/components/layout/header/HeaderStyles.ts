@@ -47,19 +47,22 @@ export const LogoDiv = styled.div`
 
 export const InfoDiv = styled.div`
   gap: ${maskedTheme.spacing.sm};
+  max-width: 720px;
+  text-align: center;
 
   p {
-    overflow: hidden;
-    color: ${maskedTheme.colors.baseBlue.light30};
+    color: ${({ theme }) => theme.colors.textMuted ?? theme.colors.textColor};
+    line-height: 1.6;
   }
 `
 
 export const NavDiv = styled.div`
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: ${maskedTheme.spacing.lg};
+  gap: ${maskedTheme.spacing.md};
 
   ${media.tablet} {
     gap: ${maskedTheme.spacing.sm};

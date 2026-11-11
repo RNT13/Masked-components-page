@@ -1,5 +1,6 @@
 'use client'
 
+import { STATS } from '@/components/layout/data/catalog'
 import { MaskedButton } from '@/components/ui/MaskedButton/MaskedButton'
 import { GradientTextH2 } from '@/styles/globalStyles'
 import { ThemeSwitcher } from '@/styles/ThemeEngine/ThemeSwitcher'
@@ -12,16 +13,10 @@ export default function Header() {
   const [onTop, setOnTop] = useState(true)
 
   useEffect(() => {
-    const handleScroll = () => {
-      setOnTop(window.scrollY === 0)
-    }
-
+    const handleScroll = () => setOnTop(window.scrollY === 0)
     handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   return (
@@ -35,8 +30,9 @@ export default function Header() {
           <InfoDiv>
             {onTop && (
               <p>
-                A complete library of polymorphic components for React. Intelligent inputs,
-                interactive buttons, and adaptive cards with modern design and a simplified API.
+                {STATS.packages} installable packages: {STATS.buttonVariants} button variants,{' '}
+                {STATS.inputVariants} inputs, {STATS.cardVariants} cards, {STATS.animations}{' '}
+                animations and {STATS.themes} themes. Copy-in components for React and TypeScript.
               </p>
             )}
           </InfoDiv>
@@ -59,6 +55,8 @@ export default function Header() {
               size="md"
               leftIcon={<FaGithub />}
               href="https://github.com/RNT13/masked-components-cli"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Go to GitHub
             </MaskedButton>
