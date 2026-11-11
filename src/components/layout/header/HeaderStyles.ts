@@ -8,7 +8,7 @@ export const HeaderContainer = styled.header<{ $active: boolean }>`
   top: 0;
   left: 0;
   z-index: ${maskedTheme.zIndex.sticky};
-  background-color: ${({ $active }) => ($active ? 'transparent' : maskedTheme.colors.baseBlack.base)};
+  background-color: ${({ $active, theme }) => ($active ? 'transparent' : (theme.colors.surfaceColor ?? theme.colors.primaryColor))};
   border-bottom: ${({ $active }) => ($active ? 'none' : `3px solid ${maskedTheme.colors.baseBlue.base}`)};
   ${transitions.slow}
 `

@@ -11,8 +11,9 @@ export const SectionLabel = styled.span`
 
 export const DemoGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
   gap: ${({ theme }) => theme.spacing.xl};
+  align-items: start;
   margin: ${({ theme }) => theme.spacing.xl} 0;
 `
 
@@ -20,6 +21,7 @@ export const FieldColumn = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.lg};
+  min-width: 0;
 `
 
 export const CodeBlock = styled.pre`

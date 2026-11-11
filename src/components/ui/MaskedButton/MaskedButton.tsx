@@ -16,6 +16,7 @@ import SwitchButton from './variants/Switch/SwitchButton'
 import SoftButton from './variants/Soft/SoftButton'
 import CheckboxButton from './variants/Checkbox/CheckboxButton'
 import RadioButton from './variants/Radio/RadioButton'
+import SplitButton from './variants/Split/SplitButton'
 
 export function MaskedButton(props: ButtonProps) {
   const {
@@ -89,6 +90,19 @@ export function MaskedButton(props: ButtonProps) {
       return <NeonButton {...(internal as ComponentProps<typeof NeonButton>)} />
     case 'soft':
       return <SoftButton {...(internal as ComponentProps<typeof SoftButton>)} />
+
+    case 'split':
+      return (
+        <SplitButton
+          {...{
+            ...(internal as ComponentProps<typeof SplitButton>),
+            options: rest.options ?? [],
+            selectedValue: rest.selectedValue,
+            onOptionSelect: rest.onOptionSelect,
+            menuLabel: rest.menuLabel
+          }}
+        />
+      )
 
     case 'toggle':
       return (

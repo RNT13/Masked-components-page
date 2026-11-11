@@ -19,10 +19,12 @@ export const SectionLabel = styled.span`
   margin-bottom: ${({ theme }) => theme.spacing.sm};
 `
 
+/* stretch: todos os cards da linha têm a mesma altura (o rodapé desce junto) */
 export const CardGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
   gap: ${({ theme }) => theme.spacing.xl};
+  align-items: stretch;
   margin: ${({ theme }) => theme.spacing.xl} 0;
 `
 

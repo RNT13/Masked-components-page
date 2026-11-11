@@ -17,7 +17,7 @@ describe('Header', () => {
   it('should render the GitHub link', () => {
     renderWithProviders(<Header />)
 
-    expect(screen.getByText('GitHub')).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'See on GitHub' })).toBeInTheDocument()
   })
 
   it('should render the theme switcher', () => {

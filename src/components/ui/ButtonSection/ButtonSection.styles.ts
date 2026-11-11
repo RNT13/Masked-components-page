@@ -1,78 +1,55 @@
 import styled from 'styled-components'
 
-export const SectionSubtitle = styled.p`
-  max-width: 640px;
-  margin: 8px 0 32px;
-  color: ${({ theme }) => theme.colors.textMuted ?? theme.colors.baseGray.base};
-  line-height: 1.6;
-
-  code {
-    padding: 2px 6px;
-    border-radius: 4px;
-    background: ${({ theme }) => theme.colors.baseBlack.light08};
-    font-size: 0.9em;
-  }
-`
-
-export const DemoCard = styled.div`
-  margin-bottom: 32px;
-  padding: 24px;
-  border: 1px solid ${({ theme }) => theme.colors.borderColor ?? theme.colors.baseBlack.light20};
-  border-radius: 12px;
-  background: ${({ theme }) => theme.colors.surfaceColor ?? 'transparent'};
-`
-
-export const DemoCardTitle = styled.h4`
-  margin: 0 0 16px;
-  font-size: 1rem;
-  color: ${({ theme }) => theme.colors.textColor ?? theme.colors.basePrimary.base};
-`
-
-export const ButtonShowcase = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 16px;
-`
-
-export const ButtonGrid = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 24px;
-  margin-bottom: 24px;
-`
-
-export const CodeBlock = styled.pre`
-  margin: 16px 0 0;
-  padding: 16px;
-  overflow-x: auto;
-  border-radius: 8px;
-  background: ${({ theme }) => theme.colors.baseBlack.base};
-  color: ${({ theme }) => theme.colors.baseWhite.light};
-  font-size: 0.8rem;
-  line-height: 1.5;
-`
-
-export const InfoDiv = styled.div`
-  padding: ${({ theme }) => theme.spacing.md};
-  border: 1px solid ${({ theme }) => theme.colors.borderColor ?? 'transparent'};
-  border-radius: ${({ theme }) => theme.radius.md};
-  background: ${({ theme }) => theme.colors.surfaceColor ?? theme.colors.baseBlack.light08};
-  font-size: ${({ theme }) => theme.fontSize.sm};
-  line-height: 1.6;
-  color: ${({ theme }) => theme.colors.textMuted ?? theme.colors.baseGray.base};
-
-  strong {
-    color: ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.base};
-  }
-`
-
-export const ButtonRow = styled.div`
+export const SwatchRow = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.md};
-  margin-bottom: ${({ theme }) => theme.spacing.md};
+`
+
+/* 36px visuais + 6px de área de toque extra de cada lado = 48px */
+export const Swatch = styled.button<{ $color: string; $active: boolean }>`
+  position: relative;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  background: ${({ $color }) => $color};
+  border: 2px solid ${({ theme }) => theme.colors.borderColor ?? 'transparent'};
+  box-shadow: ${({ $active, theme }) => ($active ? `0 0 0 3px ${theme.colors.accentColor ?? '#fff'}` : 'none')};
+  transition: transform 0.15s ease;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.accentColor ?? '#fff'};
+    outline-offset: 4px;
+  }
+`
+
+export const CustomColor = styled.label`
+  display: inline-flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.sm};
+  font-size: ${({ theme }) => theme.fontSize.sm};
+  color: ${({ theme }) => theme.colors.textMuted ?? 'inherit'};
+  cursor: pointer;
+
+  input {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+  }
 `

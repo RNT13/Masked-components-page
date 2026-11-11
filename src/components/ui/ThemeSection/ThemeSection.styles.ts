@@ -20,7 +20,7 @@ export const SectionLabel = styled.span`
 
 export const ThemeGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
   gap: ${({ theme }) => theme.spacing.md};
   margin: ${({ theme }) => theme.spacing.xl} 0;
 `
@@ -30,6 +30,7 @@ export const ThemeCard = styled.button<{ $active?: boolean }>`
   flex-direction: column;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.sm};
+  min-height: 44px;
   padding: ${({ theme }) => theme.spacing.md};
   border-radius: ${({ theme }) => theme.radius.md};
   border: 2px solid ${({ theme }) => theme.colors.borderColor ?? 'transparent'};
@@ -45,6 +46,11 @@ export const ThemeCard = styled.button<{ $active?: boolean }>`
     transform: translateY(-2px);
   }
 
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.base};
+    outline-offset: 2px;
+  }
+
   ${({ $active, theme }) =>
     $active &&
     css`
@@ -52,16 +58,17 @@ export const ThemeCard = styled.button<{ $active?: boolean }>`
     `}
 `
 
+/* metade acento, metade fundo da página: dá para distinguir temas parecidos */
 export const ThemeSwatch = styled.span<{ $themeName: string }>`
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  border: 1px solid ${({ theme }) => theme.colors.borderColor ?? 'transparent'};
+  box-shadow: inset 0 0 0 1px rgba(128, 128, 128, 0.45);
   background: ${({ $themeName }) => {
     const t = maskedThemeConfig[$themeName as keyof typeof maskedThemeConfig]
-    const a = t?.colors.accentColor ?? t?.colors.baseBlue?.base ?? '#888'
-    const b = t?.colors.surfaceColor ?? t?.colors.baseBlack?.base ?? '#111'
-    return `linear-gradient(135deg, ${a} 50%, ${b} 50%)`
+    const accent = t?.colors.accentColor ?? t?.colors.baseBlue?.base ?? '#888'
+    const page = t?.colors.primaryColor ?? t?.colors.baseBlack?.base ?? '#111'
+    return `linear-gradient(135deg, ${accent} 50%, ${page} 50%)`
   }};
 `
 

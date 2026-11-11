@@ -40,8 +40,8 @@ export const MaskedInputContainer = styled.div<props>`
     text-align: left;
     ${transitions.slow}
 
-    ${({ $hasToggle }) => $hasToggle && `padding-right: 44px;`}  
-  
+    ${({ $hasToggle }) => $hasToggle && `padding-right: 44px;`}
+
     input.input-hidden {
       position: absolute;
       inset: 0;
@@ -105,8 +105,7 @@ export const MaskedInputContainer = styled.div<props>`
     width: 100%;
     resize: none;
     scrollbar-width: thin;
-    scrollbar-color: var(--mc-input-fg, ${maskedTheme.colors.baseBlue.base})
-      var(--mc-input-disabled-bg, ${maskedTheme.colors.baseBlue.light20});
+    scrollbar-color: var(--mc-input-fg, ${maskedTheme.colors.baseBlue.base}) var(--mc-input-disabled-bg, ${maskedTheme.colors.baseBlue.light20});
   }
 `
 
