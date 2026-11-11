@@ -1,4 +1,4 @@
-import { MAnimation } from "@/styles/MaskedAnimations/MAnimation";
+import { MaskedAnimation } from "@/styles/MaskedAnimations/MaskedAnimation";
 import { AiFillThunderbolt } from "react-icons/ai";
 import { FaCode, FaPalette } from "react-icons/fa6";
 import BaseSection from "../BaseSection/BaseSection";
@@ -11,29 +11,29 @@ export default function AboutSection() {
       <AboutSectionContainer>
         <AboutSectionContent>
 
-          <MAnimation trigger="scroll" variant="popElastic" >
+          <MaskedAnimation trigger="scroll" variant="revealPopElastic" >
             <DivCard
               icon={<FaCode />}
               title="Polymorphic & Flexible"
               description="Components that adapt to any use case with a simple API and intuitive TypeScript for better DX."
             />
-          </MAnimation>
+          </MaskedAnimation>
 
-          <MAnimation trigger="scroll" variant="popElastic" >
+          <MaskedAnimation trigger="scroll" variant="revealPopElastic" >
             <DivCard
               icon={<AiFillThunderbolt />}
               title="Performance Optimized"
               description="Efficient rendering, optimized bundle size and zero unnecessary dependencies. Built for scale."
             />
-          </MAnimation>
+          </MaskedAnimation>
 
-          <MAnimation trigger="scroll" variant="popElastic" >
+          <MaskedAnimation trigger="scroll" variant="revealPopElastic" >
             <DivCard
               icon={<FaPalette />}
               title="Modern Design"
               description="Contemporary styles with theme support, smooth animations and accessibility in mind."
             />
-          </MAnimation>
+          </MaskedAnimation>
 
         </AboutSectionContent>
       </AboutSectionContainer>

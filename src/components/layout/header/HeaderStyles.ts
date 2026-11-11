@@ -7,8 +7,8 @@ export const HeaderContainer = styled.header<{ $active: boolean }>`
   position: sticky;
   top: 0;
   left: 0;
-  z-index: 1000;
-  background-color: ${({ $active }) => ($active ? 'transparent' : maskedTheme.colors.baseBlack.base)};
+  z-index: ${maskedTheme.zIndex.sticky};
+  background-color: ${({ $active, theme }) => ($active ? 'transparent' : (theme.colors.surfaceColor ?? theme.colors.primaryColor))};
   border-bottom: ${({ $active }) => ($active ? 'none' : `3px solid ${maskedTheme.colors.baseBlue.base}`)};
   ${transitions.slow}
 `
@@ -23,6 +23,7 @@ export const HeaderHero = styled.div<{ $active: boolean }>`
   justify-content: center;
   gap: ${maskedTheme.spacing.lg};
   padding: ${maskedTheme.spacing.md};
+  ${transitions.slow}
 `
 
 export const LogoDiv = styled.div`
@@ -65,6 +66,6 @@ export const NavDiv = styled.div`
   }
 
   .shineButton {
-    ${continuousAnimations.InfinityGlowDiagonal}
+    ${continuousAnimations.continuousGlowDiagonal}
   }
 `

@@ -13,7 +13,7 @@ export default function DivCard({ icon, title, description, children }: props) {
   return (
     <DivCardContainer>
       <DivCardContent>
-        <BaseDiv direction="column">
+        <BaseDiv direction="column" gap="15px">
           {title ? (
             <>
               {icon && <DivCardIcon>{icon}</DivCardIcon>}

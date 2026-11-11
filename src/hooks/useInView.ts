@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useRef, useState } from 'react'
 
 export function useInView<T extends HTMLElement>(threshold = 0.1, once = false) {
@@ -10,9 +12,9 @@ export function useInView<T extends HTMLElement>(threshold = 0.1, once = false) 
 
     const observer = new IntersectionObserver(
       ([entry]) => {
+        if (!entry) return
         if (entry.isIntersecting) {
           setIsVisible(true)
-
           if (once) observer.disconnect()
         } else {
           if (!once) setIsVisible(false)
@@ -22,7 +24,6 @@ export function useInView<T extends HTMLElement>(threshold = 0.1, once = false) 
     )
 
     observer.observe(element)
-
     return () => observer.disconnect()
   }, [threshold, once])
 

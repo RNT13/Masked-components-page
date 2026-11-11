@@ -1,18 +1,19 @@
 'use client'
 
-
-import { AnimationProvider } from '@/styles/MaskedAnimations/AnimationProvider';
-import { maskedTheme } from '@/styles/MaskedThemes/MaskedThemes';
-import { ReactNode } from 'react';
-import { ThemeProvider } from 'styled-components';
+import type { ReactNode } from 'react'
+import { MaskedConfigProvider } from '@/components/ui/MaskedConfigProvider'
+import { MaskedToaster, maskedToastHandlers } from '@/components/ui/MaskedToaster'
+import { GlobalStyles } from '@/styles/globalStyles'
+import { ThemeEngineProvider } from '@/styles/ThemeEngine/ThemeEngineProvider'
 
 export function Providers({ children }: { children: ReactNode }) {
   return (
-    <ThemeProvider theme={maskedTheme}>
-      <AnimationProvider>
+    <ThemeEngineProvider defaultTheme="dark" storageKey="mc-theme">
+      <GlobalStyles />
+      <MaskedConfigProvider config={maskedToastHandlers}>
         {children}
-      </AnimationProvider>
-    </ThemeProvider>
+        <MaskedToaster position="bottom-right" />
+      </MaskedConfigProvider>
+    </ThemeEngineProvider>
   )
 }
-

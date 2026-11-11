@@ -1,10 +1,19 @@
 'use client'
 
 import { ButtonVariantMap } from '../../MaskedButton.types'
-import { OutlineButtonContainer } from './OutlineButton.styles'
+import { OutlineButtonContainer, OutlineButtonWrapper } from './OutlineButton.styles'
 
-type Props = { variant: 'outline' } & ButtonVariantMap['outline']
+type Props = { $variant: 'outline' } & ButtonVariantMap['outline']
 
 export default function OutlineButton(props: Props) {
-  return <OutlineButtonContainer $isActive={props.$isActive} $isError={props.state === 'error'} {...props} />
+  return (
+    <OutlineButtonWrapper $position={props.$position}>
+      <OutlineButtonContainer
+        {...props}
+        data-testid="outline-button"
+        $isError={props.state === 'error'}
+        $isDisabled={props.state === 'disabled'}
+      />
+    </OutlineButtonWrapper>
+  )
 }

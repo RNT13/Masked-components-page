@@ -25,5 +25,5 @@ export const DivCardIcon = styled.div<{ $glow?: boolean }>`
   border: 2px solid ${maskedTheme.colors.baseBlue.light02};
   box-shadow: 5px 5px 15px 0px ${maskedTheme.colors.baseBlack.base};
 
-  ${continuousAnimations.shineInfinite}
+  ${continuousAnimations.continuousShine}
 `

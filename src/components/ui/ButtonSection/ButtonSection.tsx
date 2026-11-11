@@ -1,330 +1,351 @@
-import { TitleH3 } from '@/styles/globalStyles'
-import { LuMousePointerClick } from 'react-icons/lu'
+'use client'
 
-import { MAnimation } from '@/styles/MaskedAnimations/MAnimation'
 import { useState } from 'react'
-import { BsStars } from 'react-icons/bs'
-import { FaCode } from 'react-icons/fa6'
-import BaseDiv from '../BaseDiv/BaseDiv'
-import BaseSection from '../BaseSection/BaseSection'
-import { MButton } from '../MaskedButton/MaskedButton'
-import { ButtonRow, ButtonSectionContainer, ButtonSectionContent, Section } from './ButtonSectionStyles'
+import { BsStar } from 'react-icons/bs'
 
-export default function ButtonSection() {
-  const [isActive, setIsActive] = useState(false)
-  const [toggle, setToggle] = useState(false)
+import { DemoCard } from '@/components/layout/DemoCard/DemoCard'
+import { DemoStack, InfoNote, PreviewRow } from '@/components/layout/DemoCard/DemoCard.styles'
+import { maskedTheme } from '@/styles/MaskedThemes/MaskedThemes'
+import { readableTextOn } from '@/utils/masked-utils'
+import { MaskedButton } from '../MaskedButton/MaskedButton'
+import { MaskedButtonGroup } from '../MaskedButton/MaskedButtonGroup'
+import { CustomColor, Swatch, SwatchRow } from './ButtonSection.styles'
+
+/* ---------- dados ---------- */
+
+const COLORS = [
+  { id: 'default', label: 'Default', swatch: maskedTheme.colors.baseBlue.base },
+  { id: 'baseGreen', label: 'Green', swatch: maskedTheme.colors.baseGreen.base },
+  { id: 'baseRed', label: 'Red', swatch: maskedTheme.colors.baseRed.base },
+  { id: 'baseOrange', label: 'Orange', swatch: maskedTheme.colors.baseOrange.base },
+  { id: 'baseGold', label: 'Gold', swatch: maskedTheme.colors.baseGold.base },
+  { id: 'baseTeal', label: 'Teal', swatch: maskedTheme.colors.baseTeal.base },
+  { id: 'baseRose', label: 'Rose', swatch: maskedTheme.colors.baseRose.base },
+  { id: 'baseLilac', label: 'Lilac', swatch: maskedTheme.colors.baseLilac.base }
+] as const
+
+const PR_OPTIONS = [
+  {
+    value: 'create',
+    label: 'Create pull request',
+    description: 'Open a pull request that is ready for review'
+  },
+  {
+    value: 'draft',
+    label: 'Create draft pull request',
+    description: 'Cannot be merged until marked ready for review'
+  }
+]
+
+const PERIODS = [
+  { value: 'day', label: 'Day' },
+  { value: 'week', label: 'Week' },
+  { value: 'month', label: 'Month' }
+]
+
+const PLANS = [
+  { value: 'free', label: 'Free' },
+  { value: 'pro', label: 'Pro' },
+  { value: 'team', label: 'Team' }
+]
+
+/** Cor livre -> tokens (fundo, borda, texto legível, neon, gradiente e switches). */
+function customTokens(color: string): Record<string, string> {
+  const fg = readableTextOn(color)
+  const light = `color-mix(in srgb, ${color} 72%, white)`
+  return {
+    bg: color,
+    'bg-hover': color,
+    border: color,
+    'border-hover': color,
+    fg,
+    'fg-hover': fg,
+    'neon-color': color,
+    'ring-focus': color,
+    gradient: `linear-gradient(180deg, ${light}, ${color})`,
+    'gradient-hover': `linear-gradient(180deg, ${color}, ${light})`,
+    'switch-track-on': color,
+    'switch-border-on': color
+  }
+}
+
+/* ---------- código mostrado ---------- */
+
+const variantsCode = `import { MaskedButton } from '@/components/ui/MaskedButton/MaskedButton'
+
+<MaskedButton variant="default">Default</MaskedButton>
+<MaskedButton variant="outline">Outline</MaskedButton>
+<MaskedButton variant="ghost">Ghost</MaskedButton>
+<MaskedButton variant="link">Link</MaskedButton>
+<MaskedButton variant="gradient">Gradient</MaskedButton>
+<MaskedButton variant="neon">Neon</MaskedButton>
+<MaskedButton variant="soft">Soft</MaskedButton>`
+
+const colorsCode = `// colorTheme: qualquer chave da paleta (ou preset registrado)
+<MaskedButton variant="default" colorTheme="baseGreen">Green</MaskedButton>
+<MaskedButton variant="gradient" colorTheme="baseRose">Rose</MaskedButton>
+<MaskedButton variant="switch" colorTheme="baseTeal" switchLabel="Teal" />
+
+// tokens: overrides granulares (--mc-btn-*)
+<MaskedButton
+  variant="default"
+  tokens={{ bg: '#7C3AED', fg: '#FFFFFF', radius: 999 }}
+>
+  Custom
+</MaskedButton>`
+
+const statesCode = `// loading: spinner + disabled automáticos
+<MaskedButton variant="default" state="loading">Saving...</MaskedButton>
+
+// shape: 'rounded' | 'circle' | 'square'
+<MaskedButton variant="default" shape="circle" leftIcon={<BsStar />} ariaLabel="Favorite" />
+<MaskedButton variant="outline" shape="square" leftIcon={<BsStar />} ariaLabel="Favorite" />`
+
+const fieldsCode = `<MaskedButton variant="toggle" toggleLabel="Notifications" />
+<MaskedButton variant="checkbox" checkboxLabel="Accept terms" />
+
+// switch: interruptor vertical
+<MaskedButton
+  variant="switch"
+  switchLabel="Dark mode"
+  checked={enabled}
+  onCheckedChange={setEnabled}
+/>
+
+// radio avulso: deselectable permite desmarcar
+<MaskedButton
+  variant="radio"
+  radioLabel="Pro"
+  deselectable
+  checked={pro}
+  onCheckedChange={setPro}
+/>`
+
+const splitCode = `const [pr, setPr] = useState('create')
+
+<MaskedButton
+  variant="split"
+  colorTheme="baseGreen"
+  options={[
+    { value: 'create', label: 'Create pull request',
+      description: 'Open a pull request that is ready for review' },
+    { value: 'draft', label: 'Create draft pull request',
+      description: 'Cannot be merged until marked ready for review' }
+  ]}
+  selectedValue={pr}
+  onOptionSelect={setPr}
+  onClick={submit}
+>
+  {pr === 'create' ? 'Create pull request' : 'Create draft pull request'}
+</MaskedButton>`
+
+const groupCode = `import { MaskedButtonGroup } from '@/components/ui/MaskedButton/MaskedButtonGroup'
+
+// segmented (padrão): trilho com indicador deslizante e setas do teclado
+<MaskedButtonGroup
+  options={[
+    { value: 'day', label: 'Day' },
+    { value: 'week', label: 'Week' },
+    { value: 'month', label: 'Month' }
+  ]}
+  value={period}
+  onChange={setPeriod}
+  ariaLabel="Select period"
+/>
+
+// grupo de campos: variant="radio" | "checkbox" | "toggle" | "switch"
+<MaskedButtonGroup variant="radio" orientation="vertical" options={plans} value={plan} onChange={setPlan} />`
+
+/* ---------- componente ---------- */
+
+export function ButtonSection() {
+  const [lastClicked, setLastClicked] = useState<string | null>(null)
+  const [enabled, setEnabled] = useState(false)
+  const [pro, setPro] = useState(true)
+  const [period, setPeriod] = useState('week')
+  const [plan, setPlan] = useState('pro')
+  const [pr, setPr] = useState('create')
+  const [colorKey, setColorKey] = useState<string>('baseGreen')
+  const [custom, setCustom] = useState<string | null>(null)
+
+  const click = (name: string) => () => setLastClicked(name)
+
+  const themeProps: { colorTheme?: string; tokens?: Record<string, string> } = custom
+    ? { tokens: customTokens(custom) }
+    : colorKey === 'default'
+      ? {}
+      : { colorTheme: colorKey }
+
+  const currentPr = PR_OPTIONS.find((o) => o.value === pr) ?? PR_OPTIONS[0]
 
   return (
-    <ButtonSectionContainer>
-      <ButtonSectionContent>
+    <DemoStack>
+      <InfoNote>
+        One component, twelve variants: plain buttons, form fields (toggle, checkbox, switch,
+        radio), a split button and segmented groups. Click anything to see the feedback.
+        {lastClicked && <strong> · Last: {lastClicked}</strong>}
+      </InfoNote>
 
-        <BaseSection
-          header
-          icon={<FaCode />}
-          title="Basic usage of MaskedButton"
-          fileType="tsx"
-          description="Simple example of using MaskedButton."
-          content1={`
-        <MaskedButton
-          type="button"
-          variant="default"
-          state="default"
-          size="sm"
-          leftIcon={<FaCode />}
-          rightIcon={<FaCode />}
-          >
+      <DemoCard title="Variants" code={variantsCode}>
+        <PreviewRow>
+          <MaskedButton variant="default" onClick={click('default')}>Default</MaskedButton>
+          <MaskedButton variant="outline" onClick={click('outline')}>Outline</MaskedButton>
+          <MaskedButton variant="ghost" onClick={click('ghost')}>Ghost</MaskedButton>
+          <MaskedButton variant="link" onClick={click('link')}>Link</MaskedButton>
+          <MaskedButton variant="gradient" onClick={click('gradient')}>Gradient</MaskedButton>
+          <MaskedButton variant="neon" onClick={click('neon')}>Neon</MaskedButton>
+          <MaskedButton variant="soft" onClick={click('soft')}>Soft</MaskedButton>
+        </PreviewRow>
+      </DemoCard>
+
+      <DemoCard
+        title="Colors"
+        description="Pick a palette (colorTheme) or any custom color (tokens). It applies to the filled variants and to the field variants."
+        code={colorsCode}
+      >
+        <SwatchRow role="group" aria-label="Button color">
+          {COLORS.map((c) => (
+            <Swatch
+              key={c.id}
+              type="button"
+              $color={c.swatch}
+              $active={!custom && colorKey === c.id}
+              aria-pressed={!custom && colorKey === c.id}
+              aria-label={c.label}
+              title={c.label}
+              onClick={() => {
+                setColorKey(c.id)
+                setCustom(null)
+              }}
+            />
+          ))}
+          <CustomColor>
+            <input
+              type="color"
+              value={custom ?? '#7c3aed'}
+              onChange={(e) => setCustom(e.target.value)}
+              aria-label="Custom color"
+            />
+            Custom
+          </CustomColor>
+        </SwatchRow>
+
+        <PreviewRow>
+          <MaskedButton variant="default" {...themeProps} onClick={click('color: default')}>
             Default
-        </MaskedButton>
-                    `}
-        />
+          </MaskedButton>
+          <MaskedButton variant="gradient" {...themeProps} onClick={click('color: gradient')}>
+            Gradient
+          </MaskedButton>
+          <MaskedButton variant="neon" {...themeProps} onClick={click('color: neon')}>
+            Neon
+          </MaskedButton>
+        </PreviewRow>
+        <PreviewRow>
+          <MaskedButton variant="toggle" toggleLabel="Toggle" defaultChecked {...themeProps} />
+          <MaskedButton variant="switch" switchLabel="Switch" defaultChecked {...themeProps} />
+          <MaskedButton variant="checkbox" checkboxLabel="Checkbox" defaultChecked {...themeProps} />
+          <MaskedButton variant="radio" radioLabel="Radio" defaultChecked deselectable {...themeProps} />
+        </PreviewRow>
+      </DemoCard>
 
+      <DemoCard title="Split button" code={splitCode}>
+        <PreviewRow>
+          <MaskedButton
+            variant="split"
+            colorTheme="baseGreen"
+            options={PR_OPTIONS}
+            selectedValue={pr}
+            onOptionSelect={setPr}
+            menuLabel="More pull request options"
+            onClick={click(`split: ${pr}`)}
+          >
+            {currentPr.label}
+          </MaskedButton>
+        </PreviewRow>
+      </DemoCard>
 
-        <BaseSection
-          icon={<LuMousePointerClick />}
-          title="Masked Buttons"
-          description='Buttons with multiple variants and states, including loading, disabled, and error.
-          They support left and right icons and include an optional visual tooltip displayed via a label, enhancing user feedback and overall experience.'
-        />
+      <DemoCard title="States & shapes" code={statesCode}>
+        <PreviewRow>
+          <MaskedButton variant="default" state="loading">Saving...</MaskedButton>
+          <MaskedButton
+            variant="default"
+            shape="circle"
+            leftIcon={<BsStar />}
+            ariaLabel="Favorite"
+            onClick={click('circle icon')}
+          />
+          <MaskedButton
+            variant="outline"
+            shape="square"
+            leftIcon={<BsStar />}
+            ariaLabel="Favorite"
+            onClick={click('square icon')}
+          />
+        </PreviewRow>
+      </DemoCard>
 
-        <BaseDiv direction="column">
-          {/* ================= VARIANTS ================= */}
-          <MAnimation trigger='scroll' variant="fadeInLeft">
-            <Section>
-              <TitleH3> Variants</TitleH3>
+      <DemoCard title="Field variants" code={fieldsCode}>
+        <PreviewRow>
+          <MaskedButton
+            variant="toggle"
+            toggleLabel="Notifications"
+            onToggle={(a) => setLastClicked(`toggle: ${a}`)}
+          />
+          <MaskedButton
+            variant="checkbox"
+            checkboxLabel="Accept terms"
+            onCheckedChange={(c) => setLastClicked(`checkbox: ${c}`)}
+          />
+        </PreviewRow>
+        <PreviewRow>
+          <MaskedButton
+            variant="switch"
+            switchLabel="Dark mode"
+            checked={enabled}
+            onCheckedChange={(c) => {
+              setEnabled(c)
+              setLastClicked(`switch: ${c}`)
+            }}
+          />
+          <MaskedButton
+            variant="radio"
+            radioLabel="Pro"
+            deselectable
+            checked={pro}
+            onCheckedChange={(c) => {
+              setPro(c)
+              setLastClicked(`radio: ${c}`)
+            }}
+          />
+        </PreviewRow>
+      </DemoCard>
 
-              <ButtonRow>
-                <MButton variant="default" tooltip="It's a default button" >Default</MButton>
-                <MButton variant="outline" tooltip="it's an outline button" >Outline</MButton>
-                <MButton variant="ghost" tooltip="it's a ghost button" >Ghost</MButton>
-                <MButton variant="gradient" tooltip="it's a gradient button">Gradient</MButton>
-                <MButton variant="neon" tooltip="it's a neon button">Neon</MButton>
-                <MButton href="https://google.com" variant="link" tooltip="Go to google" >Link</MButton>
-                <MButton variant="toggle" tooltip='Toggle' $toggleLabel='Toggle' $isActive={toggle} onClick={() => setToggle(!toggle)} />
-              </ButtonRow>
-            </Section>
-          </MAnimation>
-
-          {/* ================= STATES ================= */}
-          <MAnimation trigger='scroll' variant="fadeInLeft">
-            <Section>
-              <TitleH3>States</TitleH3>
-
-              <ButtonRow>
-                <MButton variant="default" state="error" tooltip="It has an error" >Default + Error</MButton>
-                <MButton variant="default" state="loading" tooltip="It's loading" >Default + Loading</MButton>
-                <MButton variant="default" state="disabled" tooltip="It's disabled" >Default + Disabled</MButton>
-              </ButtonRow>
-
-              <ButtonRow>
-                <MButton variant="outline" state="error" tooltip="It has an error" >Outline + Error</MButton>
-                <MButton variant="outline" state="loading" tooltip="It's loading" >Outline + Loading</MButton>
-                <MButton variant="outline" state="disabled" tooltip="It's disabled" >Outline + Disabled</MButton>
-              </ButtonRow>
-
-              <ButtonRow>
-                <MButton variant="ghost" state="error" tooltip="It has an error" >Ghost + Error</MButton>
-                <MButton variant="ghost" state="loading" tooltip="It's loading" >Ghost + Loading</MButton>
-                <MButton variant="ghost" state="disabled" tooltip="It's disabled" >Ghost + Disabled</MButton>
-              </ButtonRow>
-
-              <ButtonRow>
-                <MButton variant="gradient" state="error" tooltip="It has an error" >Link + Error</MButton>
-                <MButton variant="gradient" state="loading" tooltip="It's loading" >Gradient + Loading</MButton>
-                <MButton variant="gradient" state="disabled" tooltip="It's disabled" >Gradient + Disabled</MButton>
-              </ButtonRow>
-
-              <ButtonRow>
-                <MButton variant="neon" state="error" tooltip="It has an error" >Neon + Error</MButton>
-                <MButton variant="neon" state="loading" tooltip="It's loading" >Neon + Loading</MButton>
-                <MButton variant="neon" state="disabled" tooltip="It's disabled" >Neon + Disabled</MButton>
-              </ButtonRow>
-
-              <ButtonRow>
-                <MButton variant="link" state="error" tooltip="It has an error" >Link + Error</MButton>
-                <MButton variant="link" state="loading" tooltip="It's loading" >Link + Loading</MButton>
-                <MButton variant="link" state="disabled" tooltip="It's disabled" >Link + Disabled</MButton>
-              </ButtonRow>
-            </Section>
-          </MAnimation>
-
-          {/* ================= VARIANT + STATE ================= */}
-          <MAnimation trigger='scroll' variant="fadeInLeft">
-            <Section>
-              <TitleH3> Variant + Active</TitleH3>
-
-              <ButtonRow>
-                <MButton variant="default" tooltip="Clique para ativar" $isActive={isActive} onClick={() => setIsActive(!isActive)} >Default</MButton>
-
-                <MButton
-                  variant="outline"
-                  tooltip="Clique para ativar"
-                  $isActive={isActive}
-                  onClick={() => setIsActive(!isActive)}
-                >Outline</MButton>
-
-                <MButton variant="ghost" tooltip="Clique para ativar" $isActive={isActive} onClick={() => setIsActive(!isActive)} >Ghost</MButton>
-
-                <MButton
-                  variant="gradient"
-                  tooltip="Clique para ativar"
-                  $isActive={isActive}
-                  onClick={() => setIsActive(!isActive)}
-                >Gradient</MButton>
-
-                <MButton variant="neon" tooltip="Clique para ativar" $isActive={isActive} onClick={() => setIsActive(!isActive)} >Neon</MButton>
-
-                <MButton variant="toggle" tooltip="Clique para ativar" $toggleLabel='on / off' $isActive={isActive} onClick={() => setIsActive(!isActive)} />
-
-                <MButton variant="link" tooltip="Clique para ativar" $isActive={isActive} onClick={() => setIsActive(!isActive)} >Link</MButton>
-              </ButtonRow>
-            </Section>
-          </MAnimation>
-
-          {/* ================= ICONS ================= */}
-          <MAnimation trigger='scroll' variant="fadeInLeft">
-            <Section>
-              <TitleH3>Icons</TitleH3>
-
-              <ButtonRow>
-                <MButton variant="default" tooltip="Clique para ativar" leftIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
-                  Default + leftIcon
-                </MButton>
-
-                <MButton variant="default" tooltip="Clique para ativar" rightIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
-                  Default + rightIcon
-                </MButton>
-              </ButtonRow>
-
-              <ButtonRow>
-                <MButton variant="outline" tooltip="Clique para ativar" leftIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
-                  Outline + leftIcon
-                </MButton>
-
-                <MButton variant="outline" tooltip="Clique para ativar" rightIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
-                  Outline + rightIcon
-                </MButton>
-              </ButtonRow>
-
-              <ButtonRow>
-                <MButton variant="ghost" tooltip="Clique para ativar" leftIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
-                  Ghost + leftIcon
-                </MButton>
-
-                <MButton variant="ghost" tooltip="Clique para ativar" rightIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
-                  Ghost + rightIcon
-                </MButton>
-              </ButtonRow>
-
-              <ButtonRow>
-                <MButton variant="gradient" tooltip="Clique para ativar" leftIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
-                  Gradient + leftIcon
-                </MButton>
-
-                <MButton variant="gradient" tooltip="Clique para ativar" rightIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
-                  Gradient + rightIcon
-                </MButton>
-              </ButtonRow>
-
-              <ButtonRow>
-                <MButton variant="link" href='www.google.com' tooltip="Clique para ativar" leftIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
-                  Link + leftIcon
-                </MButton>
-
-                <MButton variant="link" href='www.google.com' tooltip="Clique para ativar" rightIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
-                  Link + rightIcon
-                </MButton>
-              </ButtonRow>
-
-              <ButtonRow>
-                <MButton variant="neon" tooltip="Clique para ativar" leftIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
-                  Neon + leftIcon
-                </MButton>
-
-                <MButton variant="neon" tooltip="Clique para ativar" rightIcon={<BsStars />} onClick={() => setIsActive(!isActive)} >
-                  Neon + rightIcon
-                </MButton>
-              </ButtonRow>
-            </Section>
-          </MAnimation>
-
-          {/* ================= SIZES ================= */}
-          <MAnimation trigger='scroll' variant="fadeInLeft">
-            <Section>
-              <TitleH3>Sizes</TitleH3>
-
-              <ButtonRow>
-                <MButton variant="default" size="sm" tooltip="It's a small default button" >Default</MButton>
-                <MButton variant="default" size="md" tooltip="It's a medium default button" >Default</MButton>
-                <MButton variant="default" size="lg" tooltip="It's a large default button" >Default</MButton>
-              </ButtonRow>
-
-              <ButtonRow>
-                <MButton variant="outline" size="sm" tooltip="It's a small outline button" >Outline</MButton>
-                <MButton variant="outline" size="md" tooltip="It's a medium outline button" >Outline</MButton>
-                <MButton variant="outline" size="lg" tooltip="It's a large outline button" >Outline</MButton>
-              </ButtonRow>
-
-              <ButtonRow>
-                <MButton variant="ghost" size="sm" tooltip="It's a small ghost button" >Ghost</MButton>
-                <MButton variant="ghost" size="md" tooltip="It's a medium ghost button" >Ghost</MButton>
-                <MButton variant="ghost" size="lg" tooltip="It's a large ghost button" >Ghost</MButton>
-              </ButtonRow>
-
-              <ButtonRow>
-                <MButton variant="gradient" size="sm" tooltip="It's a small gradient button" >Gradient</MButton>
-                <MButton variant="gradient" size="md" tooltip="It's a medium gradient button" >Gradient</MButton>
-                <MButton variant="gradient" size="lg" tooltip="It's a large gradient button" >Gradient</MButton>
-              </ButtonRow>
-
-              <ButtonRow>
-                <MButton variant="neon" size="sm" tooltip="It's a small neon button" >Neon</MButton>
-                <MButton variant="neon" size="md" tooltip="It's a medium neon button" >Neon</MButton>
-                <MButton variant="neon" size="lg" tooltip="It's a large neon button" >Neon</MButton>
-              </ButtonRow>
-
-              <ButtonRow>
-                <MButton variant="link" href='www.google.com' size="sm" tooltip="It's a small link button" >Link</MButton>
-                <MButton variant="link" href='www.google.com' size="md" tooltip="It's a medium link button" > Link</MButton>
-                <MButton variant="link" href='www.google.com' size="lg" tooltip="It's a large link button" > Link</MButton>
-              </ButtonRow>
-            </Section>
-          </MAnimation>
-
-          {/* ================= SHAPES ================= */}
-          <MAnimation trigger='scroll' variant="fadeInLeft">
-            <Section>
-              <TitleH3>Shapes</TitleH3>
-
-              <ButtonRow>
-                <MButton variant="default" shapes="circle" tooltip="It's a default button" leftIcon={<BsStars />} />
-
-                <MButton variant="default" shapes="rounded" tooltip="It's a default button" >Default</MButton>
-
-                <MButton variant="default" shapes="square" tooltip="It's a default button" >Default</MButton>
-              </ButtonRow>
-
-              <ButtonRow>
-                <MButton variant="outline" shapes="circle" tooltip="It's a outline button" leftIcon={<BsStars />} />
-
-                <MButton variant="outline" shapes="rounded" tooltip="It's a outline button" >Outline</MButton>
-
-                <MButton variant="outline" shapes="square" tooltip="It's a outline button" >Outline</MButton>
-              </ButtonRow>
-
-              <ButtonRow>
-                <MButton variant="ghost" shapes="circle" tooltip="It's a ghost button" leftIcon={<BsStars />} />
-
-                <MButton variant="ghost" shapes="rounded" tooltip="It's a ghost button" >Ghost</MButton>
-
-                <MButton variant="ghost" shapes="square" tooltip="It's a ghost button" >Ghost</MButton>
-              </ButtonRow>
-
-              <ButtonRow>
-                <MButton variant="gradient" shapes="circle" tooltip="It's a gradient button" leftIcon={<BsStars />} />
-
-                <MButton variant="gradient" shapes="rounded" tooltip="It's a gradient button" >Gradient</MButton>
-
-                <MButton variant="gradient" shapes="square" tooltip="It's a gradient button" >Gradient</MButton>
-              </ButtonRow>
-
-              <ButtonRow>
-                <MButton variant="neon" shapes="circle" tooltip="It's a neon button" leftIcon={<BsStars />} />
-
-                <MButton variant="neon" shapes="rounded" tooltip="It's a neon button" >Neon</MButton>
-
-                <MButton variant="neon" shapes="square" tooltip="It's a neon button" >Neon</MButton>
-              </ButtonRow>
-            </Section>
-          </MAnimation>
-
-          {/* ================= FULL WIDTH ================= */}
-          <MAnimation trigger='scroll' variant="fadeInLeft">
-            <Section>
-              <TitleH3> Full Width</TitleH3>
-
-              <ButtonRow>
-                <MButton variant="default" size="md" fullWidth tooltip="It's a full width button" >Full width</MButton>
-              </ButtonRow>
-
-              <ButtonRow>
-                <MButton variant="outline" size="md" fullWidth tooltip="It's a full width button" >Full width</MButton>
-              </ButtonRow>
-
-              <ButtonRow>
-                <MButton variant="ghost" size="md" fullWidth tooltip="It's a full width button" >Full width</MButton>
-              </ButtonRow>
-
-              <ButtonRow>
-                <MButton variant="gradient" size="md" fullWidth tooltip="It's a full width button" >Full width</MButton>
-              </ButtonRow>
-
-              <ButtonRow>
-                <MButton variant="neon" size="md" fullWidth tooltip="It's a full width button" >Full width</MButton>
-              </ButtonRow>
-            </Section>
-          </MAnimation>
-        </BaseDiv>
-      </ButtonSectionContent>
-    </ButtonSectionContainer>
+      <DemoCard title="MaskedButtonGroup" code={groupCode}>
+        <PreviewRow>
+          <MaskedButtonGroup
+            options={PERIODS}
+            value={period}
+            onChange={(v) => {
+              setPeriod(v)
+              setLastClicked(`group: ${v}`)
+            }}
+            ariaLabel="Select period"
+          />
+        </PreviewRow>
+        <PreviewRow>
+          <MaskedButtonGroup
+            variant="radio"
+            orientation="vertical"
+            options={PLANS}
+            value={plan}
+            onChange={setPlan}
+            ariaLabel="Select plan"
+          />
+        </PreviewRow>
+      </DemoCard>
+    </DemoStack>
   )
 }
+
+export default ButtonSection

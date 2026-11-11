@@ -1,368 +1,164 @@
-import { MAnimation } from '@/styles/MaskedAnimations/MAnimation'
+'use client'
+
 import { useState } from 'react'
-import { BsStars } from 'react-icons/bs'
-import { FaCheckCircle, FaCode } from 'react-icons/fa'
-import { MdOutlineInput } from "react-icons/md"
+import { BsInputCursorText } from 'react-icons/bs'
+import { FaCode } from 'react-icons/fa6'
+
+import { MaskedAnimation } from '@/styles/MaskedAnimations/MaskedAnimation'
+import { TitleH3 } from '@/styles/globalStyles'
 import BaseDiv from '../BaseDiv/BaseDiv'
 import BaseSection from '../BaseSection/BaseSection'
-import { MInput } from '../MaskedInput/MaskedInput'
-import { InfoDiv, InputColumn, InputContainer, InputDiv, InputSectionContainer, InputSectionContent } from './InputSectionStyles'
+import { MaskedInput } from '../MaskedInput/MaskedInput'
+import { CodeBlock } from '../../layout/CodeBlock/CodeBlock'
+import { DemoGrid, FieldColumn, SectionLabel, InfoDiv } from './InputSection.styles'
 
-export default function InputSection() {
-  const [inputDefaultValue, setInputDefaultValue] = useState('')
-  const [phoneValue, setPhoneValue] = useState('')
-  const [inputTextareaValue, setInputTextareaValue] = useState('')
-  const [inputPasswordValue, setInputPasswordValue] = useState('')
-  const [optionValue, setOptionValue] = useState('')
-  const [searchValue, setSearchValue] = useState('')
-  const [currencyValue, setCurrencyValue] = useState('')
-
-  const [errorInputDefaultValue, setErrorInputDefaultValue] = useState('')
-  const [errorPhoneValue, setErrorPhoneValue] = useState('')
-  const [errorInputTextareaValue, setErrorInputTextareaValue] = useState('')
-  const [errorInputPasswordValue, setErrorInputPasswordValue] = useState('')
-  const [errorOptionValue, setErrorOptionValue] = useState('')
-  const [errorSearchValue, setErrorSearchValue] = useState('')
-  const [errorCurrencyValue, setErrorCurrencyValue] = useState('')
+export function InputSection() {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [search, setSearch] = useState('')
+  const [plan, setPlan] = useState('')
+  const [date, setDate] = useState('')
+  const [time, setTime] = useState('')
+  const [price, setPrice] = useState('')
 
   return (
-    <InputSectionContainer>
-      <InputSectionContent>
+    <BaseSection id="inputs">
+      <BaseDiv gap='10px'>
+        <MaskedAnimation trigger="scroll" variant="revealFadeInUp">
+          <SectionLabel>MaskedInput</SectionLabel>
+        </MaskedAnimation>
 
-        <BaseSection
-          header
-          icon={<FaCode />}
-          title="Basic Usage of MaskedInput"
-          fileType="tsx"
-          description="Simple example of using MaskedInput."
-          content1={`
-        import { MInput } from
-        '../MaskedInput/MaskedInput'
+        <MaskedAnimation trigger="scroll" variant="revealFadeInUp">
+          <TitleH3>
+            <BsInputCursorText /> One component, nine variants
+          </TitleH3>
+        </MaskedAnimation>
 
-        function MyForm() {
-          const [value, setValue] = useState('')
+        <MaskedAnimation trigger="scroll" variant="revealFadeInUp">
+          <InfoDiv>
+            Every variant shares the same props contract — <code>label</code>,{' '}
+            <code>icon</code>, <code>error</code>, <code>colorTheme</code>,{' '}
+            <code>tokens</code>. Switch behavior with a single{' '}
+            <code>variant</code> prop.
+          </InfoDiv>
+        </MaskedAnimation>
 
-          return (
-            <MInput
-              radius={4}
-              variant="masked"
-              label="Phone number"
-              icon={<BsStars />}
-              mask="(00) 0000-0000"
-              placeholder="Telefone"
-              value={phoneValue}
-              onChange={v => setPhoneValue(v)}
+        <DemoGrid>
+          <FieldColumn>
+            <MaskedInput
+              variant="default"
+              label="Name"
+              placeholder="Your name"
+              value={name}
+              onChange={setName}
             />
-          )
-        }
-                    `}
+            <MaskedInput
+              variant="default"
+              label="Email"
+              type="email"
+              placeholder="you@mail.com"
+              value={email}
+              onChange={setEmail}
+              colorTheme="baseBlue"
+            />
+            <MaskedInput
+              variant="password"
+              label="Password"
+              placeholder="••••••••"
+              value={password}
+              onChange={setPassword}
+            />
+            <MaskedInput
+              variant="search"
+              label="Search"
+              placeholder="Search components..."
+              value={search}
+              onChange={setSearch}
+            />
+          </FieldColumn>
+
+          <FieldColumn>
+            <MaskedInput
+              variant="select"
+              label="Plan"
+              placeholder="Choose a plan"
+              value={plan}
+              onChange={setPlan}
+              options={[
+                { value: 'free', label: 'Free' },
+                { value: 'pro', label: 'Pro' },
+                { value: 'team', label: 'Team' }
+              ]}
+            />
+            <MaskedInput
+              variant="masked"
+              label="Birth date"
+              mask="00/00/0000"
+              placeholder="DD/MM/YYYY"
+              value={date}
+              onChange={setDate}
+            />
+            <MaskedInput
+              variant="time"
+              label="Meeting time"
+              value={time}
+              onChange={setTime}
+            />
+            <MaskedInput
+              variant="currency"
+              label="Price"
+              value={price}
+              onChange={setPrice}
+              currencyConfig={{ locale: 'en-US', currency: 'USD' }}
+            />
+          </FieldColumn>
+        </DemoGrid>
+
+        <MaskedAnimation trigger="scroll" variant="revealFadeInUp">
+          <TitleH3>
+            <FaCode /> Usage
+          </TitleH3>
+        </MaskedAnimation>
+
+        <CodeBlock
+          title="Controlled inputs"
+          code={`const [value, setValue] = useState('')
+
+<MaskedInput
+  variant="select"
+  label="Plan"
+  value={value}
+  onChange={setValue}
+  options={[
+    { value: 'free', label: 'Free' },
+    { value: 'pro', label: 'Pro' }
+  ]}
+
+<MaskedInput
+  variant="time"
+  label="Meeting time"
+  value={time}
+  onChange={setTime}
+/>
+
+<MaskedInput
+  variant="masked"
+  label="Birth date"
+  mask="00/00/0000"
+  value={date}
+  onChange={setDate}
+/>`}
         />
 
-        <BaseSection
-          title='MaskedInput Variants'
-          icon={<MdOutlineInput />}
-          description="Inputs with intelligent masks and automatic formatting in real-time. Type into the fields below to test."
-        >
+        <CodeBlock
+          title="Formik integration"
+          code={`import { FormikTextInput } from '@/components/ui/MaskedInput/formikVariants/FormikTextInput'
 
-
-          <MAnimation trigger='scroll' variant='fadeInLeft'>
-
-            <BaseDiv direction="column">
-
-              <InputContainer>
-
-                <InputColumn>
-                  <MAnimation trigger='scroll' variant='slideBounceRight'>
-                    <InputDiv>
-                      <MInput
-                        variant="default"
-                        placeholder="Type here"
-                        icon={<BsStars />}
-                        label="Input default"
-                        value={inputDefaultValue}
-                        onChange={v => setInputDefaultValue(v)}
-                      />
-                      Value: {inputDefaultValue}
-                    </InputDiv>
-                  </MAnimation>
-
-                  <MAnimation trigger='scroll' variant='slideBounceRight'>
-                    <InputDiv>
-                      <MInput
-                        variant="textarea"
-                        label="Input textarea"
-                        icon={<BsStars />}
-                        placeholder="Type here"
-                        value={inputTextareaValue}
-                        onChange={v => setInputTextareaValue(v)}
-                      />
-                      Value: {inputTextareaValue.length > 30 ? inputTextareaValue.slice(0, 30) + '...' : inputTextareaValue}
-                    </InputDiv>
-                  </MAnimation>
-
-                  <MAnimation trigger='scroll' variant='slideBounceRight'>
-                    <InputDiv>
-                      <MInput
-                        variant="masked"
-                        label="Input masked"
-                        icon={<BsStars />}
-                        mask="(00) 0000-0000"
-                        placeholder="(00) 0000-0000"
-                        value={phoneValue}
-                        onChange={v => setPhoneValue(v)}
-                      />
-                      Value: {phoneValue}
-                    </InputDiv>
-                  </MAnimation>
-
-                  <MAnimation trigger='scroll' variant='slideBounceRight'>
-                    <InputDiv>
-                      <MInput
-                        variant="password"
-                        label="Input password"
-                        icon={<BsStars />}
-                        placeholder="Type here"
-                        value={inputPasswordValue}
-                        onChange={v => setInputPasswordValue(v)}
-                      />
-                      Value: {inputPasswordValue}
-                    </InputDiv>
-                  </MAnimation>
-
-                </InputColumn>
-
-                <InputColumn>
-
-                  <MAnimation trigger='scroll' variant='slideBounceLeft'>
-                    <InputDiv>
-                      <MInput
-                        variant="select"
-                        label="Input select"
-                        icon={<BsStars />}
-                        options={[
-                          { value: 'option1', label: 'Option 1' },
-                          { value: 'option2', label: 'Option 2' },
-                          { value: 'option3', label: 'Option 3' }
-                        ]}
-                        value={optionValue}
-                        onChange={v => setOptionValue(v)}
-                      />
-                      Value: {optionValue}
-                    </InputDiv>
-                  </MAnimation>
-
-                  <MAnimation trigger='scroll' variant='slideBounceLeft'>
-                    <InputDiv>
-                      <MInput label="Input file" icon={<BsStars />} variant="file" fileMode="cloudinary" multiple />
-                    </InputDiv>
-                  </MAnimation>
-
-                  <MAnimation trigger='scroll' variant='slideBounceLeft'>
-                    <InputDiv>
-                      <MInput
-                        variant="search"
-                        label="Input search"
-                        icon={<BsStars />}
-                        placeholder="Search"
-                        value={searchValue}
-                        onChange={v => setSearchValue(v)}
-                      />
-                      Value: {searchValue}
-                    </InputDiv>
-                  </MAnimation>
-
-                  <MAnimation trigger='scroll' variant='slideBounceLeft'>
-                    <InputDiv>
-                      <MInput
-                        variant="currency"
-                        label="Input currency"
-                        icon={<BsStars />}
-                        placeholder="0,00"
-                        value={currencyValue}
-                        onChange={v => setCurrencyValue(v)}
-                      />
-                      Value: {currencyValue}
-                    </InputDiv>
-                  </MAnimation>
-
-                </InputColumn>
-
-
-              </InputContainer>
-
-              <MAnimation trigger='scroll' variant='slideImpactUp'>
-                <InfoDiv>
-                  <FaCheckCircle />
-                  <p>All masks are applied automatically as you type. Numbers are accepted and formatted in real-time.</p>
-                </InfoDiv>
-              </MAnimation>
-
-            </BaseDiv>
-
-          </MAnimation>
-
-        </BaseSection>
-
-        <BaseSection
-          title='MaskedInput with errors'
-          icon={<MdOutlineInput />}
-          description="Inputs with intelligent masks and automatic formatting in real-time. Type into the fields below to test."
-        >
-
-          <MAnimation trigger='scroll' variant='fadeInLeft'>
-
-            <BaseDiv direction="column">
-
-              <InputContainer>
-
-
-                <InputColumn>
-                  <MAnimation trigger='scroll' variant='slideBounceRight'>
-                    <InputDiv>
-                      <MInput
-                        touched={true}
-                        error="Some error message"
-                        showError
-                        variant="default"
-                        placeholder="Type here"
-                        icon={<BsStars />}
-                        label="Input default"
-                        value={errorInputDefaultValue}
-                        onChange={v => setErrorInputDefaultValue(v)}
-                      />
-                      Value: {errorInputDefaultValue.length ? errorInputDefaultValue : 'No value'}
-                    </InputDiv>
-                  </MAnimation>
-
-                  <MAnimation trigger='scroll' variant='slideBounceRight'>
-                    <InputDiv>
-                      <MInput
-                        touched={true}
-                        error="Some error message"
-                        showError
-                        variant="textarea"
-                        label="Input textarea"
-                        icon={<BsStars />}
-                        placeholder="Type here"
-                        value={errorInputTextareaValue}
-                        onChange={v => setErrorInputTextareaValue(v)}
-                      />
-                      Value: {errorInputTextareaValue.length > 30 ? errorInputTextareaValue.slice(0, 30) + '...' : 'No value'}
-                    </InputDiv>
-                  </MAnimation>
-
-                  <MAnimation trigger='scroll' variant='slideBounceRight'>
-                    <InputDiv>
-                      <MInput
-                        touched={true}
-                        error="Some error message"
-                        showError
-                        variant="masked"
-                        label="Input masked"
-                        icon={<BsStars />}
-                        mask="(00) 0000-0000"
-                        placeholder="(00) 0000-0000"
-                        value={errorPhoneValue}
-                        onChange={v => setErrorPhoneValue(v)}
-                      />
-                      Value: {errorPhoneValue ? errorPhoneValue : 'No value'}
-                    </InputDiv>
-                  </MAnimation>
-
-                  <MAnimation trigger='scroll' variant='slideBounceRight'>
-                    <InputDiv>
-                      <MInput
-                        touched={true}
-                        error="Some error message"
-                        showError
-                        variant="password"
-                        label="Input password"
-                        icon={<BsStars />}
-                        placeholder="Type here"
-                        value={errorInputPasswordValue}
-                        onChange={v => setErrorInputPasswordValue(v)}
-                      />
-                      Value: {errorInputPasswordValue ? errorInputPasswordValue : 'No value'}
-                    </InputDiv>
-                  </MAnimation>
-                </InputColumn>
-
-                <InputColumn>
-
-                  <MAnimation trigger='scroll' variant='slideBounceLeft'>
-                    <InputDiv>
-                      <MInput
-                        touched={true}
-                        error="Some error message"
-                        showError
-                        variant="select"
-                        label="Input select"
-                        icon={<BsStars />}
-                        options={[
-                          { value: 'option1', label: 'Option 1' },
-                          { value: 'option2', label: 'Option 2' },
-                          { value: 'option3', label: 'Option 3' }
-                        ]}
-                        value={errorOptionValue}
-                        onChange={v => setErrorOptionValue(v)}
-                      />
-                      Value: {errorOptionValue ? errorOptionValue : 'No value'}
-                    </InputDiv>
-                  </MAnimation>
-
-                  <MAnimation trigger='scroll' variant='slideBounceLeft'>
-                    <InputDiv>
-                      <MInput
-                        touched={true}
-                        error="Some error message"
-                        showError
-                        variant="search"
-                        label="Input search"
-                        icon={<BsStars />}
-                        placeholder="Search"
-                        value={errorSearchValue}
-                        onChange={v => setErrorSearchValue(v)}
-                      />
-                      Value: {errorSearchValue ? errorSearchValue : 'No value'}
-                    </InputDiv>
-                  </MAnimation>
-
-                  <MAnimation trigger='scroll' variant='slideBounceLeft'>
-                    <InputDiv>
-                      <MInput
-                        touched={true}
-                        error="Some error message"
-                        showError
-                        variant="currency"
-                        label="Input currency"
-                        icon={<BsStars />}
-                        placeholder="0,00"
-                        value={errorCurrencyValue}
-                        onChange={v => setErrorCurrencyValue(v)}
-                      />
-                      Value: {errorCurrencyValue ? errorCurrencyValue : 'No value'}
-                    </InputDiv>
-                  </MAnimation>
-
-                </InputColumn>
-
-
-              </InputContainer>
-
-              <MAnimation trigger='scroll' variant='slideImpactUp'>
-                <InfoDiv>
-                  <FaCheckCircle />
-                  <p>All masks are applied automatically as you type. Numbers are accepted and formatted in real-time.</p>
-                </InfoDiv>
-              </MAnimation>
-
-            </BaseDiv>
-
-          </MAnimation>
-
-        </BaseSection>
-
-      </InputSectionContent>
-    </InputSectionContainer>
+// Inside <Formik> — wires useField() automatically
+<FormikTextInput name="email" label="Email" />`}
+        />
+      </BaseDiv>
+    </BaseSection>
   )
 }

@@ -1,10 +1,19 @@
 'use client'
 
 import { ButtonVariantMap } from '../../MaskedButton.types'
-import { LinkButtonContainer } from './LinkButton.styles'
+import { LinkButtonContainer, LinkButtonWrapper } from './LinkButton.styles'
 
-type props = { variant: 'link' } & ButtonVariantMap['link']
+type props = { $variant: 'link' } & ButtonVariantMap['link']
 
 export default function LinkButton(props: props) {
-  return <LinkButtonContainer data-testid="link-button" $isActive={props.$isActive} $isError={props.state === 'error'} {...props} />
+  return (
+    <LinkButtonWrapper $position={props.$position}>
+      <LinkButtonContainer
+        {...props}
+        data-testid="link-button"
+        $isError={props.state === 'error'}
+        $isDisabled={props.state === 'disabled'}
+      />
+    </LinkButtonWrapper>
+  )
 }
