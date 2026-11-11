@@ -1,31 +1,34 @@
 'use client'
 
 import { useState } from 'react'
-import { BsGithub, BsClipboard2, BsClipboard2Check } from 'react-icons/bs'
+import { BsClipboard2, BsClipboard2Check, BsGithub } from 'react-icons/bs'
 import { FaRocket } from 'react-icons/fa6'
 
+import { STATS } from '@/components/layout/data/catalog'
 import { MaskedAnimation } from '@/styles/MaskedAnimations/MaskedAnimation'
 import { MaskedButton } from '../MaskedButton/MaskedButton'
 import {
-  HeroSectionContainer,
+  HeroActions,
   HeroContent,
   HeroHeadline,
+  HeroSectionContainer,
   HeroSub,
-  HeroActions,
   InstallCommand,
-  StatsRow,
   StatItem,
-  StatValue,
-  StatLabel
+  StatLabel,
+  StatsRow,
+  StatValue
 } from './HeroSection.styles'
 
 const INSTALL_CMD = 'npx masked-components-cli'
 
 const stats = [
-  { value: '9', label: 'Input variants' },
-  { value: '11', label: 'Button variants' },
-  { value: '6', label: 'Card variants' },
-  { value: '9', label: 'Themes' }
+  { value: STATS.packages, label: 'Installable packages' },
+  { value: STATS.buttonVariants, label: 'Button variants' },
+  { value: STATS.inputVariants, label: 'Input variants' },
+  { value: STATS.cardVariants, label: 'Card variants' },
+  { value: STATS.animations, label: 'Animations' },
+  { value: STATS.themes, label: 'Themes' }
 ]
 
 export function HeroSection() {
@@ -44,29 +47,23 @@ export function HeroSection() {
   return (
     <HeroSectionContainer>
       <HeroContent>
-        <MaskedAnimation variant="revealFadeInUp" trigger="mount">
+        <MaskedAnimation variant="revealGlideUp" trigger="mount">
           <HeroHeadline>
-            Componentes com máscara,{' '}
-            <span>prontos para produção</span>
+            Polymorphic components, <span>copied into your project</span>
           </HeroHeadline>
         </MaskedAnimation>
 
-        <MaskedAnimation variant="revealFadeInUp" trigger="mount" delay={0.1}>
+        <MaskedAnimation variant="revealGlideUp" trigger="mount" delay={0.1}>
           <HeroSub>
-            Buttons, inputs, cards, overlays, skeletons, animações e um motor de
-            temas — instalados no seu projeto com um comando, sem dependência de
-            runtime escondida.
+            Buttons, inputs, cards, overlays, toasts, animations and a theme engine. One command
+            copies the source into your app: you own the code, and React is the only runtime
+            requirement besides styled-components.
           </HeroSub>
         </MaskedAnimation>
 
-        <MaskedAnimation variant="revealFadeInUp" trigger="mount" delay={0.2}>
+        <MaskedAnimation variant="revealGlideUp" trigger="mount" delay={0.2}>
           <HeroActions>
-            <MaskedButton
-              variant="gradient"
-              size="lg"
-              rightIcon={<FaRocket />}
-              href="#install"
-            >
+            <MaskedButton variant="gradient" size="lg" rightIcon={<FaRocket />} href="#install">
               Get started
             </MaskedButton>
             <MaskedButton
@@ -75,20 +72,21 @@ export function HeroSection() {
               rightIcon={<BsGithub />}
               href="https://github.com/RNT13/masked-components-cli"
               target="_blank"
+              rel="noopener noreferrer"
             >
               GitHub
             </MaskedButton>
           </HeroActions>
         </MaskedAnimation>
 
-        <MaskedAnimation variant="revealFadeInUp" trigger="mount" delay={0.3}>
-          <InstallCommand onClick={copyInstall} title="Click to copy">
+        <MaskedAnimation variant="revealGlideUp" trigger="mount" delay={0.3}>
+          <InstallCommand onClick={copyInstall} aria-label={`Copy: ${INSTALL_CMD}`}>
             <code>$ {INSTALL_CMD}</code>
             {copied ? <BsClipboard2Check /> : <BsClipboard2 />}
           </InstallCommand>
         </MaskedAnimation>
 
-        <MaskedAnimation variant="revealFadeInUp" trigger="mount" delay={0.4}>
+        <MaskedAnimation variant="revealGlideUp" trigger="mount" delay={0.4}>
           <StatsRow>
             {stats.map((s) => (
               <StatItem key={s.label}>

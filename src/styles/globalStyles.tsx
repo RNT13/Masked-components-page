@@ -1,11 +1,8 @@
 'use client'
 
-// 🎨 GLOBAL STYLES - Estilos globais com Styled Components
-
 import styled, { createGlobalStyle } from 'styled-components'
-import { accentTheme, maskedTheme, media } from './MaskedThemes/MaskedThemes'
+import { accentTheme, maskedTheme } from './MaskedThemes/MaskedThemes'
 
-// Atalhos locais para as cores accent (Partial no DefaultTheme)
 const accentBlue = accentTheme.colors.accentBlue?.base ?? '#00E5FF'
 const accentPink = accentTheme.colors.accentPink?.base ?? '#FF2DAA'
 
@@ -20,108 +17,77 @@ export const GlobalStyles = createGlobalStyle`
     background: ${({ theme }) => theme.colors.primaryColor ?? maskedTheme.colors.baseBlack.base};
     color: ${({ theme }) => theme.colors.textColor ?? maskedTheme.colors.baseBlue.light30};
     font-family: var(--primary-font, system-ui), system-ui, sans-serif;
+    line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+    transition: background 0.3s ease, color 0.3s ease;
   }
 
   button, input, textarea, select { font-family: inherit; }
 
   .container {
-    max-width: 1024px;
-    margin: 0 auto;
-    width: 100%;
-
-    ${media.desktop}{
-      width: 95%;
-    }
-
-    ${media.tablet}{
-      width: 95%;
-    }
-
-    ${media.mobile}{
-      width: 95%;
-    }
+    width: min(100% - 2rem, ${maskedTheme.grid.maxWidth});
+    margin-inline: auto;
   }
 
-  .svgGreen {
-    color: ${maskedTheme.colors.baseGreen.light20};
-    font-size: ${maskedTheme.fontSize['2xl']};
-  }
-
-  .svgBlue {
-    color: ${maskedTheme.colors.baseBlue.light30};
-    font-size: ${maskedTheme.fontSize['2xl']};
-  }
+  .svgGreen { color: ${({ theme }) => theme.colors.successColor}; font-size: ${maskedTheme.fontSize['2xl']}; }
+  .svgBlue  { color: ${({ theme }) => theme.colors.accentColor};  font-size: ${maskedTheme.fontSize['2xl']}; }
 `
 
 export const OverlayBlur = styled.div`
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   backdrop-filter: blur(5px);
   z-index: 100;
 `
 
 export const OverlayDarck = styled.div`
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 10;
 `
 
 export const CloseButton = styled.button`
-  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  right: 0;
   margin: 0;
   padding: 0;
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  background-color: transparent;
   border: transparent;
+  border-radius: 50%;
+  background-color: transparent;
+  color: ${({ theme }) => theme.colors.textMuted ?? 'inherit'};
   cursor: pointer;
 
-  svg {
-    font-size: 24px;
-    color: ${maskedTheme.colors.baseBlue.dark20};
-  }
-
-  &:hover {
-    svg {
-      color: ${maskedTheme.colors.baseBlue.light};
-    }
-  }
+  svg { font-size: 24px; }
+  &:hover { color: ${({ theme }) => theme.colors.textColor ?? 'inherit'}; }
 `
 
 export const TitleH2 = styled.h2`
-  font-size: 24px;
-  font-weight: 600;
-  color: ${maskedTheme.colors.baseBlue.light30};
   display: flex;
   align-items: center;
   gap: 12px;
+  font-size: ${({ theme }) => theme.fontSize['2xl']};
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.textColor};
 
-  svg {
-    font-size: 35px;
-  }
+  svg { font-size: 35px; }
 `
 
 export const TitleH3 = styled.h3`
-  font-size: 18px;
-  font-weight: 600;
   margin-bottom: 12px;
-  color: ${maskedTheme.colors.baseBlue.light30};
+  font-size: ${({ theme }) => theme.fontSize.lg};
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.textColor};
 `
 
-export const MinorTextH4 = styled.h3`
-  font-size: 14px;
-  font-weight: 300;
+/** Texto de apoio (antes renderizava <h3>; agora é parágrafo). */
+export const MinorTextH4 = styled.p`
   margin-bottom: 8px;
-  color: ${maskedTheme.colors.baseBlack.light40};
+  font-size: ${({ theme }) => theme.fontSize.sm};
+  font-weight: 400;
+  line-height: 1.6;
+  color: ${({ theme }) => theme.colors.textMuted ?? theme.colors.textColor};
 `
 
 export const GradientTextH2 = styled.h2`
@@ -134,9 +100,6 @@ export const GradientTextH2 = styled.h2`
 `
 
 export const GradientSpan = styled.span`
-  font-size: 38px;
-  font-weight: 600;
-  color: ${maskedTheme.colors.baseBlue.base};
   font-size: 1.8rem;
   font-weight: 700;
   background: linear-gradient(135deg, ${accentPink}, ${accentBlue});
@@ -155,14 +118,14 @@ export const GradientSpan = styled.span`
 export const Line = styled.span.attrs({ 'aria-hidden': true })`
   width: 80px;
   height: 2px;
-  background: ${maskedTheme.colors.baseBlack.light50};
   margin: 0 2px;
+  background: ${({ theme }) => theme.colors.borderColor};
 `
 
 export const Dot = styled.span.attrs({ 'aria-hidden': true })`
   width: 4px;
   height: 4px;
-  border-radius: 50%;
-  background: ${maskedTheme.colors.baseBlue.base};
   margin: 0 2px;
+  border-radius: 50%;
+  background: ${({ theme }) => theme.colors.accentColor};
 `

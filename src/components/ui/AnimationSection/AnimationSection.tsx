@@ -10,44 +10,32 @@ import { MaskedButton } from '../MaskedButton/MaskedButton'
 import { AnimationDemo } from './AnimationDemo'
 import { AnimBox, AnimationGrid } from './AnimationSection.styles'
 
+
 const REVEAL: AnimationName[] = [
-  'revealFadeInUp',
-  'revealPopElastic',
-  'revealClipUp',
-  'revealZoomFromDeep',
-  'revealBlurRise',
-  'revealFlipX',
-  'revealSlideImpactLeft',
-  'revealRotateDrop'
+  'revealSoftFade', 'revealGlideUp', 'revealSoftScale', 'revealSoftBlur', 'revealCurtain',
+  'revealFadeInUp', 'revealPopElastic', 'revealClipUp', 'revealBlurRise', 'revealFlipX',
+  'revealDropBounce', 'revealSwingIn', 'revealStretchIn', 'revealSpiralIn', 'revealTiltRise',
+  'revealZoomSnap', 'revealSkewSlide', 'revealSlideImpactLeft', 'revealRotateDrop'
 ]
-
 const CONTINUOUS: AnimationName[] = [
-  'continuousGlowDiagonal',
-  'continuousFloat',
-  'continuousGoldBorderPremium',
-  'continuousSilverBorderPremium',
-  'continuousShine',
-  'continuousPulse',
-  'continuousBounce',
-  'continuousGlowGold'
+  'continuousBreathe', 'continuousSoftFloat', 'continuousSway', 'continuousHeartbeat',
+  'continuousGlowPulse', 'continuousHueShift', 'continuousTilt', 'continuousWobble',
+  'continuousFloat', 'continuousPulse', 'continuousBounce', 'continuousShine',
+  'continuousGlowDiagonal', 'continuousGlowGold',
+  'continuousGoldBorderPremium', 'continuousSilverBorderPremium'
 ]
-
 const ONE_SHOT: AnimationName[] = [
-  'oneShotShakeX',
-  'oneShotGlowSweep',
-  'oneShotJumpRotate',
-  'oneShotRocketLaunch',
-  'oneShotLightningStrike'
+  'oneShotRubberBand', 'oneShotTada', 'oneShotHeadShake', 'oneShotFlash', 'oneShotFlipSpin',
+  'oneShotSwing', 'oneShotShakeX', 'oneShotJumpRotate', 'oneShotGlowSweep',
+  'oneShotRocketLaunch', 'oneShotLightningStrike'
 ]
-
 const CONTROLLED: AnimationName[] = [
-  'controlledFadeLift',
-  'controlledBlurIn',
-  'controlledPopBounce',
-  'controlledSlideFromBottomSoft'
+  'controlledSoftFade', 'controlledSoftRise', 'controlledScaleSoft',
+  'controlledFadeLift', 'controlledBlurIn', 'controlledPopBounce', 'controlledSlideFromBottomSoft'
 ]
 
-const TOTAL = Object.keys(animationRegistry).length
+const DEPRECATED = new Set(['revealFadeOutDown', 'controlledColapse'])
+const TOTAL = Object.keys(animationRegistry).filter((n) => !DEPRECATED.has(n)).length
 
 const REVEAL_CODE = `// trigger="scroll": anima ao entrar na viewport (once = só na primeira vez)
 <MaskedAnimation variant="revealFadeInUp" trigger="scroll" once>

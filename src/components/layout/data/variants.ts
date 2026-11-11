@@ -10,6 +10,7 @@ export const BUTTON_VARIANTS = [
   'gradient',
   'neon',
   'soft',
+  'split',
   'toggle',
   'checkbox',
   'switch',
