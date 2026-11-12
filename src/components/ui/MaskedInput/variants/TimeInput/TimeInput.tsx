@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 
 import { ClockIcon } from '../../icons'
@@ -31,8 +31,9 @@ const HOURS = Array.from({ length: 24 }, (_, i) => String(i).padStart(2, '0'))
 const VIEWPORT_MARGIN = 8
 
 function buildMinutes(step: number): string[] {
-  const count = Math.max(1, Math.floor(60 / step))
-  return Array.from({ length: count }, (_, i) => String(i * step).padStart(2, '0'))
+  const safe = Math.max(1, Math.floor(step) || 1)
+  const count = Math.max(1, Math.floor(60 / safe))
+  return Array.from({ length: count }, (_, i) => String(i * safe).padStart(2, '0'))
 }
 
 function parseTime(value?: string | null): { hour: string; minute: string } {
@@ -42,8 +43,17 @@ function parseTime(value?: string | null): { hour: string; minute: string } {
 }
 
 export function TimeInput(props: Props) {
+  const autoId = useId()
+  const triggerId = props.id ?? autoId
+  const dialogId = `${triggerId}-dialog`
+
   const [open, setOpen] = useState(false)
   const [dropdownPos, setDropdownPos] = useState({ top: 0, left: 0, width: 0 })
+
+  /* Híbrido: se `value` for passado, o pai controla; senão, estado interno. */
+  const isControlled = props.value !== undefined
+  const [internal, setInternal] = useState('')
+  const current = isControlled ? props.value : internal
 
   const containerRef = useRef<HTMLDivElement>(null)
   const triggerRef = useRef<HTMLButtonElement>(null)
@@ -52,15 +62,22 @@ export function TimeInput(props: Props) {
   const minuteRefs = useRef<Record<string, HTMLButtonElement | null>>({})
 
   const hasError = props.touched && Boolean(props.error)
-  const minuteStep = props.minuteStep ?? 5
-  const minutes = buildMinutes(minuteStep)
-  const { hour, minute } = parseTime(props.value)
+  const minutes = buildMinutes(props.minuteStep ?? 5)
+  const { hour, minute } = parseTime(current)
   const align = props.align ?? 'left'
+
+  // o dropdown vive em um portal (fora do container): recebe as mesmas variáveis
+  const tokenStyle = resolveInputTokens({ colorTheme: props.colorTheme, tokens: props.tokens })
 
   function updateDropdownPosition() {
     if (!triggerRef.current) return
     const rect = triggerRef.current.getBoundingClientRect()
     setDropdownPos({ top: rect.bottom + 6, left: rect.left, width: rect.width })
+  }
+
+  function closeAndFocus() {
+    setOpen(false)
+    triggerRef.current?.focus()
   }
 
   useLayoutEffect(() => {
@@ -96,41 +113,44 @@ export function TimeInput(props: Props) {
       window.removeEventListener('resize', updateDropdownPosition)
       window.removeEventListener('scroll', updateDropdownPosition, true)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open])
+
+  /* Escape fecha e devolve o foco ao trigger */
+  useEffect(() => {
+    if (!open) return
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        e.preventDefault()
+        setOpen(false)
+        triggerRef.current?.focus()
+      }
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
   }, [open])
 
   useEffect(() => {
+    if (!open) return
     function handleClickOutside(e: MouseEvent) {
       const target = e.target as Node
-      const clickedInsideTrigger = containerRef.current?.contains(target)
-      const clickedInsideDropdown = dropdownRef.current?.contains(target)
-
-      if (!clickedInsideTrigger && !clickedInsideDropdown) {
-        setOpen(false)
-      }
+      if (containerRef.current?.contains(target) || dropdownRef.current?.contains(target)) return
+      setOpen(false)
     }
-
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
+  }, [open])
 
   function emit(nextHour: string, nextMinute: string) {
-    if (nextHour && nextMinute) {
-      props.onChange?.(`${nextHour}:${nextMinute}`)
-    }
-  }
-
-  function handleSelectHour(nextHour: string) {
-    emit(nextHour, minute || minutes[0])
-  }
-
-  function handleSelectMinute(nextMinute: string) {
-    emit(hour || HOURS[0], nextMinute)
+    if (!nextHour || !nextMinute) return
+    const next = `${nextHour}:${nextMinute}`
+    if (!isControlled) setInternal(next)
+    props.onChange?.(next)
   }
 
   function handleClear() {
+    if (!isControlled) setInternal('')
     props.onChange?.('')
-    setOpen(false)
+    closeAndFocus()
   }
 
   return (
@@ -141,13 +161,11 @@ export function TimeInput(props: Props) {
       data-error={hasError}
       $icon={!props.icon}
       $open={open}
-      style={{
-        ...resolveInputTokens({ colorTheme: props.colorTheme, tokens: props.tokens }),
-        ...props.containerStyle
-      }}
+      className={props.className}
+      style={{ ...tokenStyle, ...props.containerStyle }}
     >
       {props.label && (
-        <InputLabel htmlFor={props.id} $required={props.required}>
+        <InputLabel htmlFor={triggerId} $required={props.required}>
           {props.icon}
           <span>{props.label}</span>
         </InputLabel>
@@ -157,18 +175,20 @@ export function TimeInput(props: Props) {
 
       <TimeTrigger
         ref={triggerRef}
+        data-mc-trigger=""
         type="button"
-        id={props.id ?? 'masked-time-trigger'}
+        id={triggerId}
         className={hasError ? 'error' : ''}
         disabled={props.disabled}
         onClick={() => !props.disabled && setOpen((o) => !o)}
         aria-invalid={hasError ? 'true' : undefined}
-        aria-describedby={hasError ? `${props.id}-error` : undefined}
+        aria-describedby={hasError ? `${triggerId}-error` : undefined}
         aria-haspopup="dialog"
         aria-expanded={open}
+        aria-controls={open ? dialogId : undefined}
       >
-        <TimeTriggerValue $isPlaceholder={!props.value}>
-          {props.value || props.placeholder || '00:00'}
+        <TimeTriggerValue $isPlaceholder={!current}>
+          {current || props.placeholder || '00:00'}
         </TimeTriggerValue>
         {props.clockIcon ?? <ClockIcon />}
       </TimeTrigger>
@@ -177,7 +197,15 @@ export function TimeInput(props: Props) {
         createPortal(
           <TimeDropdown
             ref={dropdownRef}
-            style={{ top: dropdownPos.top, left: dropdownPos.left, minWidth: dropdownPos.width }}
+            id={dialogId}
+            role="dialog"
+            aria-label={props.label ?? props.placeholder ?? 'Time'}
+            style={{
+              ...tokenStyle,
+              top: dropdownPos.top,
+              left: dropdownPos.left,
+              minWidth: dropdownPos.width
+            }}
           >
             <TimeColumnsRow>
               <TimeColumn>
@@ -190,14 +218,15 @@ export function TimeInput(props: Props) {
                     }}
                     type="button"
                     $selected={h === hour}
-                    onClick={() => handleSelectHour(h)}
+                    aria-pressed={h === hour}
+                    onClick={() => emit(h, minute || minutes[0])}
                   >
                     {h}
                   </TimeOption>
                 ))}
               </TimeColumn>
 
-              <TimeSeparator>:</TimeSeparator>
+              <TimeSeparator aria-hidden="true">:</TimeSeparator>
 
               <TimeColumn>
                 <TimeColumnLabel>{props.minuteLabel ?? 'Min'}</TimeColumnLabel>
@@ -209,7 +238,8 @@ export function TimeInput(props: Props) {
                     }}
                     type="button"
                     $selected={m === minute}
-                    onClick={() => handleSelectMinute(m)}
+                    aria-pressed={m === minute}
+                    onClick={() => emit(hour || HOURS[0], m)}
                   >
                     {m}
                   </TimeOption>
@@ -228,7 +258,7 @@ export function TimeInput(props: Props) {
           document.body
         )}
 
-      {hasError && <ErrorDiv id={`${props.id}-error`}>{props.error}</ErrorDiv>}
+      {hasError && <ErrorDiv id={`${triggerId}-error`}>{props.error}</ErrorDiv>}
     </MaskedInputContainer>
   )
 }

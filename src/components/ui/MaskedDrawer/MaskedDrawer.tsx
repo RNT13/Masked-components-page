@@ -17,7 +17,7 @@ export function MaskedDrawer({
   onClose,
   side = 'left',
   width = '280px',
-  height = '60vh',
+  height = '60dvh',
   overlay = true,
   overlayBlur = false,
   transition = 'slide',
@@ -31,6 +31,12 @@ export function MaskedDrawer({
   style
 }: MaskedDrawerProps) {
   const panelRef = useRef<HTMLDivElement>(null)
+
+  /* onClose via ref: trocar a callback não re-executa o efeito de foco */
+  const onCloseRef = useRef(onClose)
+  useEffect(() => {
+    onCloseRef.current = onClose
+  }, [onClose])
 
   const mounted = useSyncExternalStore(
     () => () => { },
@@ -48,7 +54,7 @@ export function MaskedDrawer({
 
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && closeOnEscape) {
-        onClose()
+        onCloseRef.current()
         return
       }
       if (e.key !== 'Tab' || !panel) return
@@ -74,7 +80,7 @@ export function MaskedDrawer({
       document.removeEventListener('keydown', onKeyDown)
       prevActive?.focus?.()
     }
-  }, [isOpen, closeOnEscape, onClose])
+  }, [isOpen, closeOnEscape])
 
   // Scroll lock
   useEffect(() => {
@@ -88,7 +94,7 @@ export function MaskedDrawer({
 
   const isHorizontal = side === 'left' || side === 'right'
   const size = isHorizontal ? width : height
-  const fallback = isHorizontal ? '280px' : '60vh'
+  const fallback = isHorizontal ? '280px' : '60dvh'
 
   const themeVars = resolveColorTheme(colorTheme, maskedTheme)
 
@@ -106,12 +112,21 @@ export function MaskedDrawer({
   const content = (
     <>
       {overlay && (
-        <DrawerOverlay $isOpen={isOpen} $blur={overlayBlur} $zIndex={zIndex} onClick={onClose} />
+        <DrawerOverlay
+          $isOpen={isOpen}
+          $blur={overlayBlur}
+          $zIndex={zIndex}
+          style={vars}
+          aria-hidden="true"
+          onClick={() => onCloseRef.current()}
+        />
       )}
       <DrawerPanel
         ref={panelRef}
         role="dialog"
         aria-modal="true"
+        aria-hidden={!isOpen}
+        inert={!isOpen}
         $side={side}
         $isOpen={isOpen}
         $size={size}
