@@ -23,7 +23,7 @@ export const FilterGroupLabel = styled.span`
   display: block;
   font-size: ${maskedTheme.fontSize.xs};
   font-weight: ${maskedTheme.fontWeight.bold};
-  color: ${maskedTheme.colors.textMuted};
+  color: ${({ theme }) => theme.colors.textMuted ?? maskedTheme.colors.textMuted};
   text-transform: uppercase;
   letter-spacing: 0.04em;
   margin-bottom: ${maskedTheme.spacing.xs};
@@ -51,13 +51,16 @@ const chipBase = `
 
 export const FilterChip = styled.button<{ $active: boolean }>`
   ${chipBase}
-  border: 1px solid ${({ $active }) => ($active ? maskedTheme.colors.baseBlue.base : maskedTheme.colors.borderColor)};
-  background: ${({ $active }) => ($active ? maskedTheme.colors.baseBlue.base : maskedTheme.colors.secondaryColor)};
-  color: ${({ $active }) => ($active ? maskedTheme.colors.baseBlue.light50 : maskedTheme.colors.textColor)};
-  box-shadow: ${({ $active }) => ($active ? `0 6px 18px ${maskedTheme.colors.baseBlue.light20}` : `none`)};
+  border: 1px solid ${({ $active, theme }) =>
+    $active ? (theme.colors.accentColor ?? maskedTheme.colors.baseBlue.base) : (theme.colors.borderColor ?? maskedTheme.colors.borderColor)};
+  background: ${({ $active, theme }) =>
+    $active ? (theme.colors.accentColor ?? maskedTheme.colors.baseBlue.base) : (theme.colors.secondaryColor ?? maskedTheme.colors.secondaryColor)};
+  color: ${({ $active, theme }) =>
+    $active ? (theme.colors.basePureWhite?.base ?? '#fff') : (theme.colors.textColor ?? maskedTheme.colors.textColor)};
+  box-shadow: ${({ $active, theme }) => ($active ? `0 6px 18px ${theme.colors.accentColor ?? maskedTheme.colors.baseBlue.light20}` : 'none')};
 
   &:hover {
-    border-color: ${maskedTheme.colors.baseBlue.base};
+    border-color: ${({ theme }) => theme.colors.accentColor ?? maskedTheme.colors.baseBlue.base};
     transform: translateY(-1px);
   }
 `
@@ -68,5 +71,5 @@ export const SortChip = styled(FilterChip)``
 export const ResultsCount = styled.span`
   padding: ${maskedTheme.spacing.sm} 0;
   font-size: ${maskedTheme.fontSize.sm};
-  color: ${maskedTheme.colors.textMuted};
+  color: ${({ theme }) => theme.colors.textMuted ?? maskedTheme.colors.textMuted};
 `

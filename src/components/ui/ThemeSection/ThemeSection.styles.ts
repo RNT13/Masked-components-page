@@ -1,28 +1,15 @@
 import styled, { css } from 'styled-components'
-import { maskedThemeConfig } from '@/styles/MaskedThemes/MaskedThemes'
-
-export const ThemeSectionContainer = styled.section`
-  width: 100%;
-`
-
-export const ThemeSectionContent = styled.div`
-  width: 100%;
-`
-
-export const SectionLabel = styled.span`
-  display: inline-block;
-  font-size: ${({ theme }) => theme.fontSize.sm};
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.base};
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
-`
+import { maskedThemeConfig, media } from '@/styles/MaskedThemes/MaskedThemes'
 
 export const ThemeGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
   gap: ${({ theme }) => theme.spacing.md};
-  margin: ${({ theme }) => theme.spacing.xl} 0;
+
+  ${media.mobile} {
+    grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+    gap: ${({ theme }) => theme.spacing.sm};
+  }
 `
 
 export const ThemeCard = styled.button<{ $active?: boolean }>`
@@ -58,7 +45,7 @@ export const ThemeCard = styled.button<{ $active?: boolean }>`
     `}
 `
 
-/* metade acento, metade fundo da página: dá para distinguir temas parecidos */
+/* half accent, half page background: distinguishes similar themes */
 export const ThemeSwatch = styled.span<{ $themeName: string }>`
   width: 44px;
   height: 44px;
@@ -70,15 +57,4 @@ export const ThemeSwatch = styled.span<{ $themeName: string }>`
     const page = t?.colors.primaryColor ?? t?.colors.baseBlack?.base ?? '#111'
     return `linear-gradient(135deg, ${accent} 50%, ${page} 50%)`
   }};
-`
-
-export const CodeBlock = styled.pre`
-  background: ${({ theme }) => theme.colors.baseBlack.light08};
-  border: 1px solid ${({ theme }) => theme.colors.borderColor ?? 'transparent'};
-  border-radius: ${({ theme }) => theme.radius.md};
-  padding: ${({ theme }) => theme.spacing.lg};
-  overflow-x: auto;
-  font-size: ${({ theme }) => theme.fontSize.sm};
-  line-height: 1.6;
-  margin-top: ${({ theme }) => theme.spacing.md};
 `

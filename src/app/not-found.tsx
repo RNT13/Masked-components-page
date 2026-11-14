@@ -1,9 +1,4 @@
-
 'use client'
-
-import { maskedTheme } from '@/styles/MaskedThemes/MaskedThemes'
-// 🚫 NOT FOUND PÚBLICO - Página 404 para rotas públicas
-// ⚠️ ARQUIVO DELETÁVEL - Pode ser removido ao criar sua própria página 404
 
 import Link from 'next/link'
 import styled from 'styled-components'
@@ -19,33 +14,33 @@ const NotFoundContainer = styled.div`
 
   h1 {
     font-size: 4rem;
-    color: ${maskedTheme.colors.baseBlue.base};
+    color: ${({ theme }) => theme.colors.accentColor};
     margin-bottom: 20px;
   }
 
   h2 {
     font-size: 2rem;
-    color: ${maskedTheme.colors.baseBlue.base};
+    color: ${({ theme }) => theme.colors.textColor};
     margin-bottom: 20px;
   }
 
   p {
-    color: ${maskedTheme.colors.baseBlue.base};
+    color: ${({ theme }) => theme.colors.textMuted ?? theme.colors.textColor};
     margin-bottom: 30px;
     max-width: 500px;
   }
 `
 
 const BackButton = styled(Link)`
-  background-color: ${maskedTheme.colors.baseBlue.base};
-  color: white;
+  background-color: ${({ theme }) => theme.colors.accentColor};
+  color: ${({ theme }) => theme.colors.basePureWhite?.base ?? '#fff'};
   padding: 12px 24px;
   border-radius: 8px;
   text-decoration: none;
-  transition: background-color 0.3s;
+  transition: filter 0.2s ease;
 
   &:hover {
-    background-color: ${maskedTheme.colors.baseBlue.dark20};
+    filter: brightness(1.15);
   }
 `
 
@@ -53,9 +48,9 @@ export default function NotFound() {
   return (
     <NotFoundContainer>
       <h1>404</h1>
-      <h2>Página não encontrada</h2>
-      <p>A página que você está procurando não existe ou foi movida.</p>
-      <BackButton href="/">Voltar ao início</BackButton>
+      <h2>Page not found</h2>
+      <p>The page you are looking for does not exist or was moved.</p>
+      <BackButton href="/">Back to home</BackButton>
     </NotFoundContainer>
   )
 }

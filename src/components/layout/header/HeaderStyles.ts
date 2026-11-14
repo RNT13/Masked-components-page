@@ -9,7 +9,7 @@ export const HeaderContainer = styled.header<{ $active: boolean }>`
   left: 0;
   z-index: ${maskedTheme.zIndex.sticky};
   background-color: ${({ $active, theme }) => ($active ? 'transparent' : (theme.colors.surfaceColor ?? theme.colors.primaryColor))};
-  border-bottom: ${({ $active }) => ($active ? 'none' : `3px solid ${maskedTheme.colors.baseBlue.base}`)};
+  border-bottom: ${({ $active, theme }) => ($active ? 'none' : `3px solid ${theme.colors.accentColor ?? theme.colors.borderColor}`)};
   ${transitions.slow}
 `
 
@@ -24,6 +24,11 @@ export const HeaderHero = styled.div<{ $active: boolean }>`
   gap: ${maskedTheme.spacing.lg};
   padding: ${maskedTheme.spacing.md};
   ${transitions.slow}
+
+  ${media.mobile} {
+    gap: ${maskedTheme.spacing.md};
+    padding: ${maskedTheme.spacing.sm};
+  }
 `
 
 export const LogoDiv = styled.div`
@@ -54,6 +59,12 @@ export const InfoDiv = styled.div`
     color: ${({ theme }) => theme.colors.textMuted ?? theme.colors.textColor};
     line-height: 1.6;
   }
+
+  ${media.mobile} {
+    p {
+      font-size: ${maskedTheme.fontSize.sm};
+    }
+  }
 `
 
 export const NavDiv = styled.div`
@@ -66,6 +77,16 @@ export const NavDiv = styled.div`
 
   ${media.tablet} {
     gap: ${maskedTheme.spacing.sm};
+  }
+
+  /* 360px: botões ocupam a linha inteira, alvos >= 44px */
+  ${media.mobile} {
+    a,
+    button {
+      flex: 1 1 140px;
+      justify-content: center;
+      min-height: 44px;
+    }
   }
 
   .shineButton {

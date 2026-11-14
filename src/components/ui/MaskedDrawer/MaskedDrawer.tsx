@@ -1,11 +1,11 @@
 'use client'
 
-import { useEffect, useRef, useSyncExternalStore, type CSSProperties } from 'react'
+import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from 'react'
 import { createPortal } from 'react-dom'
 import { maskedTheme } from '@/styles/MaskedThemes/MaskedThemes'
 import { resolveColorTheme } from '@/styles/MaskedThemes/ColorThemes'
 import { DrawerOverlay, DrawerPanel } from './MaskedDrawer.styles'
-import { MaskedDrawerProps } from './MaskedDrawer.types'
+import { MaskedDrawerProps, type DrawerSide } from './MaskedDrawer.types'
 import { readableTextOn } from '@/utils/masked-utils'
 
 const FOCUSABLE =
@@ -40,13 +40,40 @@ export function MaskedDrawer({
 
   const mounted = useSyncExternalStore(
     () => () => { },
-    () => true, // client
-    () => false // server
+    () => true, // client  
+    () => false // server  
   )
 
-  // Escape + focus inicial + focus trap
+  /*  
+   * Lado exibido + abertura interna: quando `side` muda, o painel primeiro  
+   * remonta FECHADO no lado novo (sem animar o transform antigo atravessando  
+   * a tela) e só então abre — dois rAFs garantem um frame fechado pintado.  
+   */
+  const [shownSide, setShownSide] = useState<DrawerSide>(side)
+  const [open, setOpen] = useState(false)
+
   useEffect(() => {
-    if (!isOpen) return
+    if (!isOpen) {
+      const raf = requestAnimationFrame(() => {
+        setOpen(false)
+        if (side !== shownSide) setShownSide(side)
+      })
+      return () => cancelAnimationFrame(raf)
+    }
+    if (side !== shownSide) {
+      const raf = requestAnimationFrame(() => {
+        setShownSide(side)
+        setOpen(false)
+      })
+      return () => cancelAnimationFrame(raf)
+    }
+    const raf = requestAnimationFrame(() => setOpen(true))
+    return () => cancelAnimationFrame(raf)
+  }, [isOpen, side, shownSide])
+
+  // Escape + focus inicial + focus trap  
+  useEffect(() => {
+    if (!open) return
 
     const panel = panelRef.current
     const prevActive = document.activeElement as HTMLElement | null
@@ -80,19 +107,19 @@ export function MaskedDrawer({
       document.removeEventListener('keydown', onKeyDown)
       prevActive?.focus?.()
     }
-  }, [isOpen, closeOnEscape])
+  }, [open, closeOnEscape])
 
-  // Scroll lock
+  // Scroll lock  
   useEffect(() => {
-    if (!isOpen || !lockScroll) return
+    if (!open || !lockScroll) return
     const prev = document.body.style.overflow
     document.body.style.overflow = 'hidden'
     return () => {
       document.body.style.overflow = prev
     }
-  }, [isOpen, lockScroll])
+  }, [open, lockScroll])
 
-  const isHorizontal = side === 'left' || side === 'right'
+  const isHorizontal = shownSide === 'left' || shownSide === 'right'
   const size = isHorizontal ? width : height
   const fallback = isHorizontal ? '280px' : '60dvh'
 
@@ -113,7 +140,7 @@ export function MaskedDrawer({
     <>
       {overlay && (
         <DrawerOverlay
-          $isOpen={isOpen}
+          $isOpen={open}
           $blur={overlayBlur}
           $zIndex={zIndex}
           style={vars}
@@ -125,10 +152,10 @@ export function MaskedDrawer({
         ref={panelRef}
         role="dialog"
         aria-modal="true"
-        aria-hidden={!isOpen}
-        inert={!isOpen}
-        $side={side}
-        $isOpen={isOpen}
+        aria-hidden={!open}
+        inert={!open}
+        $side={shownSide}
+        $isOpen={open}
         $size={size}
         $fallback={fallback}
         $transition={transition}
@@ -143,4 +170,4 @@ export function MaskedDrawer({
 
   if (!portal || !mounted) return content
   return createPortal(content, document.body)
-}
+}  

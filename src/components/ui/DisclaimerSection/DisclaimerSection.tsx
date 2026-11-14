@@ -1,42 +1,43 @@
-import { MinorTextH4, TitleH2 } from "@/styles/globalStyles";
-import { MaskedAnimation } from "@/styles/MaskedAnimations/MaskedAnimation";
-import { RiDownload2Line } from "react-icons/ri";
-import { WiStars } from "react-icons/wi";
-import BaseDiv from "../BaseDiv/BaseDiv";
-import { MaskedButton } from "../MaskedButton/MaskedButton";
-import { ButtonDiv, DisclaimerSectionContainer, DisclaimerSectionContent } from "./DisclaimerSection.styles";
+import { MinorTextH4, TitleH2 } from '@/styles/globalStyles'
+import { MaskedAnimation } from '@/styles/MaskedAnimations/MaskedAnimation'
+import { RiDownload2Line } from 'react-icons/ri'
+import { WiStars } from 'react-icons/wi'
+import BaseDiv from '../BaseDiv/BaseDiv'
+import { MaskedButton } from '../MaskedButton/MaskedButton'
+import { ButtonDiv, DisclaimerSectionContainer, DisclaimerSectionContent, SvgDiv } from './DisclaimerSection.styles'
 
 export default function DisclaimerSection() {
   return (
-    <MaskedAnimation trigger="scroll" variant="revealFadeInUp">
-
+    <MaskedAnimation trigger="scroll" variant="revealFadeInUp" once>
       <BaseDiv direction="column">
         <DisclaimerSectionContainer>
           <DisclaimerSectionContent>
 
-            <MaskedAnimation trigger="always" variant="continuousShine">
+            <SvgDiv>
               <WiStars className="svgGreen" />
-            </MaskedAnimation>
+            </SvgDiv>
 
-            <MaskedAnimation trigger="scroll" variant="revealFadeInUp">
-              <TitleH2>Lets Get Started</TitleH2>
-            </MaskedAnimation>
+            <TitleH2>Let&apos;s get started</TitleH2>
 
+            <MinorTextH4>
+              Install now and transform your forms and interfaces with modern polymorphic
+              components.
+            </MinorTextH4>
 
-            <MaskedAnimation trigger="scroll" variant="revealFadeInUp">
-              <MinorTextH4>Install now and transform your formulas and interfaces with modern polymorphic components.</MinorTextH4>
-            </MaskedAnimation>
-
-            <MaskedAnimation trigger="scroll" variant="oneShotJumpRotate">
-              <ButtonDiv>
-                <MaskedButton variant="default" size='lg' href='#install' label="Install" leftIcon={<RiDownload2Line />} >Install Masked Components</MaskedButton>
-              </ButtonDiv>
-            </MaskedAnimation>
-
+            <ButtonDiv>
+              <MaskedButton
+                variant="default"
+                size="lg"
+                href="#install"
+                label="Install"
+                leftIcon={<RiDownload2Line />}
+              >
+                Install Masked Components
+              </MaskedButton>
+            </ButtonDiv>
           </DisclaimerSectionContent>
         </DisclaimerSectionContainer>
       </BaseDiv>
-
     </MaskedAnimation>
   )
 }

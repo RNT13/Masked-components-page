@@ -38,13 +38,13 @@ const getPosition = (side: DrawerSide, desktopSize: string, tabletSize: string, 
     css`
       top: 0;
       left: 0;
-      height: 100dvh; 
+      height: 100dvh;
     `}
     ${side === 'right' &&
     css`
       top: 0;
       right: 0;
-      height: 100vh;
+      height: 100dvh;
     `}
     ${side === 'top' &&
     css`

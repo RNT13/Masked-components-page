@@ -1,9 +1,4 @@
-
 'use client'
-
-import { maskedTheme } from '@/styles/MaskedThemes/MaskedThemes'
-// ⏳ LOADING PÚBLICO - Componente de loading para páginas públicas
-// ⚠️ ARQUIVO DELETÁVEL - Pode ser removido ao criar seu próprio loading
 
 import styled, { keyframes } from 'styled-components'
 
@@ -20,12 +15,16 @@ const LoadingContainer = styled.div`
 `
 
 const Spinner = styled.div`
-  border: 4px solid ${maskedTheme.colors.baseBlack.base};
-  border-top: 4px solid ${maskedTheme.colors.baseBlue.base};
+  border: 4px solid ${({ theme }) => theme.colors.borderColor};
+  border-top: 4px solid ${({ theme }) => theme.colors.accentColor};
   border-radius: 50%;
   width: 40px;
   height: 40px;
   animation: ${spin} 2s linear infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation-duration: 3s;
+  }
 `
 
 export default function Loading() {
