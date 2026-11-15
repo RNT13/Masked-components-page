@@ -39,7 +39,7 @@ export default function Footer() {
       </MaskedAnimation>
 
       <MaskedAnimation trigger="scroll" variant="revealFadeInUp" delay={0.15} once>
-        <FooterCommand>npx masked-components-cli</FooterCommand>
+        <FooterCommand>npx masked-components</FooterCommand>
       </MaskedAnimation>
 
       <MaskedAnimation trigger="scroll" variant="revealFadeInUp" delay={0.2} once>
@@ -47,7 +47,7 @@ export default function Footer() {
           <MaskedButton
             variant="ghost"
             size="sm"
-            href="https://github.com/RNT13/masked-components-cli"
+            href="https://github.com/RNT13/masked-components"
             target="_blank"
             rel="noopener noreferrer"
             leftIcon={<FaGithub />}
@@ -57,7 +57,7 @@ export default function Footer() {
           <MaskedButton
             variant="ghost"
             size="sm"
-            href="https://www.npmjs.com/package/masked-components-cli"
+            href="https://www.npmjs.com/package/masked-components"
             target="_blank"
             rel="noopener noreferrer"
             leftIcon={<FaNpm />}

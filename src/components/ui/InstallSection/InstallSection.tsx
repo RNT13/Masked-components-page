@@ -19,7 +19,7 @@ const RUNNERS = [
   { id: 'install-bun', label: 'bun', run: 'bunx' }
 ]
 
-const CLI = 'masked-components-cli'
+const CLI = 'masked-components'
 
 const ITEMS: TabItem[] = RUNNERS.map(({ id, label, run }) => ({
   id,

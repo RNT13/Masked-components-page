@@ -65,7 +65,7 @@ const statHrefCode = `// TODO confirm: 'stat' variant name
   icon={<BsStar />}
   title="Docs"
   description="Cards accept href and render as links."
-  href="https://github.com/RNT13/masked-components-cli"
+  href="https://github.com/RNT13/masked-components"
 />`
 
 export default function CardSection() {
@@ -161,7 +161,7 @@ export default function CardSection() {
               icon={<BsStar />}
               title="Docs"
               description="Cards accept href and render as links."
-              href="https://github.com/RNT13/masked-components-cli"
+              href="https://github.com/RNT13/masked-components"
             />
           </CardGrid>
         </DemoCard>

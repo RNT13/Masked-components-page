@@ -22,7 +22,7 @@ const STEPS = [
   {
     icon: <FaTerminal />,
     title: 'Pick packages',
-    text: 'Run npx masked-components-cli and choose what to install. Each package is independent — the CLI resolves internal dependencies for you.'
+    text: 'Run npx masked-components and choose what to install. Each package is independent — the CLI resolves internal dependencies for you.'
   },
   {
     icon: <FaFolderOpen />,

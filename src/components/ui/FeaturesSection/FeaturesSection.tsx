@@ -63,7 +63,7 @@ export default function FeaturesSection() {
                   ))}
                 </Highlights>
                 <CodeBlock title="Usage" code={entry.snippet} />
-                <InstallLine>npx masked-components-cli {entry.id}</InstallLine>
+                <InstallLine>npx masked-components {entry.id}</InstallLine>
               </CatalogCard>
             </MaskedAnimation>
           ))}

@@ -5,7 +5,7 @@ Live documentation and playground for **Masked Components**, a set of polymorphi
 🌐 https://masked-components.vercel.app/
 
 ```bash
-npx masked-components-cli
+npx masked-components
 ```
 
 > The CLI does **not** create a project. It copies component source files into an existing React + TypeScript project, installs the npm packages they need with your package manager, and never overwrites files you edited unless you pass `--force`.
@@ -14,7 +14,7 @@ npx masked-components-cli
 
 ## What is in this repository
 
-This is the Next.js app that powers the website. The components shown here are copies of the templates that live in the CLI repository ([masked-components-cli](https://github.com/RNT13/masked-components-cli)). The CLI repository is the source of truth: fix components there first, then mirror the change here.
+This is the Next.js app that powers the website. The components shown here are copies of the templates that live in the CLI repository ([masked-components](https://github.com/RNT13/masked-components)). The CLI repository is the source of truth: fix components there first, then mirror the change here.
 
 | Area                                                                 | Path                    |
 | -------------------------------------------------------------------- | ----------------------- |
@@ -32,7 +32,7 @@ This is the Next.js app that powers the website. The components shown here are c
 - **MaskedAnimation**: reveal, continuous, controlled and one-shot animations.
 - **Theme Engine**: nine ready-made themes, runtime switching, `colorTheme` and `--mc-*` tokens.
 
-Run `npx masked-components-cli --list` for the exact, current list.
+Run `npx masked-components --list` for the exact, current list.
 
 ## Tech stack
 

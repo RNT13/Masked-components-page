@@ -5,10 +5,13 @@ import { MaskedButton } from '@/components/ui/MaskedButton/MaskedButton'
 import { MaskedAnimation } from '@/styles/MaskedAnimations/MaskedAnimation'
 import { GradientTextH2 } from '@/styles/globalStyles'
 import { ThemeSwitcher } from '@/styles/ThemeEngine/ThemeSwitcher'
-import { useEffect, useState } from 'react'
+import { ComponentProps, ComponentType, useEffect, useState } from 'react'
 import { FaGithub } from 'react-icons/fa6'
 import { RiDownload2Line } from 'react-icons/ri'
 import { HeaderContainer, HeaderContent, HeaderHero, InfoDiv, LogoDiv, NavDiv } from './HeaderStyles'
+
+const CompactNavDiv = NavDiv as unknown as ComponentType<ComponentProps<typeof NavDiv> & { $compact: boolean }>
+const ActiveLogoDiv = LogoDiv as unknown as ComponentType<ComponentProps<typeof LogoDiv> & { $active: boolean }>
 
 export default function Header() {
   const [onTop, setOnTop] = useState(true)
@@ -24,9 +27,9 @@ export default function Header() {
     <HeaderContainer $active={onTop}>
       <HeaderContent>
         <HeaderHero className="container" $active={onTop}>
-          <LogoDiv $active={onTop}>
+          <ActiveLogoDiv $active={onTop}>
             <GradientTextH2>{onTop ? 'Masked Components' : 'MC'}</GradientTextH2>
-          </LogoDiv>
+          </ActiveLogoDiv>
 
           <InfoDiv>
             {onTop && (
@@ -39,7 +42,7 @@ export default function Header() {
           </InfoDiv>
 
           <MaskedAnimation variant="revealFadeInUp" trigger="mount" delay={0.15} width="auto">
-            <NavDiv $compact={!onTop}>
+            <CompactNavDiv $compact={!onTop}>
               <MaskedButton
                 variant={onTop ? 'default' : 'ghost'}
                 href="#install"
@@ -56,7 +59,7 @@ export default function Header() {
                 label="See on GitHub"
                 size="md"
                 leftIcon={<FaGithub />}
-                href="https://github.com/RNT13/masked-components-cli"
+                href="https://github.com/RNT13/masked-components"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -64,7 +67,7 @@ export default function Header() {
               </MaskedButton>
 
               <ThemeSwitcher />
-            </NavDiv>
+            </CompactNavDiv>
           </MaskedAnimation>
         </HeaderHero>
       </HeaderContent>
