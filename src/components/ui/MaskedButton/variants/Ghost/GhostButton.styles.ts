@@ -21,9 +21,9 @@ const disabledStyles = css`
 `
 
 const activeStyles = css`
-  color: var(--mc-btn-bg-active, ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.light20});
+  color: var(--mc-btn-bg-dark, ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.light20});
   background-color: transparent;
-  border: 2px solid var(--mc-btn-border-active, ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.light20});
+  border: 2px solid var(--mc-btn-border-dark, var(--mc-btn-bg-dark, ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.base}));
 
   box-shadow: var(--mc-btn-shadow-active, 0px 0px 10px 1px ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.light50});
 
@@ -62,7 +62,7 @@ export const GhostButtonWrapper = styled.div<props>`
  * "texto sobre o fundo preenchido" e fica escuro em temas claros.
  */
 export const GhostButtonContainer = styled(BaseButton)<props>`
-  color: var(--mc-btn-bg, ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.base});
+  color: var(--mc-btn-bg-dark, ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.base});
   background-color: transparent;
   border: 2px solid transparent;
 

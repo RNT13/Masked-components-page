@@ -24,10 +24,14 @@ export const SectionDiv = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  background-image: linear-gradient(360deg, ${({ theme }) => theme.colors.baseBlue.light02}, ${({ theme }) => theme.colors.baseBlack.light08});
-  border: 2px solid ${({ theme }) => theme.colors.baseBlue.light02};
+  background-image: linear-gradient(
+    360deg,
+    ${({ theme }) => theme.colors.surfaceColor ?? theme.colors.primaryColor},
+    ${({ theme }) => theme.colors.primaryColor}
+  );
+  border: 2px solid ${({ theme }) => theme.colors.borderColor ?? 'transparent'};
   border-radius: ${({ theme }) => theme.radius.md};
-  box-shadow: 3px 3px 8px 0px ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.light02};
+  box-shadow: 3px 3px 8px 0px ${({ theme }) => theme.colors.borderColor ?? 'transparent'};
 
   &:hover {
     box-shadow: 5px 5px 15px 0px ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.light02};
@@ -41,7 +45,7 @@ export const SectionDivHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: ${({ theme }) => theme.spacing.md};
-  border-bottom: 2px solid ${({ theme }) => theme.colors.baseBlue.light20};
+  border-bottom: 2px solid ${({ theme }) => theme.colors.borderColor ?? 'transparent'};
 
   p {
     text-align: center;

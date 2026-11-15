@@ -57,9 +57,9 @@ export const OutlineButtonWrapper = styled.div<props>`
 
 /* ver nota em GhostButton.styles: texto = acento, não --mc-btn-fg */
 export const OutlineButtonContainer = styled(BaseButton)<props>`
-  color: var(--mc-btn-bg, ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.base});
+  color: var(--mc-btn-bg-dark, ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.base});
   background-color: transparent;
-  border: 2px solid var(--mc-btn-border, ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.base});
+  border: 2px solid var(--mc-btn-border-dark, var(--mc-btn-bg-dark, ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.base}));
 
   &:hover {
     background-color: var(--mc-btn-bg-hover, ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.base});

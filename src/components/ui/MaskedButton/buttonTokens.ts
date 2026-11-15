@@ -19,6 +19,8 @@ const TOKEN_PROPS = [
   'bg',
   'bg-hover',
   'bg-active',
+  'bg-dark',
+  'border-dark',
   'fg',
   'fg-hover',
   'fg-active',
@@ -47,15 +49,7 @@ const TOKEN_PROPS = [
   'disabled-opacity'
 ] as const
 
-const SWITCH_TOKEN_PROPS = [
-  'track-on',
-  'track-off',
-  'knob-bg',
-  'knob-shadow',
-  'border-on',
-  'border-off',
-  'ring-focus'
-] as const
+const SWITCH_TOKEN_PROPS = ['track-on', 'track-off', 'knob-bg', 'knob-shadow', 'border-on', 'border-off', 'ring-focus'] as const
 
 /**
  * Tokens cujo valor numérico é unitless (não recebem sufixo 'px').
@@ -75,16 +69,10 @@ export type ButtonTokensStyle = CSSProperties
  *
  * @example <button style={resolveButtonTokens({ colorTheme: 'ruby' })} />
  */
-export function resolveButtonTokens(opts: {
-  colorTheme?: ColorThemeName
-  tokens?: Record<string, string | number>
-}): ButtonTokensStyle {
+export function resolveButtonTokens(opts: { colorTheme?: ColorThemeName; tokens?: Record<string, string | number> }): ButtonTokensStyle {
   const vars: Record<string, string | number> = {}
 
-  const c =
-    opts.colorTheme && opts.colorTheme !== 'default'
-      ? resolveColorTheme(opts.colorTheme, maskedTheme)
-      : undefined
+  const c = opts.colorTheme && opts.colorTheme !== 'default' ? resolveColorTheme(opts.colorTheme, maskedTheme) : undefined
 
   if (c) {
     const bg = c.base
@@ -104,6 +92,9 @@ export function resolveButtonTokens(opts: {
     vars['--mc-btn-border-active'] = bgActive
     vars['--mc-btn-ring'] = ring
     vars['--mc-btn-ring-focus'] = ring
+    vars['--mc-btn-bg-dark'] = c.dark20 ?? c.dark08 ?? c.base
+    vars['--mc-btn-bg-dark'] = c.dark20 ?? c.dark08 ?? bg
+    vars['--mc-btn-border-dark'] = c.dark20 ?? c.dark08 ?? bg
 
     // gradient: derivado da rampa clara -> base
     const top = c.light20 ?? bgHover
