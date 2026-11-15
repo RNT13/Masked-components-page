@@ -15,7 +15,7 @@ import {
   InstallCommand
 } from './HeroSection.styles'
 
-const COMMAND = 'npx masked-components-cli'
+const COMMAND = 'npx masked-components'
 
 /* flags reais de src/cli.ts — se o CLI mudar, mude aqui */
 const FLAGS = ['--all', '--dry-run', '--force', '--yes', '--pm npm | pnpm | yarn | bun', '--alias auto | keep | relative']
