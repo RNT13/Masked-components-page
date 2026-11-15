@@ -69,6 +69,6 @@ export const LinkButtonContainer = styled(BaseButton)<props>`
   }
 
   ${({ $isActive }) => $isActive && activeStyles}
-  ${({ $isError }) => $isError && errorStyles}  
+  ${({ $isError }) => $isError && errorStyles}
   ${({ $isDisabled }) => $isDisabled && disabledStyles}
 `

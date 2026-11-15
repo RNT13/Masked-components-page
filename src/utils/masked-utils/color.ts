@@ -159,3 +159,27 @@ export function readableTextOn(background: string, options: { light?: string; da
   const onDark = ratio(dark, { r: 17, g: 17, b: 17 })
   return onLight >= onDark ? light : dark
 }
+
+/**
+ * Escolhe a primeira cor de `candidates` que atinge `minRatio` de contraste (WCAG)
+ * sobre `background`. Se nenhuma atingir, devolve a de maior contraste.
+ * Use a ordem para expressar preferência: cores do tema primeiro, preto/branco por último.
+ * @example pickReadable('#e11d48', ['#4a1424', '#fff5f7', '#ffffff', '#111111']) // '#fff5f7'
+ */
+export function pickReadable(background: string, candidates: Array<string | undefined>, minRatio = 4.5): string {
+  const list = candidates.filter((c): c is string => Boolean(c))
+  if (list.length === 0) return '#111111'
+
+  let best = list[0]
+  let bestRatio = -1
+  for (const color of list) {
+    const ratio = contrastRatio(background, color)
+    if (ratio === null) continue
+    if (ratio >= minRatio) return color
+    if (ratio > bestRatio) {
+      best = color
+      bestRatio = ratio
+    }
+  }
+  return best
+}

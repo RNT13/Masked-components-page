@@ -1,4 +1,4 @@
-import { readableTextOn } from '@/utils/masked-utils'
+import { pickReadable } from '@/utils/masked-utils'
 import styled, { type DefaultTheme } from 'styled-components'
 
 const accent = (theme: DefaultTheme) => theme.colors.accentColor ?? theme.colors.baseBlue.base
@@ -36,7 +36,7 @@ export const Tab = styled.button`
 
   &[aria-selected='true'] {
     background: ${({ theme }) => accent(theme)};
-    color: ${({ theme }) => readableTextOn(accent(theme))};
+    color: ${({ theme }) => pickReadable(accent(theme), [theme.colors.primaryColor, theme.colors.textColor, '#ffffff', '#111111'])};
   }
 
   &:focus-visible {
