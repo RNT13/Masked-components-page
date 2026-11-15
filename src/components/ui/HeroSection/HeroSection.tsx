@@ -1,14 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import { BsClipboard2, BsClipboard2Check, BsGithub } from 'react-icons/bs'
-import { FaRocket } from 'react-icons/fa6'
+import { BsClipboard2, BsClipboard2Check } from 'react-icons/bs'
 
 import { STATS } from '@/components/layout/data/catalog'
 import { MaskedAnimation } from '@/styles/MaskedAnimations/MaskedAnimation'
-import { MaskedButton } from '../MaskedButton/MaskedButton'
 import {
-  HeroActions,
   HeroContent,
   HeroHeadline,
   HeroSectionContainer,
@@ -59,24 +56,6 @@ export function HeroSection() {
             copies the source into your app: you own the code, and React is the only runtime
             requirement besides styled-components.
           </HeroSub>
-        </MaskedAnimation>
-
-        <MaskedAnimation variant="revealGlideUp" trigger="mount" delay={0.2}>
-          <HeroActions>
-            <MaskedButton variant="gradient" size="lg" rightIcon={<FaRocket />} href="#install">
-              Get started
-            </MaskedButton>
-            <MaskedButton
-              variant="outline"
-              size="lg"
-              rightIcon={<BsGithub />}
-              href="https://github.com/RNT13/masked-components-cli"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              GitHub
-            </MaskedButton>
-          </HeroActions>
         </MaskedAnimation>
 
         <MaskedAnimation variant="revealGlideUp" trigger="mount" delay={0.3}>

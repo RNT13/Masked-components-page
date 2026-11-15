@@ -1,10 +1,7 @@
 'use client'
 
 import styled, { createGlobalStyle } from 'styled-components'
-import { accentTheme, maskedTheme } from './MaskedThemes/MaskedThemes'
-
-const accentBlue = accentTheme.colors.accentBlue?.base ?? '#00E5FF'
-const accentPink = accentTheme.colors.accentPink?.base ?? '#FF2DAA'
+import { maskedTheme } from './MaskedThemes/MaskedThemes'
 
 /* ============================================================
  * ESCALA DE ESPAÇAMENTO (H1)
@@ -102,7 +99,11 @@ export const MinorTextH4 = styled.p`
 export const GradientTextH2 = styled.h2`
   font-size: 2rem;
   font-weight: 700;
-  background: linear-gradient(360deg, ${accentBlue}, ${maskedTheme.colors.baseBlue.base});
+  background: linear-gradient(
+  360deg,
+  ${({ theme }) => theme.colors.accentColor},
+  ${({ theme }) => theme.colors.secondaryColor ?? theme.colors.accentColor}
+);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -111,13 +112,21 @@ export const GradientTextH2 = styled.h2`
 export const GradientSpan = styled.span`
   font-size: 1.8rem;
   font-weight: 700;
-  background: linear-gradient(135deg, ${accentPink}, ${accentBlue});
+  background: linear-gradient(
+  135deg,
+  ${({ theme }) => theme.colors.accentColor},
+  ${({ theme }) => theme.colors.secondaryColor ?? theme.colors.accentColor}
+);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 
   &:hover {
-    background: linear-gradient(360deg, ${accentBlue}, ${accentPink});
+    background: linear-gradient(
+  360deg,
+  ${({ theme }) => theme.colors.secondaryColor ?? theme.colors.accentColor},
+  ${({ theme }) => theme.colors.accentColor}
+);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
