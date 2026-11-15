@@ -1,7 +1,7 @@
 import 'styled-components'
 
-/* =========================================    
-   COLOR VARIANTS    
+/* =========================================
+   COLOR VARIANTS
 ========================================= */
 export interface ColorVariants {
   base: string
@@ -40,8 +40,8 @@ export interface ThemeGradient {
   forest: string
 }
 
-/* =========================================    
-   COLOR GROUPS    
+/* =========================================
+   COLOR GROUPS
 ========================================= */
 export interface BaseColors {
   // Neutros
@@ -121,19 +121,22 @@ export interface ThemeSemanticColors {
   warningColor?: string
   dangerColor?: string
   infoColor?: string
+  primaryGradient?: string
+  surfaceGradient?: string
+  accentGradient?: string
 }
 
-/* =========================================    
-   BOX SHADOW    
+/* =========================================
+   BOX SHADOW
 ========================================= */
 
 /**
- * Sombra reutilizável. O parâmetro `color` é opcional:  
+ * Sombra reutilizável. O parâmetro `color` é opcional:
  *
- *   box-shadow: ${maskedTheme.boxShadow.lg()};  
- *   box-shadow: ${maskedTheme.boxShadow.lg(maskedTheme.colors.baseBlue.light50)};  
+ *   box-shadow: ${maskedTheme.boxShadow.lg()};
+ *   box-shadow: ${maskedTheme.boxShadow.lg(maskedTheme.colors.baseBlue.light50)};
  *
- * BREAKING vs versões antigas: `boxShadow.lg` (string) virou `boxShadow.lg()` (função).  
+ * BREAKING vs versões antigas: `boxShadow.lg` (string) virou `boxShadow.lg()` (função).
  */
 export type BoxShadowToken = (color?: string) => string
 
@@ -148,12 +151,18 @@ export interface ThemeBoxShadow {
   inner: BoxShadowToken
 }
 
-/* =========================================    
-   DEFAULT THEME (module augmentation)    
+/* =========================================
+   DEFAULT THEME (module augmentation)
 ========================================= */
 declare module 'styled-components' {
   export interface DefaultTheme {
-    colors: BaseColors & Partial<AccentColors> & Partial<PastelColors> & ThemeSemanticColors
+    colors: BaseColors &
+      Partial<AccentColors> &
+      Partial<PastelColors> &
+      ThemeSemanticColors & {
+        /** todas as cores que variam por tema, agrupadas */
+        semantic?: ThemeSemanticColors
+      }
 
     spacing: {
       '2xs': string

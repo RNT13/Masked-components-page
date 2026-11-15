@@ -1,3 +1,4 @@
+
 'use client'
 
 import { useState } from 'react'
@@ -15,6 +16,14 @@ import { SkeletonCard, SkeletonRow } from './OverlaySection.styles'
 
 type DrawerSide = 'left' | 'right' | 'top' | 'bottom'
 type PopupTransition = 'pop' | 'fade' | 'slide-up' | 'blur'
+
+type ToastPosition =
+  | 'top-left'
+  | 'top-center'
+  | 'top-right'
+  | 'bottom-left'
+  | 'bottom-center'
+  | 'bottom-right'
 
 /* ---------- code shown ---------- */
 
@@ -71,13 +80,44 @@ toast.dismiss(id)
 
 // <MaskedToaster position="bottom-right" max={5} /> in providers`
 
+const positionsCode = `// 6 fixed regions; each toast can override the default position
+
+toast.info('top-left',      { position: 'top-left' })
+toast.info('top-center',    { position: 'top-center' })
+toast.info('top-right',     { position: 'top-right' })
+
+toast.info('bottom-left',   { position: 'bottom-left' })
+toast.info('bottom-center', { position: 'bottom-center' })
+toast.info('bottom-right',  { position: 'bottom-right' })
+
+// <MaskedToaster position="bottom-right" /> defines the default;
+// toasts without position use it.
+// offset, gap and max are also configured on the toaster.`
+
+const toastPositions: ToastPosition[] = [
+  'top-left',
+  'top-center',
+  'top-right',
+  'bottom-left',
+  'bottom-center',
+  'bottom-right'
+]
+
 /* ---------- component ---------- */
 
 export default function OverlaySection() {
-  const [drawer, setDrawer] = useState<{ open: boolean; side: DrawerSide }>({ open: false, side: 'right' })
-  const [popup, setPopup] = useState<{ open: boolean; transition: PopupTransition }>({ open: false, transition: 'pop' })
+  const [drawer, setDrawer] = useState<{ open: boolean; side: DrawerSide }>({
+    open: false,
+    side: 'right'
+  })
+
+  const [popup, setPopup] = useState<{ open: boolean; transition: PopupTransition }>({
+    open: false,
+    transition: 'pop'
+  })
 
   const openDrawer = (side: DrawerSide) => () => setDrawer({ open: true, side })
+
   const openPopup = (transition: PopupTransition) => () => setPopup({ open: true, transition })
 
   return (
@@ -88,11 +128,16 @@ export default function OverlaySection() {
     >
       <DemoStack>
         <InfoNote>
-          All overlays close on <strong>Escape</strong>, trap focus while open and return
-          focus to the trigger on close.
+          All overlays close on <strong>Escape</strong>, trap focus while open and return focus to the trigger on close.
         </InfoNote>
 
-        <DemoCard title="Drawer" description="Edge panel with portal, blurred overlay and responsive width presets." code={drawerCode}>
+        {/* ---------- Drawer ---------- */}
+
+        <DemoCard
+          title="Drawer"
+          description="Edge panel with portal, blurred overlay and responsive width presets."
+          code={drawerCode}
+        >
           <PreviewRow>
             {(['left', 'right', 'top', 'bottom'] as const).map((side) => (
               <MaskedButton key={side} variant="outline" size="sm" onClick={openDrawer(side)}>
@@ -102,30 +147,38 @@ export default function OverlaySection() {
           </PreviewRow>
         </DemoCard>
 
+        {/* ---------- Popup ---------- */}
+
         <DemoCard title="Popup" description="Centered modal with four transitions." code={popupCode}>
           <PreviewRow>
-            {(['pop', 'fade', 'slide-up', 'blur'] as const).map((t) => (
-              <MaskedButton key={t} variant="outline" size="sm" onClick={openPopup(t)}>
-                {t}
+            {(['pop', 'fade', 'slide-up', 'blur'] as const).map((transition) => (
+              <MaskedButton key={transition} variant="outline" size="sm" onClick={openPopup(transition)}>
+                {transition}
               </MaskedButton>
             ))}
           </PreviewRow>
         </DemoCard>
 
+        {/* ---------- Skeleton ---------- */}
+
         <DemoCard title="Skeleton" description="Compose placeholders that mirror the real layout." code={skeletonCode}>
           <SkeletonCard>
             <SkeletonRow>
               <MaskedSkeleton circle width={48} height={48} />
+
               <div style={{ flex: 1 }}>
                 <MaskedSkeleton height={14} width="70%" />
                 <MaskedSkeleton height={12} width="45%" style={{ marginTop: 8 }} />
               </div>
             </SkeletonRow>
+
             <MaskedSkeleton height={120} radius={16} animation="pulse" />
             <MaskedSkeleton height={14} />
             <MaskedSkeleton height={14} width="80%" />
           </SkeletonCard>
         </DemoCard>
+
+        {/* ---------- Toaster basics ---------- */}
 
         <DemoCard
           title="Toaster — basics"
@@ -136,23 +189,30 @@ export default function OverlaySection() {
             <MaskedButton variant="outline" size="sm" onClick={() => toast('Default notification')}>
               default
             </MaskedButton>
+
             <MaskedButton variant="default" size="sm" colorTheme="baseGreen" onClick={() => toast.success('Profile saved')}>
               success
             </MaskedButton>
+
             <MaskedButton variant="default" size="sm" colorTheme="baseRed" onClick={() => toast.error('Could not save')}>
               error
             </MaskedButton>
+
             <MaskedButton variant="outline" size="sm" onClick={() => toast.info('New version available')}>
               info
             </MaskedButton>
+
             <MaskedButton variant="outline" size="sm" onClick={() => toast.warning('Storage almost full')}>
               warning
             </MaskedButton>
+
             <MaskedButton variant="outline" size="sm" onClick={() => toast.loading('Uploading...')}>
               loading
             </MaskedButton>
           </PreviewRow>
         </DemoCard>
+
+        {/* ---------- Toaster promise and actions ---------- */}
 
         <DemoCard
           title="Toaster — promise, action & position"
@@ -164,7 +224,7 @@ export default function OverlaySection() {
               variant="default"
               size="sm"
               onClick={() =>
-                toast.promise(new Promise((r) => setTimeout(r, 1400)), {
+                toast.promise(new Promise((resolve) => setTimeout(resolve, 1400)), {
                   loading: 'Saving...',
                   success: 'Saved!',
                   error: 'Failed to save'
@@ -173,6 +233,7 @@ export default function OverlaySection() {
             >
               Run promise
             </MaskedButton>
+
             <MaskedButton
               variant="outline"
               size="sm"
@@ -180,12 +241,16 @@ export default function OverlaySection() {
                 toast.info('Update ready', {
                   position: 'top-center',
                   duration: Infinity,
-                  action: { label: 'Got it', onClick: () => toast.dismiss() }
+                  action: {
+                    label: 'Got it',
+                    onClick: () => toast.dismiss()
+                  }
                 })
               }
             >
               With action
             </MaskedButton>
+
             <MaskedButton
               variant="outline"
               size="sm"
@@ -193,39 +258,66 @@ export default function OverlaySection() {
             >
               top-center
             </MaskedButton>
+
             <MaskedButton variant="ghost" size="sm" onClick={() => toast.clear()}>
               Clear all
             </MaskedButton>
           </PreviewRow>
         </DemoCard>
+
+        {/* ---------- Toaster positions ---------- */}
+
+        <DemoCard
+          title="Toast positions"
+          description="Six fixed regions. The toaster sets the default; each toast can override its position."
+          code={positionsCode}
+        >
+          <PreviewRow>
+            {toastPositions.map((position) => (
+              <MaskedButton
+                key={position}
+                variant="outline"
+                size="sm"
+                onClick={() => toast.info(position, { position })}
+              >
+                {position}
+              </MaskedButton>
+            ))}
+          </PreviewRow>
+        </DemoCard>
       </DemoStack>
 
       {/* ---------- live overlays ---------- */}
+
       <MaskedDrawer
         isOpen={drawer.open}
-        onClose={() => setDrawer((d) => ({ ...d, open: false }))}
+        onClose={() => setDrawer((current) => ({ ...current, open: false }))}
         side={drawer.side}
         width={DRAWER_WIDTH_PRESETS.narrow}
         transition="premium"
         overlayBlur
       >
         <h4>Menu</h4>
+
         <p>This drawer opens from the {drawer.side} using the narrow preset.</p>
-        <MaskedButton variant="ghost" onClick={() => setDrawer((d) => ({ ...d, open: false }))}>
+
+        <MaskedButton variant="ghost" onClick={() => setDrawer((current) => ({ ...current, open: false }))}>
           Close
         </MaskedButton>
       </MaskedDrawer>
 
       <MaskedPopup
         isOpen={popup.open}
-        onClose={() => setPopup((p) => ({ ...p, open: false }))}
+        onClose={() => setPopup((current) => ({ ...current, open: false }))}
         transition={popup.transition}
         maxWidth="420px"
         overlayBlur
       >
         <h4>Confirmation</h4>
+
         <p>Popup with the {popup.transition} transition — closes on Escape or overlay click.</p>
-        <MaskedButton variant="default" onClick={() => setPopup((p) => ({ ...p, open: false }))}>
+
+        <MaskedButton variant="default" onClick={() => setPopup((current) => ({ ...current, open: false }))}>
           Got it
         </MaskedButton>
       </MaskedPopup>

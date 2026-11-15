@@ -23,6 +23,6 @@ describe('Header', () => {
   it('should render the theme switcher', () => {
     renderWithProviders(<Header />)
 
-    expect(screen.getByRole('button', { name: /switch theme/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /current theme:/i })).toBeInTheDocument()
   })
 })

@@ -35,6 +35,10 @@ export const LogoDiv = styled.div`
   h2 {
     ${transitions.slow}
     font-size: 55px;
+    background: ${({ theme }) => theme.colors.semantic?.accentGradient ?? theme.colors.accentColor};
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
   ${media.tablet} {
