@@ -7,6 +7,7 @@ import { ThemeSwitcher } from '@/styles/ThemeEngine/ThemeSwitcher'
 import { useThemeEngine } from '@/styles/ThemeEngine/ThemeEngineProvider'
 import { MaskedButton } from '../MaskedButton/MaskedButton'
 import { ThemeCard, ThemeGrid, ThemeSwatch } from './ThemeSection.styles'
+import { MaskedAnimation } from '@/styles/MaskedAnimations/MaskedAnimation'
 
 const DEFAULT_THEME = 'dark'
 
@@ -71,31 +72,35 @@ export default function ThemeSection() {
       description="A built-in theme engine: ThemeEngineProvider at the root, a ready-made ThemeSwitcher, and the useThemeEngine hook for full control. The choice persists in localStorage — this grid included."
     >
       <DemoStack>
-        <InfoNote>
-          {availableThemes.length} themes, all WCAG AA-checked for body and muted text.
-          Click any swatch — the whole site reacts.
-        </InfoNote>
+        <MaskedAnimation variant="revealGlideLeft" trigger="scroll" once>
+          <InfoNote>
+            {availableThemes.length} themes, all WCAG AA-checked for body and muted text.
+            Click any swatch — the whole site reacts.
+          </InfoNote>
+        </MaskedAnimation>
 
-        <DemoCard title="Pick a theme" description="Light and dark variants; the active theme is highlighted." code={pickerCode} stacked>
-          <ThemeSwitcher label="Theme" />
-          <ThemeGrid>
-            {availableThemes.map((name) => (
-              <ThemeCard
-                key={name}
-                type="button"
-                $active={name === themeName}
-                aria-pressed={name === themeName}
-                onClick={() => setThemeName(name)}
-              >
-                <ThemeSwatch $themeName={name} />
-                <span>{name}</span>
-              </ThemeCard>
-            ))}
-          </ThemeGrid>
-          <MaskedButton variant="soft" size="sm" onClick={() => setThemeName(DEFAULT_THEME)}>
-            Reset to {DEFAULT_THEME}
-          </MaskedButton>
-        </DemoCard>
+        <MaskedAnimation variant="continuousSoftFloat" trigger="always">
+          <DemoCard title="Pick a theme" description="Light and dark variants; the active theme is highlighted." code={pickerCode} stacked>
+            <ThemeSwitcher label="Theme" />
+            <ThemeGrid>
+              {availableThemes.map((name) => (
+                <ThemeCard
+                  key={name}
+                  type="button"
+                  $active={name === themeName}
+                  aria-pressed={name === themeName}
+                  onClick={() => setThemeName(name)}
+                >
+                  <ThemeSwatch $themeName={name} />
+                  <span>{name}</span>
+                </ThemeCard>
+              ))}
+            </ThemeGrid>
+            <MaskedButton variant="soft" size="sm" onClick={() => setThemeName(DEFAULT_THEME)}>
+              Reset to {DEFAULT_THEME}
+            </MaskedButton>
+          </DemoCard>
+        </MaskedAnimation>
 
         <DemoCard title="Setup" description="Provider, switcher and hook — the three pieces of the engine." code={setupCode}>
           <p style={{ margin: 0 }}>

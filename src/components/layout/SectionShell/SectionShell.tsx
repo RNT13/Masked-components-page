@@ -16,7 +16,9 @@ export function SectionShell({ id, title, description, children }: SectionShellP
     <Shell id={id}>
       <MaskedAnimation variant="revealFadeInUp" trigger="scroll" once>
         <ShellHeader>
-          <ShellTitle>{title}</ShellTitle>
+          <MaskedAnimation variant="revealZoomSnap" trigger="scroll" once>
+            <ShellTitle>{title}</ShellTitle>
+          </MaskedAnimation>
           {description && <ShellDescription>{description}</ShellDescription>}
         </ShellHeader>
       </MaskedAnimation>

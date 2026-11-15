@@ -26,8 +26,8 @@ export const HeaderHero = styled.div<{ $active: boolean }>`
   ${transitions.slow}
 
   ${media.mobile} {
-    gap: ${maskedTheme.spacing.md};
-    padding: ${maskedTheme.spacing.sm};
+    gap: ${maskedTheme.spacing.sm};
+    padding: ${maskedTheme.spacing.xs} ${maskedTheme.spacing.sm};
   }
 `
 
@@ -49,7 +49,7 @@ export const LogoDiv = styled.div`
 
   ${media.mobile} {
     h2 {
-      font-size: 30px;
+      font-size: 26px;
     }
   }
 `
@@ -64,10 +64,9 @@ export const InfoDiv = styled.div`
     line-height: 1.6;
   }
 
+  /* mobile: ocupa espaço sem valor — escondido */
   ${media.mobile} {
-    p {
-      font-size: ${maskedTheme.fontSize.sm};
-    }
+    display: none;
   }
 `
 
@@ -83,13 +82,17 @@ export const NavDiv = styled.div`
     gap: ${maskedTheme.spacing.sm};
   }
 
-  /* 360px: botões ocupam a linha inteira, alvos >= 44px */
+  /* 360px: botões compactos, alvos >= 40px */
   ${media.mobile} {
+    gap: ${maskedTheme.spacing.xs};
+
     a,
     button {
-      flex: 1 1 140px;
+      flex: 1 1 auto;
       justify-content: center;
-      min-height: 44px;
+      min-height: 40px;
+      padding: 0 ${maskedTheme.spacing.sm};
+      font-size: ${maskedTheme.fontSize.sm};
     }
   }
 

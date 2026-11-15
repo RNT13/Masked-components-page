@@ -17,5 +17,5 @@ export const SectionLabel = styled.span`
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.base};
-  margin-top: ${({ theme }) => theme.spacing.sm};
+  padding: ${({ theme }) => theme.spacing.sm} 0;
 `

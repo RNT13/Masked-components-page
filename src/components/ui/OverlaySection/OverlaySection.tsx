@@ -13,6 +13,7 @@ import { MaskedPopup } from '../MaskedPopup/MaskedPopup'
 import { MaskedSkeleton } from '../MaskedSkeleton/MaskedSkeleton'
 import { toast } from '../MaskedToaster/toast'
 import { SkeletonCard, SkeletonRow } from './OverlaySection.styles'
+import { MaskedAnimation } from '@/styles/MaskedAnimations/MaskedAnimation'
 
 type DrawerSide = 'left' | 'right' | 'top' | 'bottom'
 type PopupTransition = 'pop' | 'fade' | 'slide-up' | 'blur'
@@ -127,9 +128,11 @@ export default function OverlaySection() {
       description="Drawer, Popup, Skeleton and Toaster — portaled, focus-trapped and theme-aware."
     >
       <DemoStack>
-        <InfoNote>
-          All overlays close on <strong>Escape</strong>, trap focus while open and return focus to the trigger on close.
-        </InfoNote>
+        <MaskedAnimation variant="revealGlideLeft" trigger="scroll" once>
+          <InfoNote>
+            All overlays close on <strong>Escape</strong>, trap focus while open and return focus to the trigger on close.
+          </InfoNote>
+        </MaskedAnimation>
 
         {/* ---------- Drawer ---------- */}
 

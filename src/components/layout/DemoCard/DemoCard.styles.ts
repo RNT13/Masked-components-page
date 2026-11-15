@@ -6,6 +6,10 @@ export const DemoStack = styled.div`
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.xl};
   min-width: 0;
+
+  ${media.mobile} {
+    gap: ${({ theme }) => theme.spacing.lg};
+  }
 `
 
 export const InfoNote = styled.div`
@@ -26,6 +30,11 @@ export const InfoNote = styled.div`
     border-radius: 4px;
     background: ${({ theme }) => theme.colors.secondaryColor ?? 'transparent'};
   }
+
+  ${media.mobile} {
+    padding: ${({ theme }) => theme.spacing.sm} ${({ theme }) => theme.spacing.md};
+    font-size: ${({ theme }) => theme.fontSize.xs};
+  }
 `
 
 export const Card = styled.section`
@@ -37,6 +46,12 @@ export const Card = styled.section`
   border-radius: ${({ theme }) => theme.radius.lg};
   background: ${({ theme }) => theme.colors.secondaryColor ?? 'transparent'};
   min-width: 0;
+
+  ${media.mobile} {
+    padding: ${({ theme }) => theme.spacing.md};
+    gap: ${({ theme }) => theme.spacing.sm};
+    border-radius: ${({ theme }) => theme.radius.md};
+  }
 `
 
 export const CardTitle = styled.h3`
@@ -45,12 +60,20 @@ export const CardTitle = styled.h3`
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.accentColor ?? 'inherit'};
+
+  ${media.mobile} {
+    font-size: ${({ theme }) => theme.fontSize.xs};
+  }
 `
 
 export const CardDescription = styled.p`
   font-size: ${({ theme }) => theme.fontSize.sm};
   line-height: 1.6;
   color: ${({ theme }) => theme.colors.textMuted ?? 'inherit'};
+
+  ${media.mobile} {
+    font-size: ${({ theme }) => theme.fontSize.xs};
+  }
 `
 
 /* demo à esquerda, código à direita; empilha em telas menores (ou com $stacked) */
@@ -62,6 +85,10 @@ export const Split = styled.div<{ $stacked?: boolean }>`
 
   ${media.desktop} {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  ${media.mobile} {
+    gap: ${({ theme }) => theme.spacing.md};
   }
 `
 
@@ -75,6 +102,11 @@ export const Preview = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.borderColor ?? 'transparent'};
   border-radius: ${({ theme }) => theme.radius.md};
   background: ${({ theme }) => theme.colors.primaryColor ?? 'transparent'};
+
+  ${media.mobile} {
+    padding: ${({ theme }) => theme.spacing.sm};
+    gap: ${({ theme }) => theme.spacing.sm};
+  }
 `
 
 export const PreviewRow = styled.div`
@@ -82,4 +114,8 @@ export const PreviewRow = styled.div`
   flex-wrap: wrap;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.md};
+
+  ${media.mobile} {
+    gap: ${({ theme }) => theme.spacing.sm};
+  }
 `

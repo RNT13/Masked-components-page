@@ -1,42 +1,79 @@
-import { MaskedAnimation } from "@/styles/MaskedAnimations/MaskedAnimation";
-import { AiFillThunderbolt } from "react-icons/ai";
-import { FaCode, FaPalette } from "react-icons/fa6";
-import BaseSection from "../BaseSection/BaseSection";
-import DivCard from "../DivCard/DivCard";
-import { AboutSectionContainer, AboutSectionContent } from "./AboutSection.styles";
+'use client'
+
+import { FaTerminal, FaFolderOpen, FaPenToSquare } from 'react-icons/fa6'
+
+import { SectionShell } from '@/components/layout/SectionShell/SectionShell'
+import { STATS } from '@/components/layout/data/catalog'
+import { MaskedAnimation } from '@/styles/MaskedAnimations/MaskedAnimation'
+import {
+  AboutGrid,
+  StepCard,
+  StepIcon,
+  StepNumber,
+  StepText,
+  StepTitle,
+  StatsGrid,
+  StatCard,
+  StatValue,
+  StatLabel
+} from './AboutSection.styles'
+
+const STEPS = [
+  {
+    icon: <FaTerminal />,
+    title: 'Pick packages',
+    text: 'Run npx masked-components-cli and choose what to install. Each package is independent — the CLI resolves internal dependencies for you.'
+  },
+  {
+    icon: <FaFolderOpen />,
+    title: 'Source lands in your repo',
+    text: 'Readable TypeScript is copied into your components folder, with imports rewritten to your path alias. Nothing hides inside node_modules.'
+  },
+  {
+    icon: <FaPenToSquare />,
+    title: 'Make it yours',
+    text: 'Edit styles, tokens and behavior freely. Re-running the CLI never overwrites your changes unless you pass --force.'
+  }
+]
+
+const STATS_ITEMS = [
+  { value: STATS.packages, label: 'installable packages' },
+  { value: STATS.components, label: 'component families' },
+  { value: STATS.buttonVariants + STATS.inputVariants + STATS.cardVariants, label: 'total variants' },
+  { value: STATS.animations, label: 'animations' },
+  { value: STATS.themes, label: 'themes' }
+]
 
 export default function AboutSection() {
   return (
-    <BaseSection >
-      <AboutSectionContainer>
-        <AboutSectionContent>
-
-          <MaskedAnimation trigger="scroll" variant="revealPopElastic" >
-            <DivCard
-              icon={<FaCode />}
-              title="Polymorphic & Flexible"
-              description="Components that adapt to any use case with a simple API and intuitive TypeScript for better DX."
-            />
+    <SectionShell
+      id="about"
+      title="How it works"
+      description="Masked Components is not a dependency — it is source code you install once and own forever."
+    >
+      <AboutGrid>
+        {STEPS.map((step, i) => (
+          <MaskedAnimation key={step.title} variant="revealGlideUp" trigger="scroll" once delay={i * 0.08}>
+            <StepCard>
+              <StepNumber aria-hidden>{String(i + 1).padStart(2, '0')}</StepNumber>
+              <StepIcon aria-hidden>{step.icon}</StepIcon>
+              <StepTitle>{step.title}</StepTitle>
+              <StepText>{step.text}</StepText>
+            </StepCard>
           </MaskedAnimation>
+        ))}
+      </AboutGrid>
 
-          <MaskedAnimation trigger="scroll" variant="revealPopElastic" >
-            <DivCard
-              icon={<AiFillThunderbolt />}
-              title="Performance Optimized"
-              description="Efficient rendering, optimized bundle size and zero unnecessary dependencies. Built for scale."
-            />
+      <StatsGrid>
+        {STATS_ITEMS.map((stat, i) => (
+          <MaskedAnimation key={stat.label} variant="revealPopElastic" trigger="scroll" once delay={i * 0.05}>
+            <StatCard>
+              <StatValue>{stat.value}</StatValue>
+              <StatLabel>{stat.label}</StatLabel>
+            </StatCard>
           </MaskedAnimation>
-
-          <MaskedAnimation trigger="scroll" variant="revealPopElastic" >
-            <DivCard
-              icon={<FaPalette />}
-              title="Modern Design"
-              description="Contemporary styles with theme support, smooth animations and accessibility in mind."
-            />
-          </MaskedAnimation>
-
-        </AboutSectionContent>
-      </AboutSectionContainer>
-    </BaseSection>
+        ))}
+      </StatsGrid>
+    </SectionShell>
   )
 }

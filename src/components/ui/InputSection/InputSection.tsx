@@ -7,6 +7,7 @@ import { DemoStack, InfoNote } from '@/components/layout/DemoCard/DemoCard.style
 import { SectionShell } from '@/components/layout/SectionShell/SectionShell'
 import { MaskedInput } from '../MaskedInput/MaskedInput'
 import { FieldColumn } from './InputSection.styles'
+import { MaskedAnimation } from '@/styles/MaskedAnimations/MaskedAnimation'
 
 /* ---------- demo data ---------- */
 
@@ -32,69 +33,69 @@ const PLAN_OPTIONS = [
 
 /* ---------- code shown ---------- */
 
-const textCode = `<MaskedInput variant="default" label="Name" value={name} onChange={setName} />  
+const textCode = `<MaskedInput variant="default" label="Name" value={name} onChange={setName} />
 <MaskedInput variant="password" label="Password" value={pw} onChange={setPw} />`
 
-const maskCode = `// CPF/CNPJ-style mask — '0' is a required digit slot  
-<MaskedInput variant="masked" label="Document" mask="000.000.000-00" />  
+const maskCode = `// CPF/CNPJ-style mask — '0' is a required digit slot
+<MaskedInput variant="masked" label="Document" mask="000.000.000-00" />
 <MaskedInput variant="masked" label="Birth date" mask="00/00/0000" />`
 
-const currencyCode = `<MaskedInput  
-  variant="currency" label="Price (USD)"  
-  currencyConfig={{ locale: 'en-US', currency: 'USD' }}  
-/>  
-<MaskedInput  
-  variant="currency" label="Preço (BRL)"  
-  currencyConfig={{ locale: 'pt-BR', currency: 'BRL' }}  
+const currencyCode = `<MaskedInput
+  variant="currency" label="Price (USD)"
+  currencyConfig={{ locale: 'en-US', currency: 'USD' }}
+/>
+<MaskedInput
+  variant="currency" label="Preço (BRL)"
+  currencyConfig={{ locale: 'pt-BR', currency: 'BRL' }}
 />`
 
-const selectCode = `<MaskedInput  
-  variant="select"  
-  label="Plan"  
-  options={[  
-    { value: 'free', label: 'Free' },  
-    { value: 'starter', label: 'Starter' },  
-    { value: 'pro', label: 'Pro' },  
-    { value: 'team', label: 'Team' },  
-    { value: 'enterprise', label: 'Enterprise' }  
-  ]}  
-  value={plan}  
-  onChange={setPlan}  
+const selectCode = `<MaskedInput
+  variant="select"
+  label="Plan"
+  options={[
+    { value: 'free', label: 'Free' },
+    { value: 'starter', label: 'Starter' },
+    { value: 'pro', label: 'Pro' },
+    { value: 'team', label: 'Team' },
+    { value: 'enterprise', label: 'Enterprise' }
+  ]}
+  value={plan}
+  onChange={setPlan}
 />`
 
-const timeCode = `<MaskedInput  
-  variant="time"  
-  label="Meeting time"  
-  minuteStep={15}  
-  value={time}  
-  onChange={setTime}  
+const timeCode = `<MaskedInput
+  variant="time"
+  label="Meeting time"
+  minuteStep={15}
+  value={time}
+  onChange={setTime}
 />`
 
-const searchCode = `<MaskedInput  
-  variant="search"  
-  label="Search components"  
-  data={components}  
-  searchFields={['name', 'category']}  
-  filterField="status"  
-  filterLabels={{ stable: 'Stable', beta: 'Beta' }}  
-  filterGroupLabel="Status"  
+const searchCode = `<MaskedInput
+  variant="search"
+  label="Search components"
+  data={components}
+  searchFields={['name', 'category']}
+  filterField="status"
+  filterLabels={{ stable: 'Stable', beta: 'Beta' }}
+  filterGroupLabel="Status"
   sortOptions={[{ key: 'name', field: 'name', label: 'Name' }]}
-  sortGroupLabel="Sort by"  
->  
-  {({ filteredData }) => (  
-    <ul>{filteredData.map((c) => <li key={c.name}>{c.name}</li>)}</ul>  
-  )}  
+  sortGroupLabel="Sort by"
+>
+  {({ filteredData }) => (
+    <ul>{filteredData.map((c) => <li key={c.name}>{c.name}</li>)}</ul>
+  )}
 </MaskedInput>`
 
-const fileCode = `<MaskedInput  
-  variant="file"  
-  label="Avatar"  
-  fileMode="local"  
-  accept="image/*"  
-  maxSizeMB={2}  
-  chooseFileLabel="Choose image"  
-  dropHintLabel="or drop an image here"  
-  onChange={(file) => setAvatar(file)}  
+const fileCode = `<MaskedInput
+  variant="file"
+  label="Avatar"
+  fileMode="local"
+  accept="image/*"
+  maxSizeMB={2}
+  chooseFileLabel="Choose image"
+  dropHintLabel="or drop an image here"
+  onChange={(file) => setAvatar(file)}
 />`
 
 /* ---------- component ---------- */
@@ -117,10 +118,12 @@ export function InputSection() {
       description="One component, nine variants — same props contract (label, icon, error, colorTheme, tokens), behavior switched by the variant prop."
     >
       <DemoStack>
-        <InfoNote>
-          Every demo below is a real controlled input. Select and Time are fully
-          keyboard-navigable; Search renders results through a render-prop.
-        </InfoNote>
+        <MaskedAnimation variant="revealGlideLeft" trigger="scroll" once>
+          <InfoNote>
+            Every demo below is a real controlled input. Select and Time are fully
+            keyboard-navigable; Search renders results through a render-prop.
+          </InfoNote>
+        </MaskedAnimation>
 
         <DemoCard title="Text & password" code={textCode}>
           <FieldColumn>
@@ -195,4 +198,4 @@ export function InputSection() {
   )
 }
 
-export default InputSection  
+export default InputSection

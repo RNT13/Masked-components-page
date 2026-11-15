@@ -1,4 +1,10 @@
-import styled from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
+
+const pop = keyframes`
+  0% { transform: scale(0.6); }
+  60% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+`
 
 export const Block = styled.div`
   min-width: 0;
@@ -22,6 +28,28 @@ export const BlockTitle = styled.span`
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.textMuted ?? 'inherit'};
+`
+
+/* ícone "pop" ao trocar para o check; cor segue o acento do tema */
+export const CopyIcon = styled.span<{ $copied: boolean }>`
+  display: inline-flex;
+  align-items: center;
+  color: ${({ $copied, theme }) => ($copied ? (theme.colors.successColor ?? theme.colors.accentColor) : 'inherit')};
+
+  svg {
+    animation: ${({ $copied }) =>
+      $copied
+        ? css`
+            ${pop} 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)
+          `
+        : 'none'};
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    svg {
+      animation: none;
+    }
+  }
 `
 
 export const Pre = styled.pre`

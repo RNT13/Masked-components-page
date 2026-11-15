@@ -10,6 +10,7 @@ import { readableTextOn } from '@/utils/masked-utils'
 import { MaskedButton } from '../MaskedButton/MaskedButton'
 import { MaskedButtonGroup } from '../MaskedButton/MaskedButtonGroup'
 import { CustomColor, Swatch, SwatchRow } from './ButtonSection.styles'
+import { MaskedAnimation } from '@/styles/MaskedAnimations/MaskedAnimation'
 
 /* ---------- dados ---------- */
 
@@ -180,11 +181,13 @@ export function ButtonSection() {
 
   return (
     <DemoStack>
-      <InfoNote>
-        One component, twelve variants: plain buttons, form fields (toggle, checkbox, switch,
-        radio), a split button and segmented groups. Click anything to see the feedback.
-        {lastClicked && <strong> · Last: {lastClicked}</strong>}
-      </InfoNote>
+      <MaskedAnimation variant="revealGlideLeft" trigger="scroll" once>
+        <InfoNote>
+          One component, twelve variants: plain buttons, form fields (toggle, checkbox, switch,
+          radio), a split button and segmented groups. Click anything to see the feedback.
+          {lastClicked && <strong> · Last: {lastClicked}</strong>}
+        </InfoNote>
+      </MaskedAnimation>
 
       <DemoCard title="Variants" code={variantsCode}>
         <PreviewRow>
