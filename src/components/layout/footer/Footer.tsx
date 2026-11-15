@@ -2,8 +2,8 @@
 
 import { MaskedButton } from '@/components/ui/MaskedButton/MaskedButton'
 import { MaskedAnimation } from '@/styles/MaskedAnimations/MaskedAnimation'
-import { FaAnglesUp, FaGithub, FaNpm } from 'react-icons/fa6'
-import { ButtonDiv, DivRow, FooterContainer, ProjectDiv } from './Footer.styles'
+import { FaAnglesUp, FaGithub, FaNpm, FaLinkedin, FaGlobe } from 'react-icons/fa6'
+import { ButtonDiv, DivRow, FooterCommand, FooterContainer, ProjectDiv } from './Footer.styles'
 
 const getCurrentYear = () => new Date().getFullYear()
 
@@ -30,7 +30,7 @@ export default function Footer() {
         </ProjectDiv>
       </MaskedAnimation>
 
-      <MaskedAnimation trigger="scroll" variant="revealFadeInUp" once>
+      <MaskedAnimation trigger="scroll" variant="revealFadeInUp" delay={0.1} once>
         <DivRow>
           <p className="tagline">
             A polymorphic React component library. Open source and free.
@@ -38,7 +38,11 @@ export default function Footer() {
         </DivRow>
       </MaskedAnimation>
 
-      <MaskedAnimation trigger="scroll" variant="revealFadeInUp" once>
+      <MaskedAnimation trigger="scroll" variant="revealFadeInUp" delay={0.15} once>
+        <FooterCommand>npx masked-components-cli</FooterCommand>
+      </MaskedAnimation>
+
+      <MaskedAnimation trigger="scroll" variant="revealFadeInUp" delay={0.2} once>
         <DivRow>
           <MaskedButton
             variant="ghost"
@@ -66,6 +70,7 @@ export default function Footer() {
             href="https://www.linkedin.com/in/renato-minoita/"
             target="_blank"
             rel="noopener noreferrer"
+            leftIcon={<FaLinkedin />}
           >
             LinkedIn
           </MaskedButton>
@@ -75,6 +80,7 @@ export default function Footer() {
             href="https://renato-s-dev-page.vercel.app/"
             target="_blank"
             rel="noopener noreferrer"
+            leftIcon={<FaGlobe />}
           >
             RNT dev page
           </MaskedButton>

@@ -1,7 +1,7 @@
 'use client'
 
 import styled, { createGlobalStyle } from 'styled-components'
-import { maskedTheme } from './MaskedThemes/MaskedThemes'
+import { maskedTheme, media } from './MaskedThemes/MaskedThemes'
 
 /* ============================================================
  * ESCALA DE ESPAÇAMENTO (H1)
@@ -18,6 +18,11 @@ export const GlobalStyles = createGlobalStyle`
 
   html { scroll-behavior: smooth; }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  /* mobile: base de rem ~6% menor — reduz tudo que usa rem */
+  ${media.mobile} {
+    html { font-size: 15px; }
+  }
 
   body {
     background: ${({ theme }) => theme.colors.primaryColor ?? maskedTheme.colors.baseBlack.base};
@@ -78,6 +83,12 @@ export const TitleH2 = styled.h2`
   color: ${({ theme }) => theme.colors.textColor};
 
   svg { font-size: 35px; }
+
+  ${media.mobile} {
+    font-size: ${({ theme }) => theme.fontSize.xl};
+
+    svg { font-size: 28px; }
+  }
 `
 
 export const TitleH3 = styled.h3`
@@ -85,6 +96,10 @@ export const TitleH3 = styled.h3`
   font-size: ${({ theme }) => theme.fontSize.lg};
   font-weight: 600;
   color: ${({ theme }) => theme.colors.textColor};
+
+  ${media.mobile} {
+    font-size: ${({ theme }) => theme.fontSize.md};
+  }
 `
 
 /** Texto de apoio (antes renderizava <h3>; agora é parágrafo). */
@@ -107,6 +122,10 @@ export const GradientTextH2 = styled.h2`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+
+  ${media.mobile} {
+    font-size: 1.5rem;
+  }
 `
 
 export const GradientSpan = styled.span`
@@ -130,6 +149,10 @@ export const GradientSpan = styled.span`
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  ${media.mobile} {
+    font-size: 1.4rem;
   }
 `
 

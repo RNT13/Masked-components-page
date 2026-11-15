@@ -26,16 +26,26 @@ const ITEMS: TabItem[] = RUNNERS.map(({ id, label, run }) => ({
   label,
   panel: (
     <InstallSectionContent>
-      <CodeBlock title="Pick components interactively" code={`${run} ${CLI}`} />
-      <CodeBlock
-        title="Add specific components"
-        code={`${run} ${CLI} masked-buttons masked-input masked-toaster`}
-      />
-      <CodeBlock
-        title="Preview before writing anything"
-        code={`${run} ${CLI} --list\n${run} ${CLI} masked-cards --dry-run`}
-      />
+
+      <MaskedAnimation variant="revealGlideLeft" trigger="scroll" once delay={0.3}>
+        <CodeBlock title="Pick components interactively" code={`${run} ${CLI}`} />
+      </MaskedAnimation>
+
+      <MaskedAnimation variant="revealGlideLeft" trigger="scroll" once delay={0.4}>
+        <CodeBlock
+          title="Add specific components"
+          code={`${run} ${CLI} masked-buttons masked-input masked-toaster`}
+        />
+      </MaskedAnimation>
+
+      <MaskedAnimation variant="revealGlideLeft" trigger="scroll" once delay={0.5}>
+        <CodeBlock
+          title="Preview before writing anything"
+          code={`${run} ${CLI} --list\n${run} ${CLI} masked-cards --dry-run`}
+        />
+      </MaskedAnimation>
     </InstallSectionContent>
+
   )
 }))
 
@@ -43,14 +53,16 @@ export default function InstallSection() {
   return (
     <BaseSection id="install">
       <BaseDiv>
-        <MaskedAnimation variant="revealFadeInUp" trigger="scroll" once>
+        <MaskedAnimation variant="revealGlideLeft" trigger="scroll" once>
           <TitleH2>Installation</TitleH2>
           <SectionLabel>Copy-in components: the files become yours</SectionLabel>
         </MaskedAnimation>
 
-        <InstallSectionContainer>
-          <Tabs items={ITEMS} ariaLabel="Package manager" />
-        </InstallSectionContainer>
+        <MaskedAnimation variant="revealGlideLeft" trigger="scroll" once delay={0.2}>
+          <InstallSectionContainer>
+            <Tabs items={ITEMS} ariaLabel="Package manager" />
+          </InstallSectionContainer>
+        </MaskedAnimation>
       </BaseDiv>
     </BaseSection>
   )

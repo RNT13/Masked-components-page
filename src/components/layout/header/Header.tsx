@@ -2,6 +2,7 @@
 
 import { STATS } from '@/components/layout/data/catalog'
 import { MaskedButton } from '@/components/ui/MaskedButton/MaskedButton'
+import { MaskedAnimation } from '@/styles/MaskedAnimations/MaskedAnimation'
 import { GradientTextH2 } from '@/styles/globalStyles'
 import { ThemeSwitcher } from '@/styles/ThemeEngine/ThemeSwitcher'
 import { useEffect, useState } from 'react'
@@ -23,7 +24,7 @@ export default function Header() {
     <HeaderContainer $active={onTop}>
       <HeaderContent>
         <HeaderHero className="container" $active={onTop}>
-          <LogoDiv>
+          <LogoDiv $active={onTop}>
             <GradientTextH2>{onTop ? 'Masked Components' : 'MC'}</GradientTextH2>
           </LogoDiv>
 
@@ -37,32 +38,34 @@ export default function Header() {
             )}
           </InfoDiv>
 
-          <NavDiv>
-            <MaskedButton
-              variant={onTop ? 'default' : 'link'}
-              href="#install"
-              size="md"
-              label="Install"
-              leftIcon={<RiDownload2Line />}
-              className="shineButton"
-            >
-              Install
-            </MaskedButton>
+          <MaskedAnimation variant="revealFadeInUp" trigger="mount" delay={0.15} width="auto">
+            <NavDiv $compact={!onTop}>
+              <MaskedButton
+                variant={onTop ? 'default' : 'ghost'}
+                href="#install"
+                size="md"
+                label="Install"
+                leftIcon={<RiDownload2Line />}
+                className="shineButton"
+              >
+                Install
+              </MaskedButton>
 
-            <MaskedButton
-              variant={onTop ? 'default' : 'link'}
-              label="See on GitHub"
-              size="md"
-              leftIcon={<FaGithub />}
-              href="https://github.com/RNT13/masked-components-cli"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Go to GitHub
-            </MaskedButton>
+              <MaskedButton
+                variant={onTop ? 'default' : 'ghost'}
+                label="See on GitHub"
+                size="md"
+                leftIcon={<FaGithub />}
+                href="https://github.com/RNT13/masked-components-cli"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Go to GitHub
+              </MaskedButton>
 
-            <ThemeSwitcher />
-          </NavDiv>
+              <ThemeSwitcher />
+            </NavDiv>
+          </MaskedAnimation>
         </HeaderHero>
       </HeaderContent>
     </HeaderContainer>

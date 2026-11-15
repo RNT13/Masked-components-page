@@ -105,12 +105,12 @@ export const ChevronIcon = styled.span<{ $open?: boolean }>`
 `
 
 export const SplitMenu = styled.div`
-  position: absolute;
-  top: calc(100% + 6px);
-  right: 0;
+  position: fixed; /* portal no body: fixed, não absolute */
+  top: 0;
+  left: 0;
   min-width: 260px;
   max-width: min(340px, 90vw);
-  z-index: ${({ theme }) => theme.zIndex.dropdown};
+  z-index: ${({ theme }) => theme.zIndex?.popover ?? theme.zIndex?.dropdown ?? 1000};
   display: flex;
   flex-direction: column;
   gap: 2px;

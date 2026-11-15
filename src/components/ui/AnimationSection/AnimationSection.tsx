@@ -79,12 +79,14 @@ export default function AnimationSection() {
 
   return (
     <DemoStack>
-      <InfoNote>
-        <strong>{TOTAL} variants</strong> in four families. A single component controls when the
-        animation fires: <code>scroll</code>, <code>always</code>, <code>controlled</code> or{' '}
-        <code>mount</code>. In this playground the demos replay on a loop and on hover, so you never
-        miss one.
-      </InfoNote>
+      <MaskedAnimation variant="revealGlideLeft" trigger="scroll" once>
+        <InfoNote>
+          <strong>{TOTAL} variants</strong> in four families. A single component controls when the
+          animation fires: <code>scroll</code>, <code>always</code>, <code>controlled</code> or{' '}
+          <code>mount</code>. In this playground the demos replay on a loop and on hover, so you never
+          miss one.
+        </InfoNote>
+      </MaskedAnimation>
 
       <DemoCard title="Reveal (scroll)" code={REVEAL_CODE} stacked>
         <AnimationGrid>

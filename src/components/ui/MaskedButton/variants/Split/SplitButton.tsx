@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useRef, useState, type KeyboardEvent } from 'react'
+import { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent } from 'react'
+import { createPortal } from 'react-dom'
 import { resolveButtonTokens } from '../../buttonTokens'
 import { ButtonVariantMap } from '../../MaskedButton.types'
 import {
@@ -20,6 +21,7 @@ import {
 type Props = { $variant: 'split' } & ButtonVariantMap['split']
 
 const ITEM_SELECTOR = '[role="menuitem"], [role="menuitemradio"]'
+const VIEWPORT_MARGIN = 8
 
 function CheckGlyph() {
   return (
@@ -54,6 +56,7 @@ export default function SplitButton(props: Props) {
   void _variant
 
   const [open, setOpen] = useState(false)
+  const [menuStyle, setMenuStyle] = useState<CSSProperties>({})
   const rootRef = useRef<HTMLDivElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
   const triggerRef = useRef<HTMLButtonElement>(null)
@@ -62,12 +65,48 @@ export default function SplitButton(props: Props) {
   const hasSelection = selectedValue !== undefined
   const itemRole = hasSelection ? 'menuitemradio' : 'menuitem'
 
+  /* posição do menu: ancorado na seta, via portal (escapa de stacking
+     contexts criados por transform/animation nos ancestrais) */
+  useEffect(() => {
+    if (!open) return
+
+    const update = () => {
+      const trigger = triggerRef.current
+      const menu = menuRef.current
+      if (!trigger) return
+      const rect = trigger.getBoundingClientRect()
+      const menuWidth = menu?.offsetWidth ?? 260
+      const menuHeight = menu?.offsetHeight ?? 0
+
+      let left = rect.right - menuWidth
+      left = Math.max(VIEWPORT_MARGIN, Math.min(left, window.innerWidth - menuWidth - VIEWPORT_MARGIN))
+
+      let top = rect.bottom + 6
+      if (menuHeight > 0 && top + menuHeight > window.innerHeight - VIEWPORT_MARGIN) {
+        top = Math.max(VIEWPORT_MARGIN, rect.top - menuHeight - 6)
+      }
+
+      setMenuStyle({ top, left })
+    }
+
+    update()
+    window.addEventListener('resize', update)
+    window.addEventListener('scroll', update, true)
+    return () => {
+      window.removeEventListener('resize', update)
+      window.removeEventListener('scroll', update, true)
+    }
+  }, [open])
+
   /* fecha ao clicar fora / Escape (e devolve o foco ao botão da seta) */
   useEffect(() => {
     if (!open) return
 
     const onPointerDown = (e: PointerEvent) => {
-      if (rootRef.current && !rootRef.current.contains(e.target as Node)) setOpen(false)
+      const target = e.target as Node
+      const insideRoot = rootRef.current?.contains(target)
+      const insideMenu = menuRef.current?.contains(target)
+      if (!insideRoot && !insideMenu) setOpen(false)
     }
     const onKeyDown = (e: globalThis.KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -116,6 +155,38 @@ export default function SplitButton(props: Props) {
     triggerRef.current?.focus()
   }
 
+  const menu = open ? (
+    <SplitMenu
+      ref={menuRef}
+      role="menu"
+      aria-label={menuLabel}
+      onKeyDown={onMenuKeyDown}
+      style={menuStyle}
+    >
+      {options.map((opt) => {
+        const selected = hasSelection && opt.value === selectedValue
+        return (
+          <SplitMenuItem
+            key={opt.value}
+            type="button"
+            role={itemRole}
+            aria-checked={hasSelection ? selected : undefined}
+            $selected={selected}
+            onClick={() => select(opt.value)}
+          >
+            <SplitMenuCheck aria-hidden>{selected ? <CheckGlyph /> : null}</SplitMenuCheck>
+            <SplitMenuText>
+              <SplitMenuItemLabel>{opt.label}</SplitMenuItemLabel>
+              {opt.description && (
+                <SplitMenuItemDescription>{opt.description}</SplitMenuItemDescription>
+              )}
+            </SplitMenuText>
+          </SplitMenuItem>
+        )
+      })}
+    </SplitMenu>
+  ) : null
+
   return (
     <SplitButtonWrapper
       $position={$position}
@@ -153,31 +224,7 @@ export default function SplitButton(props: Props) {
         </SplitMenuButton>
       </SplitGroup>
 
-      {open && (
-        <SplitMenu ref={menuRef} role="menu" aria-label={menuLabel} onKeyDown={onMenuKeyDown}>
-          {options.map((opt) => {
-            const selected = hasSelection && opt.value === selectedValue
-            return (
-              <SplitMenuItem
-                key={opt.value}
-                type="button"
-                role={itemRole}
-                aria-checked={hasSelection ? selected : undefined}
-                $selected={selected}
-                onClick={() => select(opt.value)}
-              >
-                <SplitMenuCheck aria-hidden>{selected ? <CheckGlyph /> : null}</SplitMenuCheck>
-                <SplitMenuText>
-                  <SplitMenuItemLabel>{opt.label}</SplitMenuItemLabel>
-                  {opt.description && (
-                    <SplitMenuItemDescription>{opt.description}</SplitMenuItemDescription>
-                  )}
-                </SplitMenuText>
-              </SplitMenuItem>
-            )
-          })}
-        </SplitMenu>
-      )}
+      {menu && typeof document !== 'undefined' ? createPortal(menu, document.body) : menu}
     </SplitButtonWrapper>
   )
 }

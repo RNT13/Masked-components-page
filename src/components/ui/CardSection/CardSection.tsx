@@ -9,6 +9,7 @@ import { SectionShell } from '@/components/layout/SectionShell/SectionShell'
 import { MaskedButton } from '../MaskedButton/MaskedButton'
 import { MaskedCards } from '../MaskedCards/MaskedCards'
 import { CardGrid } from './CardSection.styles'
+import { MaskedAnimation } from '@/styles/MaskedAnimations/MaskedAnimation'
 
 const metricCode = `<MaskedCards
   $variant="metric"
@@ -77,9 +78,11 @@ export default function CardSection() {
       description="Six variants driven by tokens and colorTheme — metric, feature, product, plan, compare and stat."
     >
       <DemoStack>
-        <InfoNote>
-          All cards stretch to equal height per row and react to the active theme.
-        </InfoNote>
+        <MaskedAnimation variant="revealGlideLeft" trigger="scroll" once>
+          <InfoNote>
+            All cards stretch to equal height per row and react to the active theme.
+          </InfoNote>
+        </MaskedAnimation>
 
         <DemoCard title="Metric" code={metricCode}>
           <MaskedCards
