@@ -1,6 +1,6 @@
 import { css, styled, type DefaultTheme } from 'styled-components'
 import { media } from '@/styles/MaskedThemes/MaskedThemes'
-import { DrawerBreakpoint, DrawerSide, DrawerTransition, ResponsiveSize } from './MaskedDrawer.types'
+import type { DrawerBreakpoint, DrawerSide, DrawerTransition, ResponsiveSize } from './MaskedDrawer.types'
 
 /* helpers com fallback: o drawer continua funcionando sem ThemeProvider */
 const surface = (t: DefaultTheme) => t.colors?.surfaceColor ?? '#ffffff'
@@ -9,13 +9,17 @@ const borderColor = (t: DefaultTheme) => t.colors?.borderColor ?? 'rgba(128, 128
 
 const getTransform = (side: DrawerSide, isOpen: boolean) => {
   if (isOpen) return 'translate(0, 0)'
+
   switch (side) {
     case 'left':
       return 'translateX(-100%)'
+
     case 'right':
       return 'translateX(100%)'
+
     case 'top':
       return 'translateY(-100%)'
+
     case 'bottom':
       return 'translateY(100%)'
   }
@@ -25,8 +29,14 @@ function resolveSize(value: ResponsiveSize | undefined, breakpoint: DrawerBreakp
   if (!value) return fallback
   if (typeof value === 'string') return value
 
-  if (breakpoint === 'mobile') return value.mobile ?? value.tablet ?? value.desktop ?? fallback
-  if (breakpoint === 'tablet') return value.tablet ?? value.desktop ?? fallback
+  if (breakpoint === 'mobile') {
+    return value.mobile ?? value.tablet ?? value.desktop ?? fallback
+  }
+
+  if (breakpoint === 'tablet') {
+    return value.tablet ?? value.desktop ?? fallback
+  }
+
   return value.desktop ?? fallback
 }
 
@@ -40,18 +50,21 @@ const getPosition = (side: DrawerSide, desktopSize: string, tabletSize: string, 
       left: 0;
       height: 100dvh;
     `}
+
     ${side === 'right' &&
     css`
       top: 0;
       right: 0;
       height: 100dvh;
     `}
+
     ${side === 'top' &&
     css`
       top: 0;
       left: 0;
       width: 100vw;
     `}
+
     ${side === 'bottom' &&
     css`
       bottom: 0;
@@ -91,13 +104,16 @@ const getPosition = (side: DrawerSide, desktopSize: string, tabletSize: string, 
 
 const transitionMap: Record<DrawerTransition, string> = {
   slide: 'transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease',
+
   bounce: 'transform 0.55s cubic-bezier(0.175, 0.885, 0.32, 1.15), opacity 0.4s ease',
+
   premium: 'transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1)'
 }
 
 export const DrawerPanel = styled.div<{
   $side: DrawerSide
   $isOpen: boolean
+  $instant?: boolean
   $size: ResponsiveSize
   $fallback: string
   $transition: DrawerTransition
@@ -105,13 +121,17 @@ export const DrawerPanel = styled.div<{
 }>`
   position: fixed;
   z-index: ${({ $zIndex }) => $zIndex};
+
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+
   overflow-y: auto;
   padding: var(--mc-drawer-padding, 1.5rem);
+
   background: var(--mc-drawer-panel-bg, ${({ theme }) => surface(theme)});
   color: var(--mc-drawer-panel-fg, ${({ theme }) => textColor(theme)});
+
   border: 1px solid ${({ theme }) => borderColor(theme)};
   box-shadow: 0 0 48px rgba(0, 0, 0, 0.35);
 
@@ -119,16 +139,29 @@ export const DrawerPanel = styled.div<{
     getPosition($side, resolveSize($size, 'desktop', $fallback), resolveSize($size, 'tablet', $fallback), resolveSize($size, 'mobile', $fallback))}
 
   transform: ${({ $side, $isOpen }) => getTransform($side, $isOpen)};
+
   opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0)};
-  visibility: ${({ $isOpen }) => ($isOpen ? 'visible' : 'hidden')};
+
+  /*
+   * Durante a saída, o painel continua visível mesmo com $isOpen=false.
+   * Só fica hidden quando visible=false e $instant=true.
+   */
+  visibility: ${({ $isOpen, $instant }) => ($isOpen || !$instant ? 'visible' : 'hidden')};
+
   pointer-events: ${({ $isOpen }) => ($isOpen ? 'auto' : 'none')};
-  transition: ${({ $transition, $isOpen }) => `${transitionMap[$transition]}, visibility 0s linear ${$isOpen ? '0s' : '0.4s'}`};
+
+  /*
+   * Sem transição quando o painel está morto.
+   * Isso evita animações incorretas ao alterar o side ou a posição inicial.
+   */
+  transition: ${({ $transition, $instant }) => ($instant ? 'none' : transitionMap[$transition])};
 
   max-width: 100vw;
   max-height: 100dvh;
 
   ${media.reducedMotion} {
-    transition: opacity 0.2s ease;
+    transition: ${({ $instant }) => ($instant ? 'none' : 'opacity 0.2s ease')};
+
     transform: none;
   }
 `
@@ -141,11 +174,16 @@ export const DrawerOverlay = styled.div<{
   position: fixed;
   inset: 0;
   z-index: ${({ $zIndex }) => $zIndex - 1};
+
   /* translúcido: o conteúdo da página continua visível por trás */
   background: var(--mc-drawer-overlay-bg, rgba(0, 0, 0, 0.45));
+
   ${({ $blur }) => $blur && 'backdrop-filter: blur(4px);'}
+
   opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0)};
+
   pointer-events: ${({ $isOpen }) => ($isOpen ? 'auto' : 'none')};
+
   transition: opacity 0.3s ease;
 
   ${media.reducedMotion} {
