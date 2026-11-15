@@ -8,11 +8,12 @@ export const HomeContent = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 60px;
-
-  padding-bottom: 50px;
+  /* ritmo vertical de seção: 64px desktop / 48px mobile (H1) */
+  gap: 64px;
+  padding-bottom: 64px;
 
   ${media.tablet} {
-    padding: 50px 0px;
+    gap: 48px;
+    padding-bottom: 48px;
   }
 `

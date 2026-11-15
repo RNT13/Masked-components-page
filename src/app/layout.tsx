@@ -11,9 +11,18 @@ export const metadata: Metadata = {
 }
 export const viewport: Viewport = { width: 'device-width', initialScale: 1 }
 
+/**
+ * Anti-flash: aplica data-mc-theme no <html> antes do primeiro paint.
+ * Deve usar a MESMA chave de localStorage e o MESMO atributo do ThemeEngineProvider.
+ */
+const themeScript = `(function(){try{var t=localStorage.getItem('mc-theme')||'dark';document.documentElement.setAttribute('data-mc-theme',t)}catch(e){document.documentElement.setAttribute('data-mc-theme','dark')}})()`
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={inter.variable} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body>
         <StyledComponentsRegistry>
           <Providers>{children}</Providers>

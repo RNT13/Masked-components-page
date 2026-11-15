@@ -6,6 +6,15 @@ import { accentTheme, maskedTheme } from './MaskedThemes/MaskedThemes'
 const accentBlue = accentTheme.colors.accentBlue?.base ?? '#00E5FF'
 const accentPink = accentTheme.colors.accentPink?.base ?? '#FF2DAA'
 
+/* ============================================================
+ * ESCALA DE ESPAÇAMENTO (H1)
+ * - Base 4/8px: usar theme.spacing.* (xs=4 … 3xl=64) — nunca px soltos.
+ * - Ritmo vertical de seção: 64px desktop / 48px mobile
+ *   (SectionShell já implementa via spacing['3xl']/['2xl']).
+ * - Gap interno padrão de cards/grids: 24px (spacing.lg).
+ * - Container da página: 1200px (ver .container abaixo).
+ * ============================================================ */
+
 export const GlobalStyles = createGlobalStyle`
   *, *::before, *::after { box-sizing: border-box; }
   * { margin: 0; padding: 0; }
@@ -25,7 +34,7 @@ export const GlobalStyles = createGlobalStyle`
   button, input, textarea, select { font-family: inherit; }
 
   .container {
-    width: min(100% - 2rem, ${maskedTheme.grid.maxWidth});
+    width: min(100% - 2rem, 1200px);
     margin-inline: auto;
   }
 

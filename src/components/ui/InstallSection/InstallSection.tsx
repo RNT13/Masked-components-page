@@ -2,7 +2,7 @@
 
 import { CodeBlock } from '@/components/layout/CodeBlock/CodeBlock'
 import { Tabs, type TabItem } from '@/components/layout/Tabs/Tabs'
-import { TitleH3 } from '@/styles/globalStyles'
+import { TitleH2 } from '@/styles/globalStyles'
 import { MaskedAnimation } from '@/styles/MaskedAnimations/MaskedAnimation'
 import BaseDiv from '../BaseDiv/BaseDiv'
 import BaseSection from '../BaseSection/BaseSection'
@@ -44,7 +44,7 @@ export default function InstallSection() {
     <BaseSection id="install">
       <BaseDiv>
         <MaskedAnimation variant="revealFadeInUp" trigger="scroll" once>
-          <TitleH3>Installation</TitleH3>
+          <TitleH2>Installation</TitleH2>
           <SectionLabel>Copy-in components: the files become yours</SectionLabel>
         </MaskedAnimation>
 

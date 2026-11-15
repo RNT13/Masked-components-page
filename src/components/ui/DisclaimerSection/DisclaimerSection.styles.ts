@@ -1,5 +1,4 @@
 import { continuousAnimations } from '@/styles/MaskedAnimations/animations/continuousAnimations'
-import { maskedTheme } from '@/styles/MaskedThemes/MaskedThemes'
 import { styled } from 'styled-components'
 
 export const DisclaimerSectionContainer = styled.div``
@@ -9,10 +8,10 @@ export const DisclaimerSectionContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: ${maskedTheme.spacing.lg};
+  gap: ${({ theme }) => theme.spacing.lg};
 
   .svgGreen {
-    color: ${maskedTheme.colors.baseGreen.light20};
+    color: ${({ theme }) => theme.colors.successColor};
     font-size: 80px;
   }
 `
@@ -26,4 +25,13 @@ export const ButtonDiv = styled.div`
   a {
     ${continuousAnimations.continuousGoldBorderPremium}
   }
+`
+
+export const SvgDiv = styled.div`
+  border-radius: 50%;
+  padding: ${({ theme }) => theme.spacing.sm};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ${continuousAnimations.continuousShine}
 `

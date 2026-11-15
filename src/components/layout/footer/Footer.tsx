@@ -7,28 +7,30 @@ import { ButtonDiv, DivRow, FooterContainer, ProjectDiv } from './Footer.styles'
 
 const getCurrentYear = () => new Date().getFullYear()
 
-const Footer = () => {
+export default function Footer() {
   return (
     <FooterContainer>
       <ButtonDiv>
-        <MaskedButton
-          variant="default"
-          shape="circle"
-          label="Back to top"
-          leftIcon={<FaAnglesUp />}
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          aria-label="Back to top"
-        />
+        <MaskedAnimation trigger="always" variant="continuousFloat">
+          <MaskedButton
+            variant="default"
+            shape="circle"
+            label="Back to top"
+            leftIcon={<FaAnglesUp />}
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            aria-label="Back to top"
+          />
+        </MaskedAnimation>
       </ButtonDiv>
 
-      <MaskedAnimation trigger="scroll" variant="revealFadeInUp">
+      <MaskedAnimation trigger="scroll" variant="revealFadeInUp" once>
         <ProjectDiv>
           <h3>Masked Components</h3>
           <p>Created by RNT</p>
         </ProjectDiv>
       </MaskedAnimation>
 
-      <MaskedAnimation trigger="scroll" variant="revealFadeInUp">
+      <MaskedAnimation trigger="scroll" variant="revealFadeInUp" once>
         <DivRow>
           <p className="tagline">
             A polymorphic React component library. Open source and free.
@@ -36,13 +38,14 @@ const Footer = () => {
         </DivRow>
       </MaskedAnimation>
 
-      <MaskedAnimation trigger="scroll" variant="revealFadeInUp">
+      <MaskedAnimation trigger="scroll" variant="revealFadeInUp" once>
         <DivRow>
           <MaskedButton
             variant="ghost"
             size="sm"
             href="https://github.com/RNT13/masked-components-cli"
             target="_blank"
+            rel="noopener noreferrer"
             leftIcon={<FaGithub />}
           >
             GitHub
@@ -52,6 +55,7 @@ const Footer = () => {
             size="sm"
             href="https://www.npmjs.com/package/masked-components-cli"
             target="_blank"
+            rel="noopener noreferrer"
             leftIcon={<FaNpm />}
           >
             npm
@@ -61,6 +65,7 @@ const Footer = () => {
             size="sm"
             href="https://www.linkedin.com/in/renato-minoita/"
             target="_blank"
+            rel="noopener noreferrer"
           >
             LinkedIn
           </MaskedButton>
@@ -69,6 +74,7 @@ const Footer = () => {
             size="sm"
             href="https://renato-s-dev-page.vercel.app/"
             target="_blank"
+            rel="noopener noreferrer"
           >
             RNT dev page
           </MaskedButton>
@@ -79,5 +85,3 @@ const Footer = () => {
     </FooterContainer>
   )
 }
-
-export default Footer

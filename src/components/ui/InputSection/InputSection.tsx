@@ -1,164 +1,198 @@
 'use client'
 
 import { useState } from 'react'
-import { BsInputCursorText } from 'react-icons/bs'
-import { FaCode } from 'react-icons/fa6'
 
-import { MaskedAnimation } from '@/styles/MaskedAnimations/MaskedAnimation'
-import { TitleH3 } from '@/styles/globalStyles'
-import BaseDiv from '../BaseDiv/BaseDiv'
-import BaseSection from '../BaseSection/BaseSection'
+import { DemoCard } from '@/components/layout/DemoCard/DemoCard'
+import { DemoStack, InfoNote } from '@/components/layout/DemoCard/DemoCard.styles'
+import { SectionShell } from '@/components/layout/SectionShell/SectionShell'
 import { MaskedInput } from '../MaskedInput/MaskedInput'
-import { CodeBlock } from '../../layout/CodeBlock/CodeBlock'
-import { DemoGrid, FieldColumn, SectionLabel, InfoDiv } from './InputSection.styles'
+import { FieldColumn } from './InputSection.styles'
+
+/* ---------- demo data ---------- */
+
+type Component = { name: string; category: string; status: 'stable' | 'beta' }
+
+const COMPONENTS: Component[] = [
+  { name: 'MaskedButton', category: 'buttons', status: 'stable' },
+  { name: 'MaskedInput', category: 'inputs', status: 'stable' },
+  { name: 'MaskedCards', category: 'cards', status: 'stable' },
+  { name: 'MaskedDrawer', category: 'overlays', status: 'stable' },
+  { name: 'MaskedPopup', category: 'overlays', status: 'stable' },
+  { name: 'MaskedToaster', category: 'overlays', status: 'beta' },
+  { name: 'MaskedSkeleton', category: 'overlays', status: 'stable' }
+]
+
+const PLAN_OPTIONS = [
+  { value: 'free', label: 'Free' },
+  { value: 'starter', label: 'Starter' },
+  { value: 'pro', label: 'Pro' },
+  { value: 'team', label: 'Team' },
+  { value: 'enterprise', label: 'Enterprise' }
+]
+
+/* ---------- code shown ---------- */
+
+const textCode = `<MaskedInput variant="default" label="Name" value={name} onChange={setName} />  
+<MaskedInput variant="password" label="Password" value={pw} onChange={setPw} />`
+
+const maskCode = `// CPF/CNPJ-style mask — '0' is a required digit slot  
+<MaskedInput variant="masked" label="Document" mask="000.000.000-00" />  
+<MaskedInput variant="masked" label="Birth date" mask="00/00/0000" />`
+
+const currencyCode = `<MaskedInput  
+  variant="currency" label="Price (USD)"  
+  currencyConfig={{ locale: 'en-US', currency: 'USD' }}  
+/>  
+<MaskedInput  
+  variant="currency" label="Preço (BRL)"  
+  currencyConfig={{ locale: 'pt-BR', currency: 'BRL' }}  
+/>`
+
+const selectCode = `<MaskedInput  
+  variant="select"  
+  label="Plan"  
+  options={[  
+    { value: 'free', label: 'Free' },  
+    { value: 'starter', label: 'Starter' },  
+    { value: 'pro', label: 'Pro' },  
+    { value: 'team', label: 'Team' },  
+    { value: 'enterprise', label: 'Enterprise' }  
+  ]}  
+  value={plan}  
+  onChange={setPlan}  
+/>`
+
+const timeCode = `<MaskedInput  
+  variant="time"  
+  label="Meeting time"  
+  minuteStep={15}  
+  value={time}  
+  onChange={setTime}  
+/>`
+
+const searchCode = `<MaskedInput  
+  variant="search"  
+  label="Search components"  
+  data={components}  
+  searchFields={['name', 'category']}  
+  filterField="status"  
+  filterLabels={{ stable: 'Stable', beta: 'Beta' }}  
+  filterGroupLabel="Status"  
+  sortOptions={[{ key: 'name', field: 'name', label: 'Name' }]}
+  sortGroupLabel="Sort by"  
+>  
+  {({ filteredData }) => (  
+    <ul>{filteredData.map((c) => <li key={c.name}>{c.name}</li>)}</ul>  
+  )}  
+</MaskedInput>`
+
+const fileCode = `<MaskedInput  
+  variant="file"  
+  label="Avatar"  
+  fileMode="local"  
+  accept="image/*"  
+  maxSizeMB={2}  
+  chooseFileLabel="Choose image"  
+  dropHintLabel="or drop an image here"  
+  onChange={(file) => setAvatar(file)}  
+/>`
+
+/* ---------- component ---------- */
 
 export function InputSection() {
   const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [search, setSearch] = useState('')
-  const [plan, setPlan] = useState('')
+  const [doc, setDoc] = useState('')
   const [date, setDate] = useState('')
+  const [usd, setUsd] = useState('')
+  const [brl, setBrl] = useState('')
+  const [plan, setPlan] = useState('')
   const [time, setTime] = useState('')
-  const [price, setPrice] = useState('')
+  const [, setAvatar] = useState<unknown>(null)
 
   return (
-    <BaseSection id="inputs">
-      <BaseDiv gap='10px'>
-        <MaskedAnimation trigger="scroll" variant="revealFadeInUp">
-          <SectionLabel>MaskedInput</SectionLabel>
-        </MaskedAnimation>
+    <SectionShell
+      id="inputs"
+      title="MaskedInput"
+      description="One component, nine variants — same props contract (label, icon, error, colorTheme, tokens), behavior switched by the variant prop."
+    >
+      <DemoStack>
+        <InfoNote>
+          Every demo below is a real controlled input. Select and Time are fully
+          keyboard-navigable; Search renders results through a render-prop.
+        </InfoNote>
 
-        <MaskedAnimation trigger="scroll" variant="revealFadeInUp">
-          <TitleH3>
-            <BsInputCursorText /> One component, nine variants
-          </TitleH3>
-        </MaskedAnimation>
-
-        <MaskedAnimation trigger="scroll" variant="revealFadeInUp">
-          <InfoDiv>
-            Every variant shares the same props contract — <code>label</code>,{' '}
-            <code>icon</code>, <code>error</code>, <code>colorTheme</code>,{' '}
-            <code>tokens</code>. Switch behavior with a single{' '}
-            <code>variant</code> prop.
-          </InfoDiv>
-        </MaskedAnimation>
-
-        <DemoGrid>
+        <DemoCard title="Text & password" code={textCode}>
           <FieldColumn>
-            <MaskedInput
-              variant="default"
-              label="Name"
-              placeholder="Your name"
-              value={name}
-              onChange={setName}
-            />
-            <MaskedInput
-              variant="default"
-              label="Email"
-              type="email"
-              placeholder="you@mail.com"
-              value={email}
-              onChange={setEmail}
-              colorTheme="baseBlue"
-            />
-            <MaskedInput
-              variant="password"
-              label="Password"
-              placeholder="••••••••"
-              value={password}
-              onChange={setPassword}
-            />
-            <MaskedInput
-              variant="search"
-              label="Search"
-              placeholder="Search components..."
-              value={search}
-              onChange={setSearch}
-            />
+            <MaskedInput variant="default" label="Name" placeholder="Your name" value={name} onChange={setName} />
+            <MaskedInput variant="password" label="Password" placeholder="••••••••" value={password} onChange={setPassword} />
           </FieldColumn>
+        </DemoCard>
 
+        <DemoCard title="Masked" description="Digit slots with a mask — CPF-style document and a date." code={maskCode}>
           <FieldColumn>
-            <MaskedInput
-              variant="select"
-              label="Plan"
-              placeholder="Choose a plan"
-              value={plan}
-              onChange={setPlan}
-              options={[
-                { value: 'free', label: 'Free' },
-                { value: 'pro', label: 'Pro' },
-                { value: 'team', label: 'Team' }
-              ]}
-            />
-            <MaskedInput
-              variant="masked"
-              label="Birth date"
-              mask="00/00/0000"
-              placeholder="DD/MM/YYYY"
-              value={date}
-              onChange={setDate}
-            />
-            <MaskedInput
-              variant="time"
-              label="Meeting time"
-              value={time}
-              onChange={setTime}
-            />
-            <MaskedInput
-              variant="currency"
-              label="Price"
-              value={price}
-              onChange={setPrice}
-              currencyConfig={{ locale: 'en-US', currency: 'USD' }}
-            />
+            <MaskedInput variant="masked" label="Document" mask="000.000.000-00" placeholder="000.000.000-00" value={doc} onChange={setDoc} />
+            <MaskedInput variant="masked" label="Birth date" mask="00/00/0000" placeholder="DD/MM/YYYY" value={date} onChange={setDate} />
           </FieldColumn>
-        </DemoGrid>
+        </DemoCard>
 
-        <MaskedAnimation trigger="scroll" variant="revealFadeInUp">
-          <TitleH3>
-            <FaCode /> Usage
-          </TitleH3>
-        </MaskedAnimation>
+        <DemoCard title="Currency" description="Locale-aware currency input — USD and BRL side by side." code={currencyCode}>
+          <FieldColumn>
+            <MaskedInput variant="currency" label="Price (USD)" value={usd} onChange={setUsd} currencyConfig={{ locale: 'en-US', currency: 'USD' }} />
+            <MaskedInput variant="currency" label="Preço (BRL)" value={brl} onChange={setBrl} currencyConfig={{ locale: 'pt-BR', currency: 'BRL' }} />
+          </FieldColumn>
+        </DemoCard>
 
-        <CodeBlock
-          title="Controlled inputs"
-          code={`const [value, setValue] = useState('')
+        <DemoCard title="Select" description="Keyboard-first listbox (arrows, Enter, Escape, typeahead)." code={selectCode}>
+          <MaskedInput variant="select" label="Plan" placeholder="Choose a plan" options={PLAN_OPTIONS} value={plan} onChange={setPlan} />
+        </DemoCard>
 
-<MaskedInput
-  variant="select"
-  label="Plan"
-  value={value}
-  onChange={setValue}
-  options={[
-    { value: 'free', label: 'Free' },
-    { value: 'pro', label: 'Pro' }
-  ]}
+        <DemoCard title="Time" description="Hour/minute segments with a configurable step." code={timeCode}>
+          {/* TODO confirm: prop name minuteStep */}
+          <MaskedInput variant="time" label="Meeting time" minuteStep={15} value={time} onChange={setTime} />
+        </DemoCard>
 
-<MaskedInput
-  variant="time"
-  label="Meeting time"
-  value={time}
-  onChange={setTime}
-/>
+        <DemoCard title="Search" description="Smart search with status filters, sorting and a render-prop for results." code={searchCode} stacked>
+          <MaskedInput
+            variant="search"
+            label="Search components"
+            placeholder="Search..."
+            data={COMPONENTS}
+            searchFields={['name', 'category']}
+            filterField="status"
+            filterLabels={{ stable: 'Stable', beta: 'Beta' }}
+            filterGroupLabel="Status"
+            showDateFilter={false}
+            sortOptions={[{ key: 'name', field: 'name', label: 'Name' }]}
+            sortGroupLabel="Sort by"
+            getItemKey={(c: Component) => c.name}
+          >
+            {(state) => (
+              <ul style={{ margin: 0, paddingLeft: 20 }}>
+                {state.filteredData.map((c: Component) => (
+                  <li key={c.name}>{c.name} — {c.category}</li>
+                ))}
+              </ul>
+            )}
+          </MaskedInput>
+        </DemoCard>
 
-<MaskedInput
-  variant="masked"
-  label="Birth date"
-  mask="00/00/0000"
-  value={date}
-  onChange={setDate}
-/>`}
-        />
-
-        <CodeBlock
-          title="Formik integration"
-          code={`import { FormikTextInput } from '@/components/ui/MaskedInput/formikVariants/FormikTextInput'
-
-// Inside <Formik> — wires useField() automatically
-<FormikTextInput name="email" label="Email" />`}
-        />
-      </BaseDiv>
-    </BaseSection>
+        <DemoCard title="File" description="Local upload with preview, drag-and-drop and a 2MB limit." code={fileCode}>
+          <MaskedInput
+            variant="file"
+            label="Avatar"
+            fileMode="local"
+            accept="image/*"
+            maxSizeMB={2}
+            chooseFileLabel="Choose image"
+            dropHintLabel="or drop an image here"
+            removeLabel="Remove"
+            onChange={(file: unknown) => setAvatar(file)}
+          />
+        </DemoCard>
+      </DemoStack>
+    </SectionShell>
   )
 }
+
+export default InputSection  

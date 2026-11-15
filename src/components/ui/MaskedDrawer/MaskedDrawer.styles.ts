@@ -38,13 +38,13 @@ const getPosition = (side: DrawerSide, desktopSize: string, tabletSize: string, 
     css`
       top: 0;
       left: 0;
-      height: 100dvh; 
+      height: 100dvh;
     `}
     ${side === 'right' &&
     css`
       top: 0;
       right: 0;
-      height: 100vh;
+      height: 100dvh;
     `}
     ${side === 'top' &&
     css`
@@ -120,8 +120,9 @@ export const DrawerPanel = styled.div<{
 
   transform: ${({ $side, $isOpen }) => getTransform($side, $isOpen)};
   opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0)};
+  visibility: ${({ $isOpen }) => ($isOpen ? 'visible' : 'hidden')};
   pointer-events: ${({ $isOpen }) => ($isOpen ? 'auto' : 'none')};
-  transition: ${({ $transition }) => transitionMap[$transition]};
+  transition: ${({ $transition, $isOpen }) => `${transitionMap[$transition]}, visibility 0s linear ${$isOpen ? '0s' : '0.4s'}`};
 
   max-width: 100vw;
   max-height: 100dvh;
