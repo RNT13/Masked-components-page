@@ -24,10 +24,11 @@ export const HeroHeadline = styled.h1`
   color: ${({ theme }) => theme.colors.textColor};
 
   span {
+    /* acento -> texto: as duas pontas sempre contrastam com o fundo da página */
     background: linear-gradient(
       90deg,
       ${({ theme }) => theme.colors.accentColor ?? theme.colors.primaryColor},
-      ${({ theme }) => theme.colors.secondaryColor ?? theme.colors.primaryColor}
+      ${({ theme }) => theme.colors.textColor}
     );
     -webkit-background-clip: text;
     background-clip: text;
