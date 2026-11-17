@@ -14,7 +14,14 @@ export const FeatureCardContainer = styled(BaseCard)<{ $highlight?: boolean }>`
        * seria inválida e descartada. Com o shorthand, cor ou imagem valem.
        * Sem colorTheme, cai no gradiente original (visual idêntico).
        */
-      background: var(--mc-card-accent-soft, linear-gradient(160deg, ${maskedTheme.colors.baseBlue.light30}, ${maskedTheme.colors.baseBlue.light40}));
+      background: var(
+        --mc-card-accent-soft,
+        linear-gradient(
+          160deg,
+          ${maskedTheme.colors.baseBlue.light30},
+          ${maskedTheme.colors.baseBlue.light40}
+        )
+      );
       box-shadow: var(--mc-card-shadow-hover, ${maskedTheme.boxShadow.md()});
     `}
 `

@@ -21,7 +21,10 @@ export const appearanceStyles: Record<CardAppearance, ReturnType<typeof css>> = 
   elevated: css``,
 
   filled: css`
-    background-color: var(--mc-card-bg, var(--mc-card-bg-prop, var(--mc-card-accent-soft, ${maskedTheme.colors.baseBlue.light40})));
+    background-color: var(
+      --mc-card-bg,
+      var(--mc-card-bg-prop, var(--mc-card-accent-soft, ${maskedTheme.colors.baseBlue.light40}))
+    );
     border-color: transparent;
     box-shadow: none;
 
@@ -48,7 +51,10 @@ export const appearanceStyles: Record<CardAppearance, ReturnType<typeof css>> = 
     @media (hover: hover) {
       &:hover {
         box-shadow: none;
-        background-color: var(--mc-card-bg, var(--mc-card-bg-prop, var(--mc-card-accent-soft, ${maskedTheme.colors.baseBlue.light40})));
+        background-color: var(
+          --mc-card-bg,
+          var(--mc-card-bg-prop, var(--mc-card-accent-soft, ${maskedTheme.colors.baseBlue.light40}))
+        );
       }
     }
   `,
@@ -69,7 +75,14 @@ export const appearanceStyles: Record<CardAppearance, ReturnType<typeof css>> = 
     --mc-card-icon-bg: color-mix(in srgb, var(--mc-card-gradient-fg, #ffffff) 20%, transparent);
     --mc-card-icon-fg: var(--mc-card-gradient-fg, #ffffff);
 
-    background-image: var(--mc-card-gradient, linear-gradient(160deg, ${maskedTheme.colors.baseBlue.base}, ${maskedTheme.colors.baseBlue.dark20}));
+    background-image: var(
+      --mc-card-gradient,
+      linear-gradient(
+        160deg,
+        ${maskedTheme.colors.baseBlue.base},
+        ${maskedTheme.colors.baseBlue.dark20}
+      )
+    );
     background-color: transparent;
     border-color: transparent;
     color: var(--mc-card-fg);
@@ -88,9 +101,20 @@ export const appearanceStyles: Record<CardAppearance, ReturnType<typeof css>> = 
     @supports (color: color-mix(in srgb, red, blue)) {
       background-color: var(
         --mc-card-glass-bg,
-        color-mix(in srgb, var(--mc-card-bg, var(--mc-card-bg-prop, ${maskedTheme.colors.baseBlue.light50})) 55%, transparent)
+        color-mix(
+          in srgb,
+          var(--mc-card-bg, var(--mc-card-bg-prop, ${maskedTheme.colors.baseBlue.light50})) 55%,
+          transparent
+        )
       );
-      border-color: var(--mc-card-glass-border, color-mix(in srgb, var(--mc-card-border, ${maskedTheme.colors.baseBlue.light20}) 40%, transparent));
+      border-color: var(
+        --mc-card-glass-border,
+        color-mix(
+          in srgb,
+          var(--mc-card-border, ${maskedTheme.colors.baseBlue.light20}) 40%,
+          transparent
+        )
+      );
     }
 
     backdrop-filter: blur(12px);
@@ -99,7 +123,10 @@ export const appearanceStyles: Record<CardAppearance, ReturnType<typeof css>> = 
 
     /* Fallback opaco quando backdrop-filter não é suportado */
     @supports not (backdrop-filter: blur(1px)) {
-      background-color: var(--mc-card-bg, var(--mc-card-bg-prop, ${maskedTheme.colors.baseBlue.light50}));
+      background-color: var(
+        --mc-card-bg,
+        var(--mc-card-bg-prop, ${maskedTheme.colors.baseBlue.light50})
+      );
       border-color: var(--mc-card-border, ${maskedTheme.colors.baseBlue.light20});
     }
   `

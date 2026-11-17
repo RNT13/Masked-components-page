@@ -42,7 +42,7 @@ export function useSelectable({
   return {
     selectable: !!selectable,
     isSelected,
-    role: selectionMode === 'multiple' ? 'checkbox' : 'checkbox',
+    role: selectionMode === 'single' ? 'radio' : 'checkbox',  
     toggle
   }
 }

@@ -406,17 +406,26 @@ export const CardExpandSection = styled.div<{ $direction?: CardDirection }>`
   border-top: 1px solid var(--mc-card-border, ${maskedTheme.colors.baseBlack.light20});
 `
 
-export const CardIconBadge = styled.span`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: ${maskedTheme.radius.md};
-  background-color: var(--mc-card-icon-bg, var(--mc-card-accent-soft, ${maskedTheme.colors.baseBlue.light40}));
-  color: var(--mc-card-icon-fg, var(--mc-card-accent, ${maskedTheme.colors.baseBlue.base}));
-  font-size: ${maskedTheme.fontSize.lg};
-  flex-shrink: 0;
+export const CardIconBadge = styled.div<{  
+  $bg?: string  
+  $color?: string  
+  $size?: 'sm' | 'md'  
+  $iconSize?: number  
+}>`  
+  display: flex;  
+  align-items: center;  
+  justify-content: center;  
+  width: ${({ $size }) => ($size === 'sm' ? '32px' : '42px')};  
+  height: ${({ $size }) => ($size === 'sm' ? '32px' : '42px')};  
+  border-radius: ${maskedTheme.radius.sm};  
+  background-color: ${({ $bg }) =>  
+    $bg ?? `var(--mc-card-icon-bg, ${maskedTheme.colors.baseBlue.light20})`};  
+  color: ${({ $color }) => $color ?? `var(--mc-card-icon-fg, ${maskedTheme.colors.baseBlue.base})`};  
+  
+  svg {  
+    width: ${({ $iconSize }) => ($iconSize ? `${$iconSize}px` : '18px')};  
+    height: ${({ $iconSize }) => ($iconSize ? `${$iconSize}px` : '18px')};  
+  }  
 `
 
 export const MetricRowBody = styled.div`

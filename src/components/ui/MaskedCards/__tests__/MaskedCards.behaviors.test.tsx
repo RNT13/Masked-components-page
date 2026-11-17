@@ -21,8 +21,8 @@ describe('MaskedCards — seleção', () => {
         onSelectedChange={onSelectedChange}
       />
     )
-    // card avulso selecionável = checkbox (radio só dentro de MaskedCardGroup)
-    const toggle = screen.getByRole('checkbox')
+    // card avulso selecionável = radio (seleção única)
+    const toggle = screen.getByRole('radio')
     expect(toggle).toHaveAttribute('aria-checked', 'true')
     await userEvent.click(toggle)
     expect(onSelectedChange).toHaveBeenCalledWith(false)
@@ -41,7 +41,7 @@ describe('MaskedCards — seleção', () => {
         onSelectedChange={onSelectedChange}
       />
     )
-    const toggle = screen.getByRole('checkbox')
+    const toggle = screen.getByRole('radio')
     expect(toggle).toHaveAttribute('aria-checked', 'true')
     await userEvent.click(toggle)
     expect(onSelectedChange).toHaveBeenCalledWith(false)
@@ -60,7 +60,7 @@ describe('MaskedCards — seleção', () => {
         onSelectedChange={onSelectedChange}
       />
     )
-    const toggle = screen.getByRole('checkbox')
+    const toggle = screen.getByRole('radio')
     toggle.focus()
     await userEvent.keyboard('{Enter}')
     expect(onSelectedChange).toHaveBeenCalledWith(true)
@@ -80,7 +80,7 @@ describe('MaskedCards — seleção', () => {
         onSelectedChange={onSelectedChange}
       />
     )
-    const toggle = screen.getByRole('checkbox')
+    const toggle = screen.getByRole('radio')
     expect(toggle).toBeDisabled()
     expect(toggle).toHaveAttribute('aria-checked', 'false')
     fireEvent.click(toggle)
@@ -172,7 +172,7 @@ describe('MaskedCards — expansão', () => {
         expandContent={<p>X</p>}
       />
     )
-    const toggle = screen.getByRole('checkbox')
+    const toggle = screen.getByRole('radio')
     const expandBtn = screen.getByRole('button', { name: /mostrar mais/i })
     // o botão de expansão não pode estar dentro do elemento selecionável
     expect(toggle).not.toContainElement(expandBtn)

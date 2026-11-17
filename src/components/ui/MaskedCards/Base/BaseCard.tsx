@@ -114,7 +114,11 @@ export const BaseCard = forwardRef<HTMLDivElement, BaseCardInternalProps>(functi
 
   const isSelected = group.grouped ? group.isSelected : selectableState.isSelected
   const ariaChecked = group.grouped || selectableState.selectable ? isSelected : undefined
-  const ariaRole = group.grouped ? group.role : selectableState.selectable ? selectableState.role : undefined
+  const ariaRole = group.grouped
+    ? group.role
+    : selectableState.selectable
+      ? selectableState.role
+      : undefined
 
   const common = {
     className,
@@ -132,15 +136,15 @@ export const BaseCard = forwardRef<HTMLDivElement, BaseCardInternalProps>(functi
   } as const
 
   const selectableAria =
-    ariaRole !== undefined
-      ? { role: ariaRole, 'aria-checked': ariaChecked }
-      : {}
+    ariaRole !== undefined ? { role: ariaRole, 'aria-checked': ariaChecked } : {}
 
   const expandRegion = expand.expandable ? (
     <CardExpandRegion
       id={expand.regionId}
       role="region"
-      aria-label={expand.isExpanded ? collapseLabel ?? 'Mostrar menos' : expandLabel ?? 'Mostrar mais'}
+      aria-label={
+        expand.isExpanded ? (collapseLabel ?? 'Mostrar menos') : (expandLabel ?? 'Mostrar mais')
+      }
       hidden={!expand.isExpanded}
     >
       <CardExpandSection $direction={direction}>{expandContent}</CardExpandSection>
@@ -152,7 +156,9 @@ export const BaseCard = forwardRef<HTMLDivElement, BaseCardInternalProps>(functi
       type="button"
       aria-expanded={expand.isExpanded}
       aria-controls={expand.regionId}
-      aria-label={expand.isExpanded ? collapseLabel ?? 'Mostrar menos' : expandLabel ?? 'Mostrar mais'}
+      aria-label={
+        expand.isExpanded ? (collapseLabel ?? 'Mostrar menos') : (expandLabel ?? 'Mostrar mais')
+      }
       disabled={effectiveDisabled}
       onClick={(e) => {
         e.stopPropagation()

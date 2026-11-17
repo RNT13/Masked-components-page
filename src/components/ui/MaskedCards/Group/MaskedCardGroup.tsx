@@ -13,9 +13,9 @@ import type { CardSelectionMode } from '../MaskedCards.types'
 type RegisteredItem = GroupItem & { el: HTMLElement }
 
 /**
- * Grupo de seleção de cards. Envolve MaskedCards com `selectionValue`.
- * single → role="radiogroup" + radios com roving tabindex e setas.
- * multiple → role="group" + checkboxes (Space alterna, sem roving).
+ * Grupo de seleção de cards. Envolve MaskedCards com `selectionValue`.  
+ * single → role="radiogroup" + radios com roving tabindex e setas.  
+ * multiple → role="group" + checkboxes (Space alterna, sem roving).  
  */
 export function MaskedCardGroup(props: MaskedCardGroupProps) {
   const {
@@ -43,9 +43,9 @@ export function MaskedCardGroup(props: MaskedCardGroupProps) {
   const orderRef = useRef<string[]>([])
 
   /**
-   * Os itens se registram via callback ref (após o commit). Sem estado,
-   * o primeiro render calcula tabIndex com o mapa vazio e nunca
-   * recalcula — bump força um re-render a cada registro/desregistro.
+   * Os itens se registram via callback ref (após o commit). Sem estado,  
+   * o primeiro render calcula tabIndex com o mapa vazio e nunca  
+   * recalcula — bump força um re-render a cada registro/desregistro.  
    */
   const [, bumpRegistration] = useReducer((x: number) => x + 1, 0)
 
@@ -53,9 +53,9 @@ export function MaskedCardGroup(props: MaskedCardGroupProps) {
     (next: string | string[]) => {
       if (!isControlled) setInternalValue(next)
       if (mode === 'multiple') {
-        ; (props.onValueChange as ((v: string[]) => void) | undefined)?.(next as string[])
+        ;(props.onValueChange as ((v: string[]) => void) | undefined)?.(next as string[])
       } else {
-        ; (props.onValueChange as ((v: string) => void) | undefined)?.(next as string)
+        ;(props.onValueChange as ((v: string) => void) | undefined)?.(next as string)
       }
     },
     [isControlled, mode, props]
