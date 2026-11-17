@@ -50,11 +50,19 @@ const TOKEN_PROPS = [
   'disabled-opacity'
 ] as const
 
-const SWITCH_TOKEN_PROPS = ['track-on', 'track-off', 'knob-bg', 'knob-shadow', 'border-on', 'border-off', 'ring-focus'] as const
+const SWITCH_TOKEN_PROPS = [
+  'track-on',
+  'track-off',
+  'knob-bg',
+  'knob-shadow',
+  'border-on',
+  'border-off',
+  'ring-focus'
+] as const
 
 /**
- * Tokens cujo valor numérico é unitless (não recebem sufixo 'px').
- * Qualquer outro número vira '<n>px' — ex.: radius: 999 -> '999px'.
+ * Tokens cujo valor numérico é unitless (não recebem sufixo 'px').  
+ * Qualquer outro número vira '<n>px' — ex.: radius: 999 -> '999px'.  
  */
 const UNITLESS_TOKENS = new Set<string>(['disabled-opacity'])
 
@@ -64,12 +72,12 @@ const toCssValue = (key: string, value: string | number): string | number =>
 export type ButtonTokensStyle = CSSProperties
 
 /**
- * Gera o objeto de style com as CSS vars do botão.
- * Precedência: tokens (prop) > colorTheme (registro) > nada (CSS usa fallback do tema).
- * O texto sobre `bg` é escolhido por contraste (WCAG): quando `theme` é passado,
- * as cores semânticas do tema ativo entram como candidatas antes de branco/preto.
+ * Gera o objeto de style com as CSS vars do botão.  
+ * Precedência: tokens (prop) > colorTheme (registro) > nada (CSS usa fallback do tema).  
+ * O texto sobre `bg` é escolhido por contraste (WCAG): quando `theme` é passado,  
+ * as cores semânticas do tema ativo entram como candidatas antes de branco/preto.  
  *
- * @example <button style={resolveButtonTokens({ colorTheme: 'ruby' })} />
+ * @example <button style={resolveButtonTokens({ colorTheme: 'ruby' })} />  
  */
 export function resolveButtonTokens(opts: {
   colorTheme?: ColorThemeName
@@ -78,13 +86,23 @@ export function resolveButtonTokens(opts: {
 }): ButtonTokensStyle {
   const vars: Record<string, string | number> = {}
 
-  const c = opts.colorTheme && opts.colorTheme !== 'default' ? resolveColorTheme(opts.colorTheme, maskedTheme) : undefined
+  const c =
+    opts.colorTheme && opts.colorTheme !== 'default'
+      ? resolveColorTheme(opts.colorTheme, maskedTheme)
+      : undefined
 
   if (c) {
     const bg = c.base
     const bgHover = c.dark08 ?? c.base
     const bgActive = c.dark20 ?? bgHover
-    const fg = c.onBase ?? pickReadable(bg, [opts.theme?.colors.primaryColor, opts.theme?.colors.textColor, '#ffffff', '#111111'])
+    const fg =
+      c.onBase ??
+      pickReadable(bg, [
+        opts.theme?.colors.primaryColor,
+        opts.theme?.colors.textColor,
+        '#ffffff',
+        '#111111'
+      ])
     const ring = c.glow ?? c.light50 ?? c.base
 
     vars['--mc-btn-bg'] = bg

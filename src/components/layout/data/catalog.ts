@@ -61,9 +61,15 @@ export const CATALOG: CatalogEntry[] = [
     title: 'MaskedCards',
     kind: 'component',
     variants: CARD_VARIANTS.length,
-    summary: 'Metric, stat, compare, product, feature and plan cards with trends, badges and actions.',
-    highlights: ['Clickable or link cards', 'Price formatting via Intl', 'Footer actions stay at the bottom', '--mc-card-* tokens'],
-    snippet: `<MaskedCards\n  $variant="metric"\n  icon={<UsersIcon />}\n  value="1.2k"\n  label="Active users"\n  trend="up"\n  trendValue="+8%"\n/>`
+    summary: 'Eleven card variants with six appearances, layouts, selection, expansion and group semantics.',
+    highlights: [
+      '6 appearances: elevated, filled, outlined, flat, gradient, glass',
+      'Selectable + expandable + MaskedCardGroup (radiogroup)',
+      'Layouts: vertical, horizontal, overlay, split, compact',
+      'Composable Card/CardHeader/CardMedia/CardContent/CardFooter/CardActions',
+      '--mc-card-* tokens and colorTheme'
+    ],
+    snippet: `<MaskedCards\n  $variant="pricing"\n  planName="Pro"\n  price={29}\n  priceFormat={{ locale: 'en-US', currency: 'USD' }}\n  features={[{ label: 'All components' }, { label: 'Theme engine' }]}\n  appearance="gradient"\n/>`
   },
   {
     id: 'masked-drawer',

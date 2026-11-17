@@ -21,11 +21,24 @@ const disabledStyles = css`
 `
 
 const activeStyles = css`
-  color: var(--mc-btn-bg-dark, ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.light20});
+  color: var(
+    --mc-btn-bg-dark,
+    ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.light20}
+  );
   background-color: transparent;
-  border: 2px solid var(--mc-btn-border-dark, var(--mc-btn-bg-dark, ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.base}));
+  border: 2px solid
+    var(
+      --mc-btn-border-dark,
+      var(
+        --mc-btn-bg-dark,
+        ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.base}
+      )
+    );
 
-  box-shadow: var(--mc-btn-shadow-active, 0px 0px 10px 1px ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.light50});
+  box-shadow: var(
+    --mc-btn-shadow-active,
+    0px 0px 10px 1px ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.light50}
+  );
 
   svg {
     color: inherit;
@@ -33,19 +46,28 @@ const activeStyles = css`
 
   &:hover {
     color: var(--mc-btn-fg-hover, ${({ theme }) => theme.colors.baseBlue.dark20});
-    background-color: var(--mc-btn-bg-hover, ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.light});
+    background-color: var(
+      --mc-btn-bg-hover,
+      ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.light}
+    );
     border-color: transparent;
   }
 `
 
 const errorStyles = css`
-  color: var(--mc-btn-danger-fg, ${({ theme }) => theme.colors.dangerColor ?? theme.colors.baseRed.light40});
+  color: var(
+    --mc-btn-danger-fg,
+    ${({ theme }) => theme.colors.dangerColor ?? theme.colors.baseRed.light40}
+  );
   background-color: transparent;
   border: 2px solid transparent;
 
   &:hover {
     background-color: var(--mc-btn-danger-bg-hover, ${({ theme }) => theme.colors.baseRed.light04});
-    color: var(--mc-btn-danger-fg, ${({ theme }) => theme.colors.dangerColor ?? theme.colors.baseRed.light40});
+    color: var(
+      --mc-btn-danger-fg,
+      ${({ theme }) => theme.colors.dangerColor ?? theme.colors.baseRed.light40}
+    );
     border-color: transparent;
   }
 `
@@ -62,12 +84,18 @@ export const GhostButtonWrapper = styled.div<props>`
  * "texto sobre o fundo preenchido" e fica escuro em temas claros.
  */
 export const GhostButtonContainer = styled(BaseButton)<props>`
-  color: var(--mc-btn-bg-dark, ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.base});
+  color: var(
+    --mc-btn-bg-dark,
+    ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.base}
+  );
   background-color: transparent;
   border: 2px solid transparent;
 
   &:hover {
-    background-color: var(--mc-btn-bg-hover, ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.base});
+    background-color: var(
+      --mc-btn-bg-hover,
+      ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.base}
+    );
     color: var(--mc-btn-fg-hover, ${({ theme }) => theme.colors.basePureWhite?.base ?? '#ffffff'});
     border-color: transparent;
   }

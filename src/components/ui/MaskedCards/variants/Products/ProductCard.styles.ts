@@ -12,16 +12,26 @@ const statusVar: Record<CardStatus, string> = {
 
 export const ProductCardContainer = styled(BaseCard)``
 
-export const ProductImage = styled.img`
+/*
+ * mc-card-media: participa dos layouts horizontal/split/overlay do
+ * BaseCardContainer. mediaRatio: quando --mc-card-media-ratio está
+ * definida (data-media-ratio no card), o valor é uma razão inválida
+ * para height → height cai para auto e o aspect-ratio assume; sem a
+ * var, height = 180px (visual original preservado).
+ */
+export const ProductImage = styled.img.attrs({ className: 'mc-card-media' })`
   width: 100%;
-  height: 180px;
+  height: var(--mc-card-media-ratio, 180px);
+  aspect-ratio: var(--mc-card-media-ratio, auto);
   object-fit: cover;
   border-radius: ${maskedTheme.radius.sm};
+  background-color: var(--mc-card-media-bg, ${maskedTheme.colors.baseBlue.light20});
 `
 
-export const ProductImagePlaceholder = styled.div`
+export const ProductImagePlaceholder = styled.div.attrs({ className: 'mc-card-media' })`
   width: 100%;
-  height: 180px;
+  height: var(--mc-card-media-ratio, 180px);
+  aspect-ratio: var(--mc-card-media-ratio, auto);
   border-radius: ${maskedTheme.radius.sm};
   background-color: var(--mc-card-placeholder-bg, ${maskedTheme.colors.baseBlue.light20});
   display: flex;
@@ -74,7 +84,7 @@ export const ProductStatus = styled.span<{ $status: CardStatus }>`
 
 export const ProductDescription = styled.p`
   font-size: ${maskedTheme.fontSize.sm};
-  color: var(--mc-card-muted-fg, ${maskedTheme.colors.baseBlack.dark20});
+  color: var(--mc-card-muted-fg, currentColor);
   margin: 0;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -92,16 +102,26 @@ export const ProductPriceRow = styled.div`
 export const ProductPrice = styled.strong`
   font-size: ${maskedTheme.fontSize.xl};
   font-weight: 700;
-  color: var(--mc-card-accent-fg, ${maskedTheme.colors.baseBlue.dark20});
+  color: var(
+    --mc-card-original-price-fg,
+    light-dark(${maskedTheme.colors.baseGreen.dark}, ${maskedTheme.colors.baseRed.light})
+  );
 `
 
 export const ProductOriginalPrice = styled.span`
   font-size: ${maskedTheme.fontSize.sm};
-  color: var(--mc-card-faint-fg, ${maskedTheme.colors.baseBlack.dark08});
+  font-weight: ${maskedTheme.fontWeight.semibold};
+  color: var(
+    --mc-card-original-price-fg,
+    light-dark(${maskedTheme.colors.baseRed.dark}, ${maskedTheme.colors.baseRed.light})
+  );
   text-decoration: line-through;
 `
 
+/* z-index acima do stretched-link/button para continuar clicável */
 export const ProductActions = styled.div`
+  position: relative;
+  z-index: 1;
   display: flex;
   gap: ${maskedTheme.spacing.sm};
 `
