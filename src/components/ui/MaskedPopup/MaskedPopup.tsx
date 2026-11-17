@@ -40,11 +40,11 @@ export function MaskedPopup({
     onCloseRef.current = onClose
   }, [onClose])
 
-  /*  
-   * visible: mantém o painel montado durante a animação de saída.  
-   * panelOpen: estado interno que abre via rAF — garante um frame  
-   * "fechado" pintado antes de abrir (primeira abertura anima do  
-   * ponto certo, sem voar de outro lugar).  
+  /*
+   * visible: mantém o painel montado durante a animação de saída.
+   * panelOpen: estado interno que abre via rAF — garante um frame
+   * "fechado" pintado antes de abrir (primeira abertura anima do
+   * ponto certo, sem voar de outro lugar).
    */
   const [visible, setVisible] = useState(isOpen)
   const [panelOpen, setPanelOpen] = useState(isOpen)
@@ -68,9 +68,9 @@ export function MaskedPopup({
   }, [isOpen])
 
   const mounted = useSyncExternalStore(
-    () => () => { },
-    () => true, // client  
-    () => false // server  
+    () => () => {},
+    () => true, // client
+    () => false // server
   )
 
   useEffect(() => {
@@ -125,19 +125,19 @@ export function MaskedPopup({
   const vars = {
     ...(themeVars?.base
       ? {
-        '--mc-popup-panel-bg': themeVars.base,
-        '--mc-popup-panel-fg': themeVars.onBase ?? readableTextOn(themeVars.base)
-      }
+          '--mc-popup-panel-bg': themeVars.base,
+          '--mc-popup-panel-fg': themeVars.onBase ?? readableTextOn(themeVars.base)
+        }
       : {}),
     ...(tokens?.overlayBg ? { '--mc-popup-overlay-bg': tokens.overlayBg } : {}),
     ...(tokens?.panelBg ? { '--mc-popup-panel-bg': tokens.panelBg } : {})
   } as CSSProperties
 
-  /*  
-   * Montagem: enquanto isOpen OU visible (saída animando).  
-   * $instant = !visible: morto -> transition: none (sem "voo" ao  
-   * trocar transition/primeiro paint). Durante abertura e saída,  
-   * visible=true -> transição ativa.  
+  /*
+   * Montagem: enquanto isOpen OU visible (saída animando).
+   * $instant = !visible: morto -> transition: none (sem "voo" ao
+   * trocar transition/primeiro paint). Durante abertura e saída,
+   * visible=true -> transição ativa.
    */
   const content = visible ? (
     <>
@@ -171,4 +171,4 @@ export function MaskedPopup({
 
   if (!portal || !mounted) return content
   return createPortal(content, document.body)
-}  
+}

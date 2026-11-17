@@ -75,8 +75,10 @@ function hslToRgb(h: number, s: number, l: number): Rgb {
   }
 }
 
-const HSL_RE = /^hsla?\(\s*(-?[\d.]+)(?:deg)?\s*[, ]\s*([\d.]+)%\s*[, ]\s*([\d.]+)%(?:\s*[,/]\s*[\d.]+%?)?\s*\)$/i
-const RGB_RE = /^rgba?\(\s*([\d.]+)\s*[, ]\s*([\d.]+)\s*[, ]\s*([\d.]+)(?:\s*[,/]\s*[\d.]+%?)?\s*\)$/i
+const HSL_RE =
+  /^hsla?\(\s*(-?[\d.]+)(?:deg)?\s*[, ]\s*([\d.]+)%\s*[, ]\s*([\d.]+)%(?:\s*[,/]\s*[\d.]+%?)?\s*\)$/i
+const RGB_RE =
+  /^rgba?\(\s*([\d.]+)\s*[, ]\s*([\d.]+)\s*[, ]\s*([\d.]+)(?:\s*[,/]\s*[\d.]+%?)?\s*\)$/i
 
 /**
  * Lê `#rgb`, `#rrggbb`, `#rrggbbaa`, `rgb()/rgba()` e `hsl()/hsla()`.
@@ -91,7 +93,7 @@ export function parseColor(input: string): Rgb | null {
     if (hex.length === 3 || hex.length === 4) {
       hex = hex
         .split('')
-        .map(c => c + c)
+        .map((c) => c + c)
         .join('')
     }
     if (!/^[0-9a-f]{6}([0-9a-f]{2})?$/i.test(hex)) return null
@@ -225,10 +227,16 @@ export function readableTextOn(background: string, options: ReadableTextOptions 
  *  4. lista vazia/sem válidos -> `dark`.
  * @example pickReadable('#111111', ['#fff5f7', '#ffffff']) // '#fff5f7'
  */
-export function pickReadable(background: string, candidates: Array<string | undefined>, options: { light?: string; dark?: string } = {}): string {
+export function pickReadable(
+  background: string,
+  candidates: Array<string | undefined>,
+  options: { light?: string; dark?: string } = {}
+): string {
   const { light = '#ffffff', dark = '#111111' } = options
 
-  const valid = candidates.filter((c): c is string => typeof c === 'string' && parseColor(c) !== null)
+  const valid = candidates.filter(
+    (c): c is string => typeof c === 'string' && parseColor(c) !== null
+  )
 
   const bg = parseColor(background)
   if (!bg) return valid[0] ?? dark

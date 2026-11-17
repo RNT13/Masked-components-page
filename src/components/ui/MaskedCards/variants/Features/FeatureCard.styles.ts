@@ -1,64 +1,36 @@
-import { maskedTheme, media } from '@/styles/MaskedThemes/MaskedThemes'
+import { maskedTheme } from '@/styles/MaskedThemes/MaskedThemes'
 import styled, { css } from 'styled-components'
 import { BaseCard } from '../../Base/BaseCard'
 import { CardIconBadge } from '../../Base/BaseCard.styles'
 
 export const FeatureCardContainer = styled(BaseCard)<{ $highlight?: boolean }>`
-  ${({ $highlight, theme }) =>
+  ${({ $highlight }) =>
     $highlight &&
     css`
-      border-color: var(--mc-card-accent, ${theme.colors.accentColor ?? maskedTheme.colors.baseBlue.base});
-      background-image: var(
-        --mc-card-accent-soft,
-        linear-gradient(
-          160deg,
-          ${theme.colors.surfaceColor ?? theme.colors.primaryColor},
-          ${theme.colors.secondaryColor ?? theme.colors.primaryColor}
-        )
-      );
-      box-shadow: var(--mc-card-shadow-hover, ${theme.boxShadow.md()});
+      border-color: var(--mc-card-accent, ${maskedTheme.colors.baseBlue.base});
+      /*
+       * shorthand background (não background-image): --mc-card-accent-soft
+       * é uma COR quando há colorTheme — com background-image a declaração
+       * seria inválida e descartada. Com o shorthand, cor ou imagem valem.
+       * Sem colorTheme, cai no gradiente original (visual idêntico).
+       */
+      background: var(--mc-card-accent-soft, linear-gradient(160deg, ${maskedTheme.colors.baseBlue.light30}, ${maskedTheme.colors.baseBlue.light40}));
+      box-shadow: var(--mc-card-shadow-hover, ${maskedTheme.boxShadow.md()});
     `}
-
-  ${media.mobile} {
-    padding: ${maskedTheme.spacing.md};
-    gap: ${maskedTheme.spacing.sm};
-  }
 `
-
-export const FeatureIcon = styled(CardIconBadge)`
-  ${media.mobile} {
-    width: 36px;
-    height: 36px;
-
-    svg {
-      font-size: 18px;
-    }
-  }
-`
-
+export const FeatureIcon = styled(CardIconBadge)``
 export const FeatureTitle = styled.h3`
   font-size: ${maskedTheme.fontSize.md};
   font-weight: 700;
-  color: var(--mc-card-fg, ${({ theme }) => theme.colors.textColor});
+  color: var(--mc-card-fg, ${maskedTheme.colors.baseBlack.dark40});
   margin: 0;
-
-  ${media.mobile} {
-    font-size: ${maskedTheme.fontSize.sm};
-  }
 `
-
 export const FeatureDescription = styled.p`
   font-size: ${maskedTheme.fontSize.sm};
-  color: var(--mc-card-muted-fg, ${({ theme }) => theme.colors.textMuted ?? theme.colors.textColor});
+  color: var(--mc-card-muted-fg, currentColor);
   margin: 0;
   flex: 1;
-
-  ${media.mobile} {
-    font-size: ${maskedTheme.fontSize.xs};
-    line-height: 1.5;
-  }
 `
-
 export const FeatureAction = styled.div`
   margin-top: auto;
 `

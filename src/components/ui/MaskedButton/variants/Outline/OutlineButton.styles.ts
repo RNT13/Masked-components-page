@@ -20,11 +20,21 @@ const disabledStyles = css`
 `
 
 const activeStyles = css`
-  color: var(--mc-btn-bg-active, ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.dark08});
+  color: var(
+    --mc-btn-bg-active,
+    ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.dark08}
+  );
   background-color: transparent;
-  border: 2px solid var(--mc-btn-border-active, ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.dark08});
+  border: 2px solid
+    var(
+      --mc-btn-border-active,
+      ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.dark08}
+    );
 
-  box-shadow: var(--mc-btn-shadow-active, 0px 0px 10px 3px ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.base});
+  box-shadow: var(
+    --mc-btn-shadow-active,
+    0px 0px 10px 3px ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.base}
+  );
 
   svg {
     color: inherit;
@@ -32,20 +42,38 @@ const activeStyles = css`
 
   &:hover {
     color: var(--mc-btn-fg-hover, ${({ theme }) => theme.colors.basePureWhite?.base ?? '#ffffff'});
-    background-color: var(--mc-btn-bg-hover, ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.light08});
-    border-color: var(--mc-btn-border-hover, ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.dark08});
+    background-color: var(
+      --mc-btn-bg-hover,
+      ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.light08}
+    );
+    border-color: var(
+      --mc-btn-border-hover,
+      ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.dark08}
+    );
   }
 `
 
 const errorStyles = css`
   background-color: transparent;
-  color: var(--mc-btn-danger-border, ${({ theme }) => theme.colors.dangerColor ?? theme.colors.baseRed.light30});
-  border-color: var(--mc-btn-danger-border, ${({ theme }) => theme.colors.dangerColor ?? theme.colors.baseRed.light08});
+  color: var(
+    --mc-btn-danger-border,
+    ${({ theme }) => theme.colors.dangerColor ?? theme.colors.baseRed.light30}
+  );
+  border-color: var(
+    --mc-btn-danger-border,
+    ${({ theme }) => theme.colors.dangerColor ?? theme.colors.baseRed.light08}
+  );
 
   &:hover {
     background-color: var(--mc-btn-danger-bg-hover, ${({ theme }) => theme.colors.baseRed.light04});
-    color: var(--mc-btn-danger-fg, ${({ theme }) => theme.colors.dangerColor ?? theme.colors.baseRed.light40});
-    border-color: var(--mc-btn-danger-border, ${({ theme }) => theme.colors.dangerColor ?? theme.colors.baseRed.light40});
+    color: var(
+      --mc-btn-danger-fg,
+      ${({ theme }) => theme.colors.dangerColor ?? theme.colors.baseRed.light40}
+    );
+    border-color: var(
+      --mc-btn-danger-border,
+      ${({ theme }) => theme.colors.dangerColor ?? theme.colors.baseRed.light40}
+    );
   }
 `
 
@@ -57,14 +85,30 @@ export const OutlineButtonWrapper = styled.div<props>`
 
 /* ver nota em GhostButton.styles: texto = acento, não --mc-btn-fg */
 export const OutlineButtonContainer = styled(BaseButton)<props>`
-  color: var(--mc-btn-bg-dark, ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.base});
+  color: var(
+    --mc-btn-bg-dark,
+    ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.base}
+  );
   background-color: transparent;
-  border: 2px solid var(--mc-btn-border-dark, var(--mc-btn-bg-dark, ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.base}));
+  border: 2px solid
+    var(
+      --mc-btn-border-dark,
+      var(
+        --mc-btn-bg-dark,
+        ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.base}
+      )
+    );
 
   &:hover {
-    background-color: var(--mc-btn-bg-hover, ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.base});
+    background-color: var(
+      --mc-btn-bg-hover,
+      ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.base}
+    );
     color: var(--mc-btn-fg-hover, ${({ theme }) => theme.colors.basePureWhite?.base ?? '#ffffff'});
-    border-color: var(--mc-btn-border-hover, ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.light20});
+    border-color: var(
+      --mc-btn-border-hover,
+      ${({ theme }) => theme.colors.accentColor ?? theme.colors.baseBlue.light20}
+    );
   }
 
   ${({ $isActive }) => $isActive && activeStyles}

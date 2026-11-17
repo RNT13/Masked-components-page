@@ -59,7 +59,7 @@ export function MaskedDrawer({
     if (isOpen) return
 
     const timeout = window.setTimeout(() => {
-      setVisibility(current => ({ ...current, visible: false }))
+      setVisibility((current) => ({ ...current, visible: false }))
     }, EXIT_MS)
 
     return () => {
@@ -68,7 +68,7 @@ export function MaskedDrawer({
   }, [isOpen])
 
   const mounted = useSyncExternalStore(
-    () => () => { },
+    () => () => {},
     () => true, // client
     () => false // server
   )
@@ -173,9 +173,9 @@ export function MaskedDrawer({
   const vars = {
     ...(themeVars?.base
       ? {
-        '--mc-drawer-panel-bg': themeVars.base,
-        '--mc-drawer-panel-fg': themeVars.onBase ?? readableTextOn(themeVars.base)
-      }
+          '--mc-drawer-panel-bg': themeVars.base,
+          '--mc-drawer-panel-fg': themeVars.onBase ?? readableTextOn(themeVars.base)
+        }
       : {}),
     ...(tokens?.overlayBg ? { '--mc-drawer-overlay-bg': tokens.overlayBg } : {}),
     ...(tokens?.panelBg ? { '--mc-drawer-panel-bg': tokens.panelBg } : {})

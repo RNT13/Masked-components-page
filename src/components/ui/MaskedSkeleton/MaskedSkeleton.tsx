@@ -100,9 +100,9 @@ const SkeletonBox = styled.div<SkeletonBoxProps>`
     );
 
     animation: ${({ $animation }) =>
-    $animation === 'shimmer'
-      ? 'mcSkeletonShimmer var(--mc-skeleton-duration, 1.35s) ease-in-out infinite'
-      : 'none'};
+      $animation === 'shimmer'
+        ? 'mcSkeletonShimmer var(--mc-skeleton-duration, 1.35s) ease-in-out infinite'
+        : 'none'};
 
     pointer-events: none;
   }
