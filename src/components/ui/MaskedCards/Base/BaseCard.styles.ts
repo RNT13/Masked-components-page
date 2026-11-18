@@ -50,6 +50,7 @@ type ContainerProps = {
 export const BaseCardContainer = styled.div<ContainerProps>`
   position: relative;
   display: flex;
+  text-decoration: none;
   flex-direction: ${({ $direction }) => ($direction === 'row' ? 'row' : 'column')};
   ${({ $size }) => gapStyles[$size]}
   ${({ $size }) => sizeStyles[$size]}
@@ -67,6 +68,16 @@ export const BaseCardContainer = styled.div<ContainerProps>`
   overflow: hidden;
   text-align: left;
   font-family: inherit;
+
+  /* textos longos (ex.: "Card/CardHeader/CardMedia/...") quebram em vez de vazar */
+  overflow-wrap: anywhere;
+  min-width: 0;
+
+  /* links internos do card sem sublinhado (stretched link, títulos, etc.) */
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 
   ${({ $appearance }) => appearanceStyles[$appearance]}
 
@@ -108,9 +119,8 @@ export const BaseCardContainer = styled.div<ContainerProps>`
         0 0 0 1px var(--mc-card-accent, ${maskedTheme.colors.baseBlue.base});
     `}
 
-  /* ---------- layout: horizontal / split ---------- */
-  &[data-layout='horizontal'],
-&[data-layout='split'] {
+  /* ---------- layout: horizontal ---------- */
+  &&[data-layout='horizontal'] {
     flex-direction: row;
     align-items: stretch;
 
@@ -118,100 +128,60 @@ export const BaseCardContainer = styled.div<ContainerProps>`
       margin: 0;
       position: static;
       aspect-ratio: auto;
-      align-self: stretch;
-      border-radius: ${maskedTheme.radius.md};
-      overflow: hidden;
       flex: 0 1 40%;
       min-width: 96px;
       max-width: 45%;
+      align-self: stretch;
+      object-fit: cover;
+      border-radius: calc(var(--mc-card-radius, ${maskedTheme.radius.lg}) - 4px);
+      overflow: hidden;
     }
 
     > *:not(.mc-card-media) {
-      flex: 1 1 0%;
+      flex: 1 1 auto;
       min-width: 0;
     }
   }
 
-  &[data-layout='split'] > .mc-card-media {
-    flex-basis: 50%;
-    max-width: 50%;
-    border-radius: ${maskedTheme.radius.md};
+  /* ---------- layout: split — mídia e conteúdo em 1:1 real ---------- */
+  &&[data-layout='split'] {
+    flex-direction: row;
+    align-items: stretch;
+
+    > .mc-card-media {
+      margin: 0;
+      position: static;
+      aspect-ratio: auto;
+      flex: 1 1 50%;
+      min-width: 0;
+      max-width: 50%;
+      align-self: stretch;
+      object-fit: cover;
+      border-radius: calc(var(--mc-card-radius, ${maskedTheme.radius.lg}) - 4px);
+      overflow: hidden;
+    }
+
+    > *:not(.mc-card-media) {
+      flex: 1 1 50%;
+      min-width: 0;
+    }
   }
 
-  /*
-   * Dupla classe no container (&&) sobe a especificidade acima dos
-   * estilos de mídia das variantes (margin negativo, position, inset).
-   */
-  &&[data-layout='horizontal'] > .mc-card-media {
-    max-height: 180px;
-    align-self: center;
-  }
-  &&[data-layout='split'] > .mc-card-media {
-    margin: 0;
-    position: relative;
-    inset: auto;
-    flex: 1 1 140px;
-    min-width: 140px;
-    max-width: 45%;
-    aspect-ratio: auto;
-    align-self: stretch;
-    border-radius: calc(var(--mc-card-radius, ${maskedTheme.radius.lg}) - ${maskedTheme.spacing.xs});
-    overflow: hidden;
-  }
+  /* ---------- telas estreitas: horizontal e split viram coluna ---------- */
+  @media (max-width: 480px) {
+    &&[data-layout='horizontal'],
+    &&[data-layout='split'] {
+      flex-direction: column;
 
-  &&[data-layout='split'] > .mc-card-media {
-    flex: 1 1 50%;
-    min-width: 160px;
-    max-width: 50%;
-    border-radius: calc(var(--mc-card-radius, ${maskedTheme.radius.lg}) - ${maskedTheme.spacing.xs});
-  }
-
-  /*
-   * Quando a mídia quebra de linha (card estreito), ela ocupa a
-   * largura toda e volta a ter proporção — vira banner no topo.
-   */
-  &&[data-layout='horizontal'] > .mc-card-media:nth-child(1):nth-last-child(n + 2),
-  &&[data-layout='split'] > .mc-card-media {
-    /* sem regra extra — o wrap + flex-basis já resolvem */
-  }
-
-  &&[data-layout='horizontal'] > .mc-card-media img,
-  &&[data-layout='split'] > .mc-card-media img,
-  &&[data-layout='horizontal'] > .mc-card-media picture,
-  &&[data-layout='split'] > .mc-card-media picture {
-    width: 100%;
-    height: 100%;
-    min-height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  /* o conteúdo ao lado da mídia pode encolher e quebrar texto */
-  &[data-layout='horizontal'] > *:not(.mc-card-media),
-  &[data-layout='split'] > *:not(.mc-card-media) {
-    min-width: 0;
-    flex: 1 1 160px;
-  }
-
-  /* mídia quebrada para cima (wrap) vira banner com proporção */
-  &&[data-layout='horizontal'] > .mc-card-media:first-child:last-child,
-  &&[data-layout='horizontal'] > .mc-card-media:not(:only-child) {
-    /* quando wrapada, flex-basis 100% é decidido pelo min-width vs container */
-  }
-
-  /* em cards estreitos (size sm) o horizontal vira coluna */
-  &&[data-layout='horizontal'][data-size='sm'] {
-    flex-direction: column;
-    flex-wrap: nowrap;
-  }
-
-  &&[data-layout='horizontal'][data-size='sm'] > .mc-card-media {
-    flex: none;
-    width: 100%;
-    min-width: 0;
-    max-width: none;
-    aspect-ratio: var(--mc-card-media-ratio, 16 / 9);
-    border-radius: ${maskedTheme.radius.md};
+      > .mc-card-media {
+        flex: none;
+        width: 100%;
+        max-width: none;
+        min-width: 0;
+        aspect-ratio: var(--mc-card-media-ratio, 16 / 9);
+        align-self: auto;
+      }
+    }
   }
 
   /* ---------- layout: overlay ---------- */
@@ -226,9 +196,8 @@ export const BaseCardContainer = styled.div<ContainerProps>`
     width: 100%;
     height: 100%;
     aspect-ratio: auto;
-    border-radius: 0;
     z-index: 0;
-    border-radius: ${maskedTheme.radius.md};
+    border-radius: 0;
   }
 
   &&[data-layout='overlay'] > .mc-card-media img,
@@ -247,9 +216,9 @@ export const BaseCardContainer = styled.div<ContainerProps>`
     z-index: 0;
     background: linear-gradient(
       to top,
-      var(--mc-card-overlay-gradient, rgba(0, 0, 0, 1)) 0%,
-      rgba(0, 0, 0, 0.6) 45%,
-      rgba(0, 0, 0, 0.3) 75%,
+      var(--mc-card-overlay-gradient, rgba(0, 0, 0, 0.88)) 0%,
+      rgba(0, 0, 0, 0.55) 45%,
+      rgba(0, 0, 0, 0.25) 75%,
       transparent 100%
     );
     pointer-events: none;
@@ -272,6 +241,15 @@ export const BaseCardContainer = styled.div<ContainerProps>`
   & > .mc-card-media {
     aspect-ratio: var(--mc-card-media-ratio, auto);
     border-radius: ${maskedTheme.radius.md};
+  }
+
+  /* ---------- links internos: nunca sublinhados ---------- */
+  && a,
+  && a:hover,
+  && a:focus,
+  && a:visited,
+  && a:active {
+    text-decoration: none;
   }
 `
 
@@ -406,26 +384,25 @@ export const CardExpandSection = styled.div<{ $direction?: CardDirection }>`
   border-top: 1px solid var(--mc-card-border, ${maskedTheme.colors.baseBlack.light20});
 `
 
-export const CardIconBadge = styled.div<{  
-  $bg?: string  
-  $color?: string  
-  $size?: 'sm' | 'md'  
-  $iconSize?: number  
-}>`  
-  display: flex;  
-  align-items: center;  
-  justify-content: center;  
-  width: ${({ $size }) => ($size === 'sm' ? '32px' : '42px')};  
-  height: ${({ $size }) => ($size === 'sm' ? '32px' : '42px')};  
-  border-radius: ${maskedTheme.radius.sm};  
-  background-color: ${({ $bg }) =>  
-    $bg ?? `var(--mc-card-icon-bg, ${maskedTheme.colors.baseBlue.light20})`};  
-  color: ${({ $color }) => $color ?? `var(--mc-card-icon-fg, ${maskedTheme.colors.baseBlue.base})`};  
-  
-  svg {  
-    width: ${({ $iconSize }) => ($iconSize ? `${$iconSize}px` : '18px')};  
-    height: ${({ $iconSize }) => ($iconSize ? `${$iconSize}px` : '18px')};  
-  }  
+export const CardIconBadge = styled.div<{
+  $bg?: string
+  $color?: string
+  $size?: 'sm' | 'md'
+  $iconSize?: number
+}>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: ${({ $size }) => ($size === 'sm' ? '32px' : '42px')};
+  height: ${({ $size }) => ($size === 'sm' ? '32px' : '42px')};
+  border-radius: ${maskedTheme.radius.sm};
+  background-color: ${({ $bg }) => $bg ?? `var(--mc-card-icon-bg, ${maskedTheme.colors.baseBlue.light20})`};
+  color: ${({ $color }) => $color ?? `var(--mc-card-icon-fg, ${maskedTheme.colors.baseBlue.base})`};
+
+  svg {
+    width: ${({ $iconSize }) => ($iconSize ? `${$iconSize}px` : '18px')};
+    height: ${({ $iconSize }) => ($iconSize ? `${$iconSize}px` : '18px')};
+  }
 `
 
 export const MetricRowBody = styled.div`

@@ -83,6 +83,8 @@ export const CatalogCard = styled.article`
   border: 1px solid ${({ theme }) => theme.colors.borderColor ?? 'transparent'};
   border-radius: ${({ theme }) => theme.radius.lg};
   background: ${({ theme }) => theme.colors.secondaryColor ?? 'transparent'};
+  min-width: 0;
+  overflow: hidden;
 `
 
 export const CatalogHead = styled.header`
@@ -114,6 +116,15 @@ export const Highlights = styled.ul`
   padding-left: ${({ theme }) => theme.spacing.lg};
   font-size: ${({ theme }) => theme.fontSize.sm};
   color: ${({ theme }) => theme.colors.textMuted ?? 'inherit'};
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  min-width: 0;
+
+  li {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    min-width: 0;
+  }
 `
 
 export const InstallLine = styled.code`
